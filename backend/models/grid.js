@@ -11,7 +11,7 @@ const gridSchema = new mongoose.Schema({
     type: String,
     default: () => crypto.randomBytes(128).toString("hex"),
   },
-  imgList: [],
+  imgList: [{}],
 });
 
 module.exports = mongoose.model("Grid", gridSchema);

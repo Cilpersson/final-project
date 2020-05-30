@@ -21,6 +21,7 @@ const authenticateUser = async (req, res, next) => {
     const user = await User.findOne({
       accessToken: req.header("Authorization"),
     });
+
     if (user) {
       req.user = user;
       next();
@@ -38,6 +39,32 @@ const authenticateUser = async (req, res, next) => {
 
 app.get("/", (req, res) => {
   res.send("Hello world");
+});
+
+app.get("/users", async (req, res) => {
+  const users = await User.find()
+    .populate("createdGrids")
+    .populate("connectedGrids");
+  res.json({ users: users });
+});
+
+// LOG-IN FOR EXISTING USER
+app.post("/sessions", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (user && bcrypt.compareSync(password, user.password)) {
+      res.status(201).json({
+        id: user._id,
+        accessToken: user.accessToken,
+        signInSuccessful: true,
+      });
+    } else {
+      res.status(404).json({ signInSuccessful: false });
+    }
+  } catch (err) {
+    res.status(400).json({ signInSuccessful: false });
+  }
 });
 
 // SIGN-UP FOR NEW USER
@@ -58,28 +85,31 @@ app.post("/users", async (req, res) => {
   }
 });
 
-// LOG-IN FOR EXISTING USER
-app.post("/sessions", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(201).json({
-        id: user._id,
-        accessToken: user.accessToken,
-        signInSuccessful: true,
-      });
-    } else {
-      res.status(404).json({ signInSuccessful: false });
-    }
-  } catch (err) {
-    res.status(404).json({ signInSuccessful: false });
-  }
-});
-
+// AUTHORIZATION WHEN SIGNING IN
 app.get("/users/:id/secure", authenticateUser);
 app.get("/users/:id/secure", (req, res) => {
   res.json({ message: `This is a top secret message for ${req.user.name}` });
+});
+
+app.post("/users/:id/grids", async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+
+  try {
+    const createdGrid = await new Grid({ name }).save();
+
+    await User.findOneAndUpdate(
+      { _id: id },
+      {
+        $inc: { createdGridsCounter: 1 },
+        $push: { createdGrids: createdGrid._id },
+      }
+    );
+
+    res.status(201).json(createdGrid);
+  } catch (err) {
+    res.status(400).json({ message: "Could not create grid" });
+  }
 });
 
 // Start the server

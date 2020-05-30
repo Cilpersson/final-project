@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 6,
   },
-  createdGridsCount: {
+  createdGridsCounter: {
     type: Number,
     default: 0,
   },
@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
       ref: "Grid",
     },
   ],
-  connectedGridsCount: {
+  connectedGridsCounter: {
     type: Number,
     default: 0,
   },
