@@ -7,7 +7,11 @@ import User from "./models/user";
 import Grid from "./models/grid";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+});
 mongoose.Promise = Promise;
 
 const port = process.env.PORT || 8080;
@@ -41,6 +45,7 @@ app.get("/", (req, res) => {
   res.send("Hello world");
 });
 
+// I ADDED THIS GET TO POPULATE THE USERS WITH THEIR GRIDS
 app.get("/users", async (req, res) => {
   const users = await User.find()
     .populate("createdGrids")
@@ -91,6 +96,7 @@ app.get("/users/:id/secure", (req, res) => {
   res.json({ message: `This is a top secret message for ${req.user.name}` });
 });
 
+// CREATES A NEW GRID FOR A USER
 app.post("/users/:id/grids", async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
@@ -105,10 +111,32 @@ app.post("/users/:id/grids", async (req, res) => {
         $push: { createdGrids: createdGrid._id },
       }
     );
-
     res.status(201).json(createdGrid);
   } catch (err) {
     res.status(400).json({ message: "Could not create grid" });
+  }
+});
+
+// CONNECTS A USER AND A GRID
+app.post("/users/:id/connect", async (req, res) => {
+  const { id } = req.params;
+  const { accessToken } = req.body;
+
+  try {
+    const gridToConnect = await Grid.findOne({
+      accessToken: accessToken,
+    }).save();
+
+    await User.findOneAndUpdate(
+      { _id: id },
+      {
+        $inc: { connectedGridsCounter: 1 },
+        $push: { connectedGrids: gridToConnect },
+      }
+    );
+    res.status(201).json(createdGrid);
+  } catch (err) {
+    res.status(400).json({ message: "Could not connect grid" });
   }
 });
 
