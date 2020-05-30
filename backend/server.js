@@ -125,7 +125,9 @@ app.post("/users/:id/connect", async (req, res) => {
   try {
     const gridToConnect = await Grid.findOne({
       accessToken: accessToken,
-    }).save();
+    });
+
+    await gridToConnect.save();
 
     await User.findOneAndUpdate(
       { _id: id },
