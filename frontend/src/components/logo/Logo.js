@@ -2,17 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { Grid } from "./Grid";
 
-export const Logo = () => {
-  return (
-    <Container>
-      <Grid />
-      <Title>
-        PHOTO <Slim>GRID</Slim>
-      </Title>
-    </Container>
-  );
-};
-
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -27,3 +16,14 @@ const Slim = styled.span`
   display: inline-block;
   font-weight: 200;
 `;
+
+export const Logo = () => {
+  return (
+    <Container>
+      <Grid />
+      <Title>
+        PHOTO <Slim>GRID</Slim>
+      </Title>
+    </Container>
+  );
+};

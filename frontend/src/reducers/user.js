@@ -27,14 +27,14 @@ export const user = createSlice({
       state.login.errorMessage = errorMessage;
     },
     setIsSignedIn: (state, action) => {
-      state.login.isSignedIn = true;
-      localStorage.setItem("isSignedIn", JSON.stringify(true));
+      const { isSignedIn } = action.payload;
+      state.login.isSignedIn = isSignedIn;
+      localStorage.setItem("isSignedIn", JSON.stringify(isSignedIn));
     },
   },
 });
 
 /* THUNKS */
-
 export const login = (email, password) => {
   const LOGIN_URL = "http://localhost:8080/sessions";
   return (dispatch) => {
@@ -63,6 +63,31 @@ export const login = (email, password) => {
       })
       .catch((err) => {
         dispatch(user.actions.logout());
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+      });
+  };
+};
+
+export const authorization = () => {
+  const USERS_URL = `http://localhost:8080/users`;
+  return (dispatch, getState) => {
+    const accessToken = getState().user.login.accessToken;
+    const userId = getState().user.login.userId;
+    fetch(`${USERS_URL}/${userId}/secure`, {
+      method: "GET",
+      headers: { Authorization: accessToken },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw "Could not get information. Make sure you are logged in and try again.";
+      })
+      .then((json) => {
+        dispatch(user.actions.setIsSignedIn({ isSignedIn: true }));
+        localStorage.setItem("isSignedIn", JSON.stringify(true));
+      })
+      .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
@@ -102,6 +127,8 @@ export const signup = (name, email, password) => {
 };
 
 export const createGrid = () => {};
+
+export const connectToGrid = () => {};
 
 export const logout = () => {
   return (dispatch) => {

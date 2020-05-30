@@ -6,11 +6,12 @@ import bcrypt from "bcrypt-nodejs";
 import User from "./models/user";
 import Grid from "./models/grid";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI";
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/finalProject";
 mongoose.connect(mongoUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
+  useFindAndModify: false,
 });
 mongoose.Promise = Promise;
 
@@ -97,7 +98,7 @@ app.get("/users/:id/secure", (req, res) => {
 });
 
 // CREATES A NEW GRID FOR A USER
-app.post("/users/:id/grids", async (req, res) => {
+app.post("/users/:id/grid", async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
 
@@ -126,17 +127,22 @@ app.post("/users/:id/connect", async (req, res) => {
     const gridToConnect = await Grid.findOne({
       accessToken: accessToken,
     });
-    await gridToConnect.save();
-    await User.findOneAndUpdate(
-      { _id: id },
-      {
-        $inc: { connectedGridsCounter: 1 },
-        $push: { connectedGrids: gridToConnect },
-      }
-    );
-    res.status(201).json(createdGrid);
+
+    if (gridToConnect) {
+      await gridToConnect.save();
+      await User.findOneAndUpdate(
+        { _id: id },
+        {
+          $inc: { connectedGridsCounter: 1 },
+          $push: { connectedGrids: gridToConnect },
+        }
+      );
+      res.status(201).json(createdGrid);
+    } else {
+      res.status(400).json({ message: "Could not connect grid to user" });
+    }
   } catch (err) {
-    res.status(400).json({ message: "Could not connect grid" });
+    res.status(400).json({ message: "Could not connect grid to user" });
   }
 });
 

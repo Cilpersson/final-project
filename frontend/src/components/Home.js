@@ -3,7 +3,10 @@ import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { ui } from "../reducers/ui";
 import { user } from "../reducers/user";
-import { Logo } from "./logo/Logo";
+import { BrowserRouter } from "react-router-dom";
+import { Header } from "./Header";
+import { Navbar } from "./Navbar";
+import { Form } from "./Form";
 
 export const Home = () => {
   const reducer = combineReducers({
@@ -14,7 +17,11 @@ export const Home = () => {
   const store = configureStore({ reducer });
   return (
     <Provider store={store}>
-      <Logo />
+      <BrowserRouter>
+        <Header />
+        <Navbar />
+        <Form />
+      </BrowserRouter>
     </Provider>
   );
 };
