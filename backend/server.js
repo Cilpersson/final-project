@@ -64,6 +64,7 @@ app.post("/sessions", async (req, res) => {
         id: user._id,
         accessToken: user.accessToken,
         signInSuccessful: true,
+        name: user.name,
       });
     } else {
       res.status(404).json({ signInSuccessful: false });
@@ -83,6 +84,7 @@ app.post("/users", async (req, res) => {
       id: saved._id,
       accessToken: saved.accessToken,
       signUpSuccessful: true,
+      name: user.name,
     });
   } catch (err) {
     res

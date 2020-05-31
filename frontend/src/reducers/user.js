@@ -6,6 +6,7 @@ const initialState = {
     userId: 0,
     errorMessage: null,
     isSignedIn: false,
+    name: null,
   },
 };
 
@@ -30,6 +31,10 @@ export const user = createSlice({
       const { isSignedIn } = action.payload;
       state.login.isSignedIn = isSignedIn;
       localStorage.setItem("isSignedIn", JSON.stringify(isSignedIn));
+    },
+    setName: (state, action) => {
+      const { name } = action.payload;
+      state.login.name = name;
     },
   },
 });
@@ -60,9 +65,14 @@ export const login = (email, password) => {
             userId: json.userId,
           })
         );
+        dispatch(
+          user.actions.setName({
+            name: json.name,
+          })
+        );
       })
       .catch((err) => {
-        dispatch(user.actions.logout());
+        //dispatch(user.actions.logout());
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
@@ -116,6 +126,11 @@ export const signup = (name, email, password) => {
         dispatch(
           user.actions.setUserId({
             userId: json.userId,
+          })
+        );
+        dispatch(
+          user.actions.setName({
+            name: json.name,
           })
         );
       })
