@@ -1,6 +1,8 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavHashLink as NavLink } from "react-router-hash-link";
 import styled from "styled-components";
+import { authorization } from "reducers/user";
 
 const List = styled.ul`
   display: flex;
@@ -12,7 +14,15 @@ const ListItem = styled.li`
 `;
 
 export const Navbar = () => {
+  const dispatch = useDispatch();
+  const accessToken = useSelector((store) => store.user.login.accessToken);
   const isSignedIn = useSelector((store) => store.user.login.isSignedIn);
+
+  useEffect(() => {
+    if (accessToken) {
+      dispatch(authorization());
+    }
+  }, [accessToken, dispatch]);
 
   if (isSignedIn) {
     return (
