@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { signup, login } from "reducers/user";
 import { HomePage } from "components/HomePage";
+import { Button } from "components/smallerComps/Button";
 
 const Signup = styled.form`
   display: flex;
@@ -31,7 +32,6 @@ export const Form = () => {
   const handleSignup = (event) => {
     event.preventDefault();
     dispatch(signup(name, email, password));
-    // dispatch(setName(name));
     setName("");
     setEmail("");
     setPassword("");
@@ -41,11 +41,8 @@ export const Form = () => {
   const handleLogin = (event) => {
     event.preventDefault();
     dispatch(login(email, password));
-    // dispatch(setName(name));
-    setName("");
     setEmail("");
     setPassword("");
-    setPasswordCheck("");
   };
 
   if (accessToken) {
@@ -53,9 +50,12 @@ export const Form = () => {
   } else {
     return (
       <>
-        <button onClick={() => setSignUp(!signUp)}>
-          {signUp ? "Already have an account?" : "Click here to sign up!"}
-        </button>
+        <Button
+          onClick={() => setSignUp(!signUp)}
+          type="button"
+          disabled={false}
+          text={signUp ? "Already have an account?" : "Click here to sign up!"}
+        />
         <Signup>
           {signUp && (
             <Label>
@@ -96,19 +96,22 @@ export const Form = () => {
             </Label>
           )}
           {signUp && (
-            <button
+            <Button
+              type="submit"
               disabled={
                 password.length > 0 && password === passwordCheck ? false : true
               }
-              type="submit"
-              onClick={handleSignup}>
-              Sign up
-            </button>
+              text="Sign up"
+              onClick={handleSignup}
+            />
           )}
           {!signUp && (
-            <button type="submit" onClick={handleLogin}>
-              Log in
-            </button>
+            <Button
+              type="submit"
+              disabled={false}
+              text="Log in"
+              onClick={handleLogin}
+            />
           )}
         </Signup>
       </>
