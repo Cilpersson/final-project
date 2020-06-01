@@ -3,13 +3,14 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt-nodejs";
-import User from "./models/user";
-import Grid from "./models/grid";
-import Image from "./models/image";
 import cloudinaryframework from "cloudinary";
 import multer from "multer";
 import cloudinaryStorage from "multer-storage-cloudinary";
 import dotenv from "dotenv";
+
+import User from "./models/user";
+import Grid from "./models/grid";
+import Image from "./models/image";
 
 dotenv.config();
 const cloudinary = cloudinaryframework.v2;
@@ -72,7 +73,7 @@ app.get("/", (req, res) => {
   res.send(listEndpoints(app));
 });
 
-// LOG-IN FOR EX  ISTING USER
+// LOG-IN FOR EXISTING USER
 app.post("/sessions", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -111,7 +112,7 @@ app.post("/users", async (req, res) => {
   }
 });
 
-// JUST FOR DEVELOMENT PURPOSE
+// JUST FOR DEVELOPMENT PURPOSE
 app.get("/users", async (req, res) => {
   const user = await User.find()
     .populate("createdGrids")
@@ -132,9 +133,9 @@ app.get("/users/:id", async (req, res) => {
 
 // RETURNS INFO ON ONE GRID AND POPULATES THE IMGLIST
 app.get("/grids/grid", async (req, res) => {
-  const { accessToken } = req.body;
+  const { accessTokenGrid } = req.body;
 
-  const grid = await Grid.findOne({ accessToken: accessToken }).populate(
+  const grid = await Grid.findOne({ accessToken: accessTokenGrid }).populate(
     "imgList"
   );
   res.json({ grid: grid });

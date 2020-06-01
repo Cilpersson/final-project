@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const imageSchema = new mongoose.Schema({
+  // Might add name back again
   // name: {
   //   type: String,
   //   required: true,
