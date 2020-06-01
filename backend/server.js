@@ -5,6 +5,30 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt-nodejs";
 import User from "./models/user";
 import Grid from "./models/grid";
+import cloudinaryframework from "cloudinary";
+import multer from "multer";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import dotenv from "dotenv";
+
+dotenv.config();
+const cloudinary = cloudinaryframework.v2;
+
+cloudinary.config({
+  cloud_name: "dfgtk87hp", // Cloud name genereated by cloudinary
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "photo_grid",
+    allowedFormats: ["jpg", "png", "jpeg"],
+    transformation: [{ width: 700, height: 700, crop: "limit" }],
+  },
+});
+
+const parser = multer({ storage });
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/finalProject";
 mongoose.connect(mongoUrl, {
@@ -17,6 +41,7 @@ mongoose.Promise = Promise;
 
 const port = process.env.PORT || 8080;
 const app = express();
+const listEndpoints = require("express-list-endpoints");
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -43,18 +68,14 @@ const authenticateUser = async (req, res, next) => {
 };
 
 app.get("/", (req, res) => {
-  res.send("Hello world");
+  res.send(listEndpoints(app));
 });
 
-// I ADDED THIS GET TO POPULATE THE USERS WITH THEIR GRIDS
-app.get("/users", async (req, res) => {
-  const users = await User.find()
-    .populate("createdGrids")
-    .populate("connectedGrids");
-  res.json({ users: users });
+app.post("/photo", parser.single("image"), async (req, res) => {
+  res.json({ imageUrl: req.file.path, imageId: req.file.filename });
 });
 
-// LOG-IN FOR EXISTING USER
+// LOG-IN FOR EX  ISTING USER
 app.post("/sessions", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -93,6 +114,17 @@ app.post("/users", async (req, res) => {
   }
 });
 
+// RETURNS INFO ON ONE USER AND POPULATES IT WITH CREATED-  AND CONNECTED GRIDS
+app.get("/users/:id", authenticateUser);
+app.get("/users/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const user = await User.findOne({ _id: id })
+    .populate("createdGrids")
+    .populate("connectedGrids");
+  res.json({ user: user });
+});
+
 // AUTHORIZATION WHEN SIGNING IN
 app.get("/users/:id/secure", authenticateUser);
 app.get("/users/:id/secure", (req, res) => {
@@ -100,6 +132,7 @@ app.get("/users/:id/secure", (req, res) => {
 });
 
 // CREATES A NEW GRID FOR A USER
+app.post("/users/:id/grid", authenticateUser);
 app.post("/users/:id/grid", async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
@@ -110,10 +143,9 @@ app.post("/users/:id/grid", async (req, res) => {
     await User.findOneAndUpdate(
       { _id: id },
       {
-        $inc: { createdGridsCounter: 1 },
         $push: { createdGrids: createdGrid._id },
       }
-    );
+    ).populate("createdGrids");
     res.status(201).json(createdGrid);
   } catch (err) {
     res.status(400).json({ message: "Could not create grid" });
@@ -121,6 +153,7 @@ app.post("/users/:id/grid", async (req, res) => {
 });
 
 // CONNECTS A USER AND A GRID
+app.post("/users/:id/connect", authenticateUser);
 app.post("/users/:id/connect", async (req, res) => {
   const { id } = req.params;
   const { accessToken } = req.body;
@@ -135,16 +168,14 @@ app.post("/users/:id/connect", async (req, res) => {
       await User.findOneAndUpdate(
         { _id: id },
         {
-          $inc: { connectedGridsCounter: 1 },
           $push: { connectedGrids: gridToConnect },
         }
-      );
+      ).populate("connectedGrids");
       res.status(201).json(gridToConnect);
     } else {
       res.status(400).json({ message: "Could not connect grid to user" });
     }
   } catch (err) {
-    console.log(err); // or something similar
     res.status(400).json({ message: "Could not connect grid to user" });
   }
 });

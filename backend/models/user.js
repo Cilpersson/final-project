@@ -17,20 +17,12 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 6,
   },
-  createdGridsCounter: {
-    type: Number,
-    default: 0,
-  },
   createdGrids: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Grid",
     },
   ],
-  connectedGridsCounter: {
-    type: Number,
-    default: 0,
-  },
   connectedGrids: [
     {
       type: mongoose.Schema.Types.ObjectId,
