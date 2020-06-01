@@ -14,7 +14,7 @@ dotenv.config();
 const cloudinary = cloudinaryframework.v2;
 
 cloudinary.config({
-  cloud_name: "dfgtk87hp", // Cloud name genereated by cloudinary
+  cloud_name: "dfgtk87hp", // Cloud name genereated by Cloudinary
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
