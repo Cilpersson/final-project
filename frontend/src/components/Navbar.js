@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavHashLink as NavLink } from "react-router-hash-link";
 import styled from "styled-components";
 import { authorization } from "reducers/user";
 
