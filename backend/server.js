@@ -5,9 +5,10 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt-nodejs";
 import User from "./models/user";
 import Grid from "./models/grid";
+import Image from "./models/image";
 import cloudinaryframework from "cloudinary";
 import multer from "multer";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
+import cloudinaryStorage from "multer-storage-cloudinary";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -19,7 +20,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const storage = new CloudinaryStorage({
+const storage = cloudinaryStorage({
   cloudinary,
   params: {
     folder: "photo_grid",
@@ -71,10 +72,6 @@ app.get("/", (req, res) => {
   res.send(listEndpoints(app));
 });
 
-app.post("/photo", parser.single("image"), async (req, res) => {
-  res.json({ imageUrl: req.file.path, imageId: req.file.filename });
-});
-
 // LOG-IN FOR EX  ISTING USER
 app.post("/sessions", async (req, res) => {
   try {
@@ -114,6 +111,14 @@ app.post("/users", async (req, res) => {
   }
 });
 
+// JUST FOR DEVELOMENT PURPOSE
+app.get("/users", async (req, res) => {
+  const user = await User.find()
+    .populate("createdGrids")
+    .populate("connectedGrids");
+  res.json({ user: user });
+});
+
 // RETURNS INFO ON ONE USER AND POPULATES IT WITH CREATED-  AND CONNECTED GRIDS
 app.get("/users/:id", authenticateUser);
 app.get("/users/:id", async (req, res) => {
@@ -123,6 +128,16 @@ app.get("/users/:id", async (req, res) => {
     .populate("createdGrids")
     .populate("connectedGrids");
   res.json({ user: user });
+});
+
+// RETURNS INFO ON ONE GRID AND POPULATES THE IMGLIST
+app.get("/grids/grid", async (req, res) => {
+  const { accessToken } = req.body;
+
+  const grid = await Grid.findOne({ accessToken: accessToken }).populate(
+    "imgList"
+  );
+  res.json({ grid: grid });
 });
 
 // AUTHORIZATION WHEN SIGNING IN
@@ -138,7 +153,7 @@ app.post("/users/:id/grid", async (req, res) => {
   const { name } = req.body;
 
   try {
-    const createdGrid = await new Grid({ name }).save();
+    const createdGrid = await new Grid({ name }).populate("imgList").save();
 
     await User.findOneAndUpdate(
       { _id: id },
@@ -149,6 +164,38 @@ app.post("/users/:id/grid", async (req, res) => {
     res.status(201).json(createdGrid);
   } catch (err) {
     res.status(400).json({ message: "Could not create grid" });
+  }
+});
+
+//POST PHOTO TO GRID
+// app.post("/users/grid/post", authenticateUser);
+app.post("/users/grid/post", parser.single("image"), async (req, res) => {
+  const { accessTokenGrid } = req.body;
+
+  try {
+    const image = await new Image({
+      imageUrl: req.file.path,
+      imageId: req.file.filename,
+    }).save();
+
+    const gridToPostTo = await Grid.findOne({
+      accessToken: accessTokenGrid,
+    });
+
+    if (gridToPostTo) {
+      const populatedGrid = await Grid.findOneAndUpdate(
+        { accessToken: accessTokenGrid },
+        {
+          $push: { imgList: image },
+        }
+      ).populate("imgList");
+      res.status(201).json(populatedGrid);
+    } else {
+      res.status(400).json({ message: "Could not post image to grid" });
+    }
+  } catch (err) {
+    res.status(400).json({ message: "Could not post image to grid" });
+    console.log(err);
   }
 });
 
@@ -180,7 +227,6 @@ app.post("/users/:id/connect", async (req, res) => {
   }
 });
 
-// Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
