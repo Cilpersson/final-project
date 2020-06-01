@@ -139,11 +139,12 @@ app.post("/users/:id/connect", async (req, res) => {
           $push: { connectedGrids: gridToConnect },
         }
       );
-      res.status(201).json(createdGrid);
+      res.status(201).json(gridToConnect);
     } else {
       res.status(400).json({ message: "Could not connect grid to user" });
     }
   } catch (err) {
+    console.log(err); // or something similar
     res.status(400).json({ message: "Could not connect grid to user" });
   }
 });
