@@ -8,6 +8,9 @@ import { Header } from "./Header";
 import { Navbar } from "./Navbar";
 import { Form } from "./Form";
 import { HomePage } from "./HomePage";
+import { About } from "./About";
+import { ConnectedGrids } from "./ConnectedGrids";
+import { CreatedGrids } from "./CreatedGrids";
 
 export const Home = () => {
   const reducer = combineReducers({
@@ -22,12 +25,11 @@ export const Home = () => {
         <Header />
         <Navbar />
         <Switch>
-          <Route path="/" exact>
-            <HomePage />
-          </Route>
-          <Route path="/SignUp">
-            <Form />
-          </Route>
+          <Route path="/" component={HomePage} exact />
+          <Route path="/SignUp" component={Form} />
+          <Route path="/About" component={About} />
+          <Route path="/ConnectedGrids" component={ConnectedGrids} />
+          <Route path="/MyGrids" component={CreatedGrids} />
         </Switch>
       </BrowserRouter>
     </Provider>
