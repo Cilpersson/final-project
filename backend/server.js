@@ -69,6 +69,7 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
+// SHOWS ALL ENDPOINTS AVILABLE
 app.get("/", (req, res) => {
   res.send(listEndpoints(app));
 });
@@ -93,6 +94,15 @@ app.post("/sessions", async (req, res) => {
   }
 });
 
+// JUST FOR DEVELOPMENT PURPOSE
+app.get("/users", async (req, res) => {
+  const user = await User.find()
+    .populate("createdGrids")
+    .populate("connectedGrids")
+    .exec();
+  res.json({ user: user });
+});
+
 // SIGN-UP FOR NEW USER
 app.post("/users", async (req, res) => {
   try {
@@ -112,14 +122,6 @@ app.post("/users", async (req, res) => {
   }
 });
 
-// JUST FOR DEVELOPMENT PURPOSE
-app.get("/users", async (req, res) => {
-  const user = await User.find()
-    .populate("createdGrids")
-    .populate("connectedGrids");
-  res.json({ user: user });
-});
-
 // RETURNS INFO ON ONE USER AND POPULATES IT WITH CREATED-  AND CONNECTED GRIDS
 app.get("/users/:id", authenticateUser);
 app.get("/users/:id", async (req, res) => {
@@ -129,16 +131,6 @@ app.get("/users/:id", async (req, res) => {
     .populate("createdGrids")
     .populate("connectedGrids");
   res.json({ user: user });
-});
-
-// RETURNS INFO ON ONE GRID AND POPULATES THE IMGLIST
-app.get("/grids/grid", async (req, res) => {
-  const { accessTokenGrid } = req.body;
-
-  const grid = await Grid.findOne({ accessToken: accessTokenGrid }).populate(
-    "imgList"
-  );
-  res.json({ grid: grid });
 });
 
 // AUTHORIZATION WHEN SIGNING IN
@@ -169,7 +161,7 @@ app.post("/users/:id/grid", async (req, res) => {
 });
 
 //POST PHOTO TO GRID
-// app.post("/users/grid/post", authenticateUser);
+app.post("/users/grid/post", authenticateUser);
 app.post("/users/grid/post", parser.single("image"), async (req, res) => {
   const { accessTokenGrid } = req.body;
 
@@ -225,6 +217,21 @@ app.post("/users/:id/connect", async (req, res) => {
     }
   } catch (err) {
     res.status(400).json({ message: "Could not connect grid to user" });
+  }
+});
+
+// RETURNS INFO ON ONE GRID AND POPULATES THE IMGLIST
+app.get("/grids/grid", authenticateUser);
+app.get("/grids/grid", async (req, res) => {
+  const { accessTokenGrid } = req.body;
+
+  try {
+    const grid = await Grid.findOne({ accessToken: accessTokenGrid }).populate(
+      "imgList"
+    );
+    res.status(201).json(grid);
+  } catch (error) {
+    res.status(400).json({ message: "Could not display grid" });
   }
 });
 
