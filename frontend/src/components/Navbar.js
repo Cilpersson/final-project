@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { user } from "reducers/user";
 import { authorization } from "reducers/user";
 import { logout } from "reducers/user";
 
@@ -33,6 +34,11 @@ export const Navbar = () => {
     history.push("/");
   };
 
+  const clearCurrentGrid = (path) => {
+    dispatch(user.actions.setCurrentGrid({ currentGrid: null }));
+    history.push(path);
+  };
+
   if (isSignedIn) {
     return (
       <nav>
@@ -40,10 +46,12 @@ export const Navbar = () => {
           <Link to="/">
             <ListItem>Home</ListItem>
           </Link>
-          <Link to="/MyGrids">
+          <Link to="/MyGrids" onClick={() => clearCurrentGrid("/MyGrids")}>
             <ListItem>My grids</ListItem>
           </Link>
-          <Link to="/ConnectedGrids">
+          <Link
+            to="/ConnectedGrids"
+            onClick={() => clearCurrentGrid("/ConnectedGrids")}>
             <ListItem>Connected grids</ListItem>
           </Link>
           <Link to="/About">

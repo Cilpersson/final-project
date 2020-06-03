@@ -5,6 +5,7 @@ import { authorization } from "reducers/user";
 export const HomePage = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
+  // const accessToken = localStorage.getItem("accessToken");
   const isSignedIn = useSelector((store) => store.user.login.isSignedIn);
   const name = useSelector((store) => store.user.login.name);
 

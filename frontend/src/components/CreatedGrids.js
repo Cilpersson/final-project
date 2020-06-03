@@ -1,22 +1,38 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "uuidv4";
+import { accessGrid } from "reducers/user";
 import { HomePage } from "components/HomePage";
+import { GridPage } from "components/GridPage";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
 
 export const CreatedGrids = () => {
+  const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
+
   const createdGrids = useSelector((store) => store.user.grid.createdGrids);
   const name = useSelector((store) => store.user.login.name);
+  const currentGrid = useSelector((store) => store.user.grid.currentGrid);
 
-  if (accessToken && createdGrids.length > 0) {
+  const handleOnClick = (gridAccessToken) => {
+    dispatch(accessGrid(gridAccessToken));
+    console.log(currentGrid);
+  };
+
+  if (currentGrid) {
+    return <GridPage />;
+  } else if (accessToken && createdGrids.length > 0) {
     return (
       <>
         <div>
           {createdGrids.length === 1 ? "This" : "These"} are your created grids:
           <ul>
             {createdGrids.map((grid) => {
-              return <li key={uuid()}>{grid.name}</li>;
+              return (
+                <a key={uuid()} onClick={() => handleOnClick(grid.accessToken)}>
+                  <li key={uuid()}>{grid.name}</li>
+                </a>
+              );
             })}
           </ul>
         </div>
@@ -31,8 +47,8 @@ export const CreatedGrids = () => {
     return (
       <>
         <div>
-          Hey {name} looks like you haven't connected to any grids yet. Let's
-          get started!
+          Hey {name} looks like you haven't created any grids yet. Let's get
+          started!
         </div>
         <CreateConnectGrid
           createG={true}

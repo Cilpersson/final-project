@@ -75,7 +75,7 @@ app.get("/", (req, res) => {
 });
 
 // LOG-IN FOR EXISTING USER
-app.post("/sessions", async (req, res) => {
+app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -104,7 +104,7 @@ app.get("/users", async (req, res) => {
 });
 
 // SIGN-UP FOR NEW USER
-app.post("/users", async (req, res) => {
+app.post("/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
@@ -222,7 +222,9 @@ app.post("/users/:id/connect", async (req, res) => {
 });
 
 // RETURNS INFO ON ONE GRID AND POPULATES THE IMGLIST
-// Had to add the accesstoken for the grid as an param. Couldn't have it in the body because endpoint is GET. Is this a secure solution, I don't really now
+// Had to add the accesstoken for the grid as an param.
+// Couldn't have it in the body because endpoint is GET.
+// Is this concidered a secure enough solution, I don't really know?
 app.get("/grids/grid:accessTokenGrid", authenticateUser);
 app.get("/grids/grid/:accessTokenGrid", async (req, res) => {
   const { accessTokenGrid } = req.params;

@@ -24,6 +24,7 @@ export const user = createSlice({
     setAccessToken: (state, action) => {
       const { accessToken } = action.payload;
       state.login.accessToken = accessToken;
+      localStorage.setItem("accessToken", action.payload);
     },
     setUserId: (state, action) => {
       const { userId } = action.payload;
@@ -61,11 +62,11 @@ export const user = createSlice({
   },
 });
 
-const PRE_URL = "http://localhost:8080";
+const API_URL = "http://localhost:8080";
 
 /* THUNKS */
 export const login = (email, password) => {
-  const LOGIN_URL = `${PRE_URL}/sessions`;
+  const LOGIN_URL = `${API_URL}/login`;
   return (dispatch) => {
     fetch(LOGIN_URL, {
       method: "POST",
@@ -97,14 +98,14 @@ export const login = (email, password) => {
         dispatch(usersGrids());
       })
       .catch((err) => {
-        //dispatch(user.actions.logout());
+        dispatch(logout());
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
 };
 
 export const authorization = () => {
-  const USERS_URL = `${PRE_URL}/users`;
+  const USERS_URL = `${API_URL}/users`;
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken;
     const userId = getState().user.login.userId;
@@ -129,7 +130,7 @@ export const authorization = () => {
 };
 
 export const signup = (name, email, password) => {
-  const SIGNUP_URL = `${PRE_URL}/users`;
+  const SIGNUP_URL = `${API_URL}/signup`;
   return (dispatch) => {
     fetch(SIGNUP_URL, {
       method: "POST",
@@ -166,9 +167,8 @@ export const signup = (name, email, password) => {
   };
 };
 // CREATES A NEW GRID FOR A USER
-/* SEEMS TO BE WORKING */
 export const createGrid = (gridName) => {
-  const USERS_URL = `${PRE_URL}/users`;
+  const USERS_URL = `${API_URL}/users`;
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken;
     const userId = getState().user.login.userId;
@@ -202,7 +202,7 @@ export const createGrid = (gridName) => {
 };
 // RETURNS INFO ON ONE USERS GRIDS
 export const usersGrids = () => {
-  const USERS_URL = `${PRE_URL}/users`;
+  const USERS_URL = `${API_URL}/users`;
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken;
     const userId = getState().user.login.userId;
@@ -235,11 +235,11 @@ export const usersGrids = () => {
 
 //CONECTS A USER AND A GRID
 export const connectToGrid = (gridAccessToken) => {
-  // const USERS_URL = `${PRE_URL}/users`;
+  const USERS_URL = `${API_URL}/users`;
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken;
     const userId = getState().user.login.userId;
-    fetch(`http://localhost:8080/users/${userId}/connect`, {
+    fetch(`${USERS_URL}/${userId}/connect`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -264,11 +264,10 @@ export const connectToGrid = (gridAccessToken) => {
 
 // GET ONE GRIDS IMAGES
 export const accessGrid = (accessTokenGrid) => {
-  // const USERS_URL = `${PRE_URL}/users`;
+  const USERS_URL = `${API_URL}/grids/grid`;
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken;
-    fetch(`http://localhost:8080/grids/grid/${accessTokenGrid}`, {
-      // method: "GET",
+    fetch(`${USERS_URL}/${accessTokenGrid}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: accessToken,
@@ -300,5 +299,6 @@ export const logout = () => {
     dispatch(user.actions.setAccessToken({ accessToken: null }));
     dispatch(user.actions.setUserId({ userId: 0 }));
     dispatch(user.actions.setIsSignedIn({ isSignedIn: false }));
+    dispatch(user.actions.setCurrentGrid({ currentGrid: null }));
   };
 };

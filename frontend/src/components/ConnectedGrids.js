@@ -3,20 +3,25 @@ import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "uuidv4";
 import { accessGrid } from "reducers/user";
 import { HomePage } from "components/HomePage";
+import { GridPage } from "components/GridPage";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
 
 export const ConnectedGrids = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
+
   const connectedGrids = useSelector((store) => store.user.grid.connectedGrids);
   const name = useSelector((store) => store.user.login.name);
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
 
   const handleOnClick = (gridAccessToken) => {
     dispatch(accessGrid(gridAccessToken));
+    console.log(currentGrid);
   };
 
-  if (accessToken && connectedGrids.length > 0) {
+  if (currentGrid !== null) {
+    return <GridPage />;
+  } else if (accessToken && connectedGrids.length > 0 && currentGrid === null) {
     return (
       <>
         <div>
@@ -39,7 +44,11 @@ export const ConnectedGrids = () => {
         />
       </>
     );
-  } else if (accessToken && connectedGrids.length === 0) {
+  } else if (
+    accessToken &&
+    connectedGrids.length === 0 &&
+    currentGrid === null
+  ) {
     return (
       <>
         <div>
