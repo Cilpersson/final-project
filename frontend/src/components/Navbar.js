@@ -49,7 +49,7 @@ export const Navbar = () => {
           <Link to="/About">
             <ListItem>About</ListItem>
           </Link>
-          <Link onClick={signOut}>
+          <Link to="/" onClick={signOut}>
             <ListItem>Sign out</ListItem>
           </Link>
         </List>

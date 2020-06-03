@@ -8,6 +8,11 @@ const initialState = {
     isSignedIn: false,
     name: null,
   },
+  grid: {
+    // gridName: null,
+    createdGrids: [],
+    connectedGrids: [],
+  },
 };
 
 export const user = createSlice({
@@ -36,12 +41,24 @@ export const user = createSlice({
       const { name } = action.payload;
       state.login.name = name;
     },
+    setGridName: (state, action) => {
+      const { gridName } = action.payload;
+      state.grid.gridName = gridName;
+    },
+    setCreatedGrids: (state, action) => {
+      const { createdGrids } = action.payload;
+      state.grid.createdGrids = createdGrids;
+    },
+    setConnectedGrids: (state, action) => {
+      const { connectedGrids } = action.payload;
+      state.grid.connectedGrids = connectedGrids;
+    },
   },
 });
-
+const PRE_URL = "http://localhost:8080";
 /* THUNKS */
 export const login = (email, password) => {
-  const LOGIN_URL = "http://localhost:8080/sessions";
+  const LOGIN_URL = `${PRE_URL}/sessions`;
   return (dispatch) => {
     fetch(LOGIN_URL, {
       method: "POST",
@@ -55,6 +72,7 @@ export const login = (email, password) => {
         throw "Unable to sign in, please try again.";
       })
       .then((json) => {
+        console.log(json.name);
         dispatch(
           user.actions.setAccessToken({
             accessToken: json.accessToken,
@@ -62,7 +80,7 @@ export const login = (email, password) => {
         );
         dispatch(
           user.actions.setUserId({
-            userId: json.userId,
+            userId: json.id,
           })
         );
         dispatch(
@@ -70,6 +88,7 @@ export const login = (email, password) => {
             name: json.name,
           })
         );
+        dispatch(usersGrids());
       })
       .catch((err) => {
         //dispatch(user.actions.logout());
@@ -79,7 +98,7 @@ export const login = (email, password) => {
 };
 
 export const authorization = () => {
-  const USERS_URL = `http://localhost:8080/users`;
+  const USERS_URL = `${PRE_URL}/users`;
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken;
     const userId = getState().user.login.userId;
@@ -104,7 +123,7 @@ export const authorization = () => {
 };
 
 export const signup = (name, email, password) => {
-  const SIGNUP_URL = "http://localhost:8080/users";
+  const SIGNUP_URL = `${PRE_URL}/users`;
   return (dispatch) => {
     fetch(SIGNUP_URL, {
       method: "POST",
@@ -118,6 +137,7 @@ export const signup = (name, email, password) => {
         throw "Unable to sign up, please try again.";
       })
       .then((json) => {
+        console.log(json.name);
         dispatch(
           user.actions.setAccessToken({
             accessToken: json.accessToken,
@@ -140,8 +160,65 @@ export const signup = (name, email, password) => {
       });
   };
 };
+// CREATES A NEW GRID FOR A USER
+/* Not done! */
+export const createGrid = () => {
+  const USERS_URL = `${PRE_URL}/users`;
+  return (dispatch, getState) => {
+    const accessToken = getState().user.login.accessToken;
+    const userId = getState().user.login.userId;
+    const gridName = getState().user.grid.gridName;
+    fetch(`${USERS_URL}/${userId}/grid`, {
+      method: "POST",
+      headers: { Authorization: accessToken },
+      body: { name: gridName },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw "Could not create grid, make sure you added all information";
+      })
+      .then((json) => {})
+      .catch((err) => {
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+      });
+  };
+};
+// HELP!
+export const usersGrids = () => {
+  const USERS_URL = `${PRE_URL}/users`;
+  return (dispatch, getState) => {
+    const accessToken = getState().user.login.accessToken;
+    const userId = getState().user.login.userId;
 
-export const createGrid = () => {};
+    fetch(`${USERS_URL}/${userId}`, {
+      method: "GET",
+      headers: { Authorization: accessToken },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw "Could not get user info.";
+      })
+      .then((json) => {
+        console.log(json.createdGrids);
+
+        dispatch(
+          user.actions.setCreatedGrids({
+            createdGrids: json.createdGrids,
+          })
+        );
+        dispatch(
+          user.actions.setConnectedGrids({
+            connectedGrids: json.connectedGrids,
+          })
+        );
+      })
+      .catch((err) => {});
+  };
+};
 
 export const connectToGrid = () => {};
 

@@ -1,4 +1,4 @@
-import express from "express";
+import express, { json } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -129,8 +129,9 @@ app.get("/users/:id", async (req, res) => {
 
   const user = await User.findOne({ _id: id })
     .populate("createdGrids")
-    .populate("connectedGrids");
-  res.json({ user: user });
+    .populate("connectedGrids")
+    .exec();
+  res.json(user);
 });
 
 // AUTHORIZATION WHEN SIGNING IN
