@@ -222,9 +222,10 @@ app.post("/users/:id/connect", async (req, res) => {
 });
 
 // RETURNS INFO ON ONE GRID AND POPULATES THE IMGLIST
-app.get("/grids/grid", authenticateUser);
-app.get("/grids/grid", async (req, res) => {
-  const { accessTokenGrid } = req.body;
+// Had to add the accesstoken for the grid as an param. Couldn't have it in the body because endpoint is GET. Is this a secure solution, I don't really now
+app.get("/grids/grid:accessTokenGrid", authenticateUser);
+app.get("/grids/grid/:accessTokenGrid", async (req, res) => {
+  const { accessTokenGrid } = req.params;
 
   try {
     const grid = await Grid.findOne({ accessToken: accessTokenGrid }).populate(

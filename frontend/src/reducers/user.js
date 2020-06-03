@@ -10,6 +10,7 @@ const initialState = {
   },
   grid: {
     gridName: null,
+    currentGrid: null,
     createdGrids: [],
     connectedGrids: [],
   },
@@ -40,6 +41,10 @@ export const user = createSlice({
     setName: (state, action) => {
       const { name } = action.payload;
       state.login.name = name;
+    },
+    setCurrentGrid: (state, action) => {
+      const { currentGrid } = action.payload;
+      state.grid.currentGrid = currentGrid;
     },
     setGridName: (state, action) => {
       const { gridName } = action.payload;
@@ -74,7 +79,6 @@ export const login = (email, password) => {
         throw "Unable to sign in, please try again.";
       })
       .then((json) => {
-        console.log(json.name);
         dispatch(
           user.actions.setAccessToken({
             accessToken: json.accessToken,
@@ -139,7 +143,6 @@ export const signup = (name, email, password) => {
         throw "Unable to sign up, please try again.";
       })
       .then((json) => {
-        console.log(json.name);
         dispatch(
           user.actions.setAccessToken({
             accessToken: json.accessToken,
@@ -179,7 +182,6 @@ export const createGrid = (gridName) => {
       body: JSON.stringify({ name: name }),
     })
       .then((res) => {
-        console.log(res);
         if (res.ok) {
           return res.json();
         }
@@ -216,8 +218,6 @@ export const usersGrids = () => {
         throw "Could not get user info.";
       })
       .then((json) => {
-        console.log(json.createdGrids);
-
         dispatch(
           user.actions.setCreatedGrids({
             createdGrids: json.createdGrids,
@@ -233,8 +233,9 @@ export const usersGrids = () => {
   };
 };
 
+//CONECTS A USER AND A GRID
 export const connectToGrid = (gridAccessToken) => {
-  const USERS_URL = `${PRE_URL}/users`;
+  // const USERS_URL = `${PRE_URL}/users`;
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken;
     const userId = getState().user.login.userId;
@@ -247,7 +248,6 @@ export const connectToGrid = (gridAccessToken) => {
       body: JSON.stringify({ accessToken: gridAccessToken }),
     })
       .then((res) => {
-        console.log(res);
         if (res.ok) {
           return res.json();
         }
@@ -258,6 +258,37 @@ export const connectToGrid = (gridAccessToken) => {
       })
       .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+      });
+  };
+};
+
+// GET ONE GRIDS IMAGES
+export const accessGrid = (accessTokenGrid) => {
+  // const USERS_URL = `${PRE_URL}/users`;
+  return (dispatch, getState) => {
+    const accessToken = getState().user.login.accessToken;
+    fetch(`http://localhost:8080/grids/grid/${accessTokenGrid}`, {
+      // method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: accessToken,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw "Could not access grid";
+      })
+      .then((json) => {
+        dispatch(
+          user.actions.setCurrentGrid({
+            currentGrid: json,
+          })
+        );
+      })
+      .catch((err) => {
+        // dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
 };
