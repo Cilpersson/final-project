@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createGrid } from "reducers/user";
+import { createGrid, connectToGrid } from "reducers/user";
 import { Button } from "components/smallerComps/Button";
 
 export const CreateConnectGrid = ({ createG, buttonText, labelText }) => {
@@ -9,14 +9,11 @@ export const CreateConnectGrid = ({ createG, buttonText, labelText }) => {
 
   const handleSubmit = () => {
     if (createG) {
-      console.log("This is the console log of the textfield: ", textField);
       dispatch(createGrid(textField));
       setTextField("");
-      //Skapa ett grid
-      //createGrid thunk
     } else {
-      //Connecta ett grid
-      //connectGrid thunk
+      dispatch(connectToGrid(textField));
+      setTextField("");
     }
   };
 

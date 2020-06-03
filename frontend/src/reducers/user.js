@@ -198,7 +198,7 @@ export const createGrid = (gridName) => {
       });
   };
 };
-// HELP!
+// RETURNS INFO ON ONE USERS GRIDS
 export const usersGrids = () => {
   const USERS_URL = `${PRE_URL}/users`;
   return (dispatch, getState) => {
@@ -233,7 +233,34 @@ export const usersGrids = () => {
   };
 };
 
-export const connectToGrid = () => {};
+export const connectToGrid = (gridAccessToken) => {
+  const USERS_URL = `${PRE_URL}/users`;
+  return (dispatch, getState) => {
+    const accessToken = getState().user.login.accessToken;
+    const userId = getState().user.login.userId;
+    fetch(`http://localhost:8080/users/${userId}/connect`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: accessToken,
+      },
+      body: JSON.stringify({ accessToken: gridAccessToken }),
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          return res.json();
+        }
+        throw "Could not create grid, make sure you added all information";
+      })
+      .then(() => {
+        dispatch(usersGrids());
+      })
+      .catch((err) => {
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+      });
+  };
+};
 
 export const logout = () => {
   return (dispatch) => {

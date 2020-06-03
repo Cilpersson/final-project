@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { uuid } from "uuidv4";
 import { HomePage } from "components/HomePage";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
 
@@ -13,7 +14,11 @@ export const CreatedGrids = () => {
       <>
         <div>
           {createdGrids.length === 1 ? "This" : "These"} are your created grids:
-          {createdGrids.map((grid) => grid.name)}
+          <ul>
+            {createdGrids.map((grid) => {
+              return <li key={uuid()}>{grid.name}</li>;
+            })}
+          </ul>
         </div>
         <CreateConnectGrid
           createG={true}
