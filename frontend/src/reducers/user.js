@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ui } from "./ui";
 
 const initialState = {
   login: {
@@ -297,6 +298,39 @@ export const accessGrid = (accessTokenGrid) => {
   };
 };
 
+//POST IMAGE TO GRID
+export const postToGrid = (formData) => {
+  const USERS_URL = `${API_URL}/users`;
+  return (dispatch, getState) => {
+    dispatch(ui.actions.setLoading(true));
+    const accessToken = getState().user.login.accessToken;
+    const gridAccessToken = getState().user.grid.currentGrid.accessToken;
+
+    fetch(`${USERS_URL}/grid/post/${gridAccessToken}`, {
+      method: "POST",
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   Authorization: accessToken,
+      // },
+      body: formData,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw "Could not post photo, make sure you added all information";
+      })
+      .then(() => {
+        dispatch(usersGrids());
+        dispatch(ui.actions.setLoading(false));
+      })
+      .catch((err) => {
+        // console.log(err);
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+      });
+  };
+};
+
 export const logout = () => {
   return (dispatch) => {
     localStorage.setItem("isSignedIn", JSON.stringify(false));
@@ -305,5 +339,6 @@ export const logout = () => {
     dispatch(user.actions.setUserId({ userId: 0 }));
     dispatch(user.actions.setIsSignedIn({ isSignedIn: false }));
     dispatch(user.actions.setCurrentGrid({ currentGrid: null }));
+    localStorage.clear();
   };
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
@@ -21,6 +21,7 @@ export const Home = () => {
   });
 
   const store = configureStore({ reducer });
+
   return (
     <Provider store={store}>
       <BrowserRouter>
