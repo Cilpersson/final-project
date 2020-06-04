@@ -65,6 +65,8 @@ export const user = createSlice({
 const API_URL = "http://localhost:8080";
 
 /* THUNKS */
+
+// USER LOGIN
 export const login = (email, password) => {
   const LOGIN_URL = `${API_URL}/login`;
   return (dispatch) => {
@@ -104,6 +106,7 @@ export const login = (email, password) => {
   };
 };
 
+// AUTHORIZATION FOR SIGNUP AND LOGIN
 export const authorization = () => {
   const USERS_URL = `${API_URL}/users`;
   return (dispatch, getState) => {
@@ -129,6 +132,7 @@ export const authorization = () => {
   };
 };
 
+// CREATES A NEW USER
 export const signup = (name, email, password) => {
   const SIGNUP_URL = `${API_URL}/signup`;
   return (dispatch) => {
@@ -200,6 +204,7 @@ export const createGrid = (gridName) => {
       });
   };
 };
+
 // RETURNS INFO ON ONE USERS GRIDS
 export const usersGrids = () => {
   const USERS_URL = `${API_URL}/users`;

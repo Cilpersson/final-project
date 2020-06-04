@@ -165,27 +165,25 @@ app.post("/users/:id/grid", async (req, res) => {
 app.post("/users/grid/post", authenticateUser);
 app.post("/users/grid/post", parser.single("image"), async (req, res) => {
   const { accessTokenGrid } = req.body;
-
+  //parser.array
   try {
     const image = await new Image({
       imageUrl: req.file.path,
       imageId: req.file.filename,
     }).save();
 
-    const gridToPostTo = await Grid.findOne({
-      accessToken: accessTokenGrid,
-    });
+    const populatedGrid = await Grid.findOneAndUpdate(
+      { accessToken: accessTokenGrid },
+      {
+        $push: { imgList: image },
+      }
+    ).populate("imgList");
 
-    if (gridToPostTo) {
-      const populatedGrid = await Grid.findOneAndUpdate(
-        { accessToken: accessTokenGrid },
-        {
-          $push: { imgList: image },
-        }
-      ).populate("imgList");
-      res.status(201).json(populatedGrid);
+    // If pop null throw exception
+    if (populatedGrid === null) {
+      throw "Could not post image to grid";
     } else {
-      res.status(400).json({ message: "Could not post image to grid" });
+      res.status(201).json(populatedGrid);
     }
   } catch (err) {
     res.status(400).json({ message: "Could not post image to grid" });
