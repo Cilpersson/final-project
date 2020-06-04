@@ -183,7 +183,7 @@ app.post(
       ).populate("imgList");
 
       // If pop null throw exception
-      if (populatedGrid === null) {
+      if (populatedGrid === null || populatedGrid === undefined) {
         throw "Could not post image to grid";
       } else {
         res.status(201).json(populatedGrid);

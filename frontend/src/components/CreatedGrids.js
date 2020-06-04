@@ -16,10 +16,9 @@ export const CreatedGrids = () => {
 
   const handleOnClick = (gridAccessToken) => {
     dispatch(accessGrid(gridAccessToken));
-    console.log(currentGrid);
   };
 
-  if (currentGrid) {
+  if (currentGrid !== null) {
     return <GridPage />;
   } else if (accessToken && createdGrids.length > 0) {
     return (

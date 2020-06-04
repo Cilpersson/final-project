@@ -1,7 +1,12 @@
 import React, { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import styled from "styled-components";
 import { uuid } from "uuidv4";
-import { usersGrids, postToGrid } from "reducers/user";
+import { usersGrids, postToGrid, accessGrid } from "reducers/user";
+
+const Img = styled.img`
+  width: 20%;
+`;
 
 export const GridPage = () => {
   const dispatch = useDispatch();
@@ -14,9 +19,9 @@ export const GridPage = () => {
 
   useEffect(() => {
     if (accessToken) {
-      dispatch(usersGrids());
+      dispatch(accessGrid(currentGrid.accessToken));
     }
-  }, [currentGrid]);
+  }, [isLoading]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -44,7 +49,7 @@ export const GridPage = () => {
       <ul>
         {currentGrid.imgList.map((img) => {
           return (
-            <img
+            <Img
               key={uuid()}
               src={img.imageUrl}
               alt={`Uploaded image from ${currentGrid.name}`}
