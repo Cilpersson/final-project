@@ -149,6 +149,7 @@ export const signup = (name, email, password) => {
         throw "Unable to sign up, please try again.";
       })
       .then((json) => {
+        console.log(json);
         dispatch(
           user.actions.setAccessToken({
             accessToken: json.accessToken,
@@ -156,7 +157,7 @@ export const signup = (name, email, password) => {
         );
         dispatch(
           user.actions.setUserId({
-            userId: json.userId,
+            userId: json._id,
           })
         );
         dispatch(
@@ -164,10 +165,11 @@ export const signup = (name, email, password) => {
             name: json.name,
           })
         );
+        dispatch(authorization());
       })
       .catch((err) => {
-        dispatch(user.actions.logout());
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(logout());
+        // dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
 };

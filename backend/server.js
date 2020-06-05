@@ -109,12 +109,7 @@ app.post("/signup", async (req, res) => {
     const { name, email, password } = req.body;
     const user = new User({ name, email, password: bcrypt.hashSync(password) });
     const saved = await user.save();
-    res.status(201).json({
-      id: saved._id,
-      accessToken: saved.accessToken,
-      signUpSuccessful: true,
-      name: user.name,
-    });
+    res.status(201).json(saved);
   } catch (err) {
     res
       .status(400)
