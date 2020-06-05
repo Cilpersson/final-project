@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { uuid } from "uuidv4";
-import { usersGrids, postToGrid, accessGrid } from "reducers/user";
+import { postToGrid, accessGrid } from "reducers/user";
 
 const Img = styled.img`
   width: 20%;
@@ -21,7 +21,9 @@ export const GridPage = () => {
     if (accessToken) {
       dispatch(accessGrid(currentGrid.accessToken));
     }
-  }, [isLoading]);
+
+    //isLoading makes the images loaded instantly
+  }, [isLoading, accessToken, currentGrid.accessToken, dispatch]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();

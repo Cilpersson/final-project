@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { Grid } from "./Grid";
 
 const Container = styled.div`
@@ -25,6 +25,8 @@ const WrapperRow = styled.div`
 const Title = styled.h1`
   font-size: 2.8rem;
   margin: 0;
+  display: flex;
+  align-items: center;
 `;
 
 const Slim = styled.span`
@@ -42,9 +44,14 @@ export const Logo = () => {
   return (
     <WrapperCol>
       <WrapperRow>
-        <Grid />
         <Title>
-          PHOTO <Slim>GRID</Slim>
+          PHOTO{"   "}
+          <Slim>
+            <WrapperRow>
+              <Grid />
+              RID
+            </WrapperRow>
+          </Slim>
         </Title>
       </WrapperRow>
       <WrapperCol>

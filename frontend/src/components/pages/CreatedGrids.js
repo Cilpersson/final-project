@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "uuidv4";
 import { accessGrid } from "reducers/user";
-import { HomePage } from "components/HomePage";
-import { GridPage } from "components/GridPage";
+import { HomePage } from "components/pages/HomePage";
+import { GridPage } from "components/pages/GridPage";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
 
 export const CreatedGrids = () => {
@@ -28,9 +28,11 @@ export const CreatedGrids = () => {
           <ul>
             {createdGrids.map((grid) => {
               return (
-                <a key={uuid()} onClick={() => handleOnClick(grid.accessToken)}>
+                <button
+                  key={uuid()}
+                  onClick={() => handleOnClick(grid.accessToken)}>
                   <li key={uuid()}>{grid.name}</li>
-                </a>
+                </button>
               );
             })}
           </ul>

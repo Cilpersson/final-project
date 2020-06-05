@@ -149,7 +149,6 @@ export const signup = (name, email, password) => {
         throw "Unable to sign up, please try again.";
       })
       .then((json) => {
-        console.log(json);
         dispatch(
           user.actions.setAccessToken({
             accessToken: json.accessToken,
@@ -178,9 +177,7 @@ export const createGrid = (gridName) => {
   const USERS_URL = `${API_URL}/users`;
   return (dispatch, getState) => {
     const accessToken = getState().user.login.accessToken;
-    console.log(accessToken);
     const userId = getState().user.login.userId;
-    console.log(userId);
     const name = gridName;
     fetch(`http://localhost:8080/users/${userId}/grid`, {
       method: "POST",
@@ -290,7 +287,6 @@ export const accessGrid = (accessTokenGrid) => {
         throw "Could not access grid";
       })
       .then((json) => {
-        console.log("This is the json of accessGrid: ", json);
         dispatch(
           user.actions.setCurrentGrid({
             currentGrid: json,
@@ -331,13 +327,11 @@ export const postToGrid = (formData) => {
             currentGrid: json,
           })
         );
-        console.log("This is the json from postToGrid: ", json);
 
         dispatch(ui.actions.setLoading(false));
         // dispatch(usersGrids());
       })
       .catch((err) => {
-        // console.log(err);
         // dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };

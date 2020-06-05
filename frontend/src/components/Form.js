@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { signup, login } from "reducers/user";
-import { HomePage } from "components/HomePage";
+import { HomePage } from "components/pages/HomePage";
 import { Button } from "components/smallerComps/Button";
 
 const Signup = styled.form`

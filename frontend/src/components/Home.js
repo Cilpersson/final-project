@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Provider } from "react-redux";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
@@ -8,11 +8,11 @@ import { user } from "../reducers/user";
 
 import { Header } from "./Header";
 import { Navbar } from "./Navbar";
-import { HomePage } from "./HomePage";
+import { HomePage } from "./pages/HomePage";
 import { Form } from "./Form";
-import { About } from "./About";
-import { ConnectedGrids } from "./ConnectedGrids";
-import { CreatedGrids } from "./CreatedGrids";
+import { About } from "./pages/About";
+import { ConnectedGrids } from "./pages/ConnectedGrids";
+import { CreatedGrids } from "./pages/CreatedGrids";
 
 export const Home = () => {
   const reducer = combineReducers({

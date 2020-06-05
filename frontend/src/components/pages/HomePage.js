@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authorization } from "reducers/user";
+import { HomePageSignedIn } from "components/HomePageSignedIn";
+import { HomePageSignedOut } from "components/HomePageSignedOut";
 
 export const HomePage = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const isSignedIn = useSelector((store) => store.user.login.isSignedIn);
-  const name = useSelector((store) => store.user.login.name);
 
   useEffect(() => {
     if (accessToken) {
@@ -15,8 +16,8 @@ export const HomePage = () => {
   }, [accessToken, dispatch]);
 
   if (isSignedIn) {
-    return <div>Hello {name}, welcome back!</div>;
+    return <HomePageSignedIn />;
   } else {
-    return <div>You're not signed in</div>;
+    return <HomePageSignedOut />;
   }
 };
