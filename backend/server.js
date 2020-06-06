@@ -173,7 +173,13 @@ app.post(
       const populatedGrid = await Grid.findOneAndUpdate(
         { accessToken: accessTokenGrid },
         {
-          $push: { imgList: image },
+          $push: {
+            imgList: {
+              // Pushes images to first place in imgList array
+              $each: [image],
+              $position: 0,
+            },
+          },
         }
       ).populate("imgList");
 

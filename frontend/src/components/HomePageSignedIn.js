@@ -1,12 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Greeting } from "lib/stylesheet";
 
 export const HomePageSignedIn = () => {
   const name = useSelector((store) => store.user.login.name);
   return (
     <>
-      <h3>Hello {name}, welcome back!</h3>
-      <div></div>
+      <Greeting>Hello {name}, welcome back!</Greeting>
     </>
   );
 };

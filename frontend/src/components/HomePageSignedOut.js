@@ -1,24 +1,22 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCameraRetro } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faCameraRetro } from "@fortawesome/free-solid-svg-icons";
 import { Greeting, Paragraph } from "lib/stylesheet";
 import { WelcomeGrid } from "./WelcomeGrid";
 
 export const HomePageSignedOut = () => {
   return (
     <>
-      <Greeting>
-        Welcome to PHOTO GRID <FontAwesomeIcon icon={faCameraRetro} />
-      </Greeting>
       <WelcomeGrid />
+      <Greeting>Welcome to PHOTO GRID</Greeting>
+
       <Paragraph>
         PHOTO GRID changes the way we view social media. This is a platform
-        where you share memories with friends, family, pets and maybe even
-        co-workers. What do we know? You make the rules and we provide the
-        platform.
+        where you decide who can see your images. You create grids and you
+        decide who can access them.
       </Paragraph>
       <Paragraph>
-        Start by creating a grid, and share the password to whoever you want.
+        Start by creating a grid, and share the password to whomever you want.
         Did you and your favourite person just get married? Do you want to see
         images that where taken that day? Then it's time for you to make a
         wedding grid.

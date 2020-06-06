@@ -15,7 +15,7 @@ export const HomePage = () => {
     }
   }, [accessToken, dispatch]);
 
-  if (isSignedIn) {
+  if (accessToken) {
     return <HomePageSignedIn />;
   } else {
     return <HomePageSignedOut />;

@@ -327,12 +327,12 @@ export const postToGrid = (formData) => {
             currentGrid: json,
           })
         );
-
+        dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
         dispatch(ui.actions.setLoading(false));
-        // dispatch(usersGrids());
       })
       .catch((err) => {
-        // dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(ui.actions.setLoading(false));
       });
   };
 };

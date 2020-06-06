@@ -5,6 +5,7 @@ import { accessGrid } from "reducers/user";
 import { HomePage } from "components/pages/HomePage";
 import { GridPage } from "components/pages/GridPage";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
+import { Greeting, Paragraph } from "lib/stylesheet";
 
 export const ConnectedGrids = () => {
   const dispatch = useDispatch();
@@ -23,9 +24,9 @@ export const ConnectedGrids = () => {
   } else if (accessToken && connectedGrids.length > 0 && currentGrid === null) {
     return (
       <>
-        <div>
-          {connectedGrids.length === 1 ? "This" : "These"} are the grids you
-          have connected to:
+        <Greeting>
+          {connectedGrids.length === 1 ? "This" : "These"} are your connected
+          grids:
           <ul>
             {connectedGrids.map((grid) => {
               return (
@@ -37,7 +38,7 @@ export const ConnectedGrids = () => {
               );
             })}
           </ul>
-        </div>
+        </Greeting>
         <CreateConnectGrid
           createG={false}
           buttonText="Connect to grid"

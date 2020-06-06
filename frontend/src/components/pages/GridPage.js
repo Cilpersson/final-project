@@ -13,6 +13,7 @@ export const GridPage = () => {
   const isLoading = useSelector((store) => store.ui.isLoading);
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
   const accessToken = useSelector((store) => store.user.login.accessToken);
+  const errorMessage = useSelector((store) => store.user.login.errorMessage);
 
   const fileInput = useRef();
   const formData = new FormData();
@@ -27,8 +28,8 @@ export const GridPage = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
+    // e.stopPropagation();
+    // e.nativeEvent.stopImmediatePropagation();
 
     formData.append("image", fileInput.current.files[0]);
     dispatch(postToGrid(formData));
@@ -44,6 +45,7 @@ export const GridPage = () => {
           </label>
 
           <button type="submit">Submit</button>
+          {errorMessage}
         </form>
       )}
       {isLoading && <p>Uploading your image</p>}

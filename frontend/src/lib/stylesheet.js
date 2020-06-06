@@ -27,6 +27,29 @@ export const Paragraph = styled.p`
   }
 `;
 
+export const StyledButton = styled.button`
+  background: #1dd19e50;
+  border: 0.2rem solid #1dd19e;
+  border-radius: 0.2rem;
+  padding: 0.4rem;
+  cursor: pointer;
+  margin: 0.4rem 0;
+`;
+
+export const ButtonText = styled.h5`
+  font-size: 1rem;
+  font-weight: 500;
+  color: #084030;
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  background: #1dd19e30;
+  border: none;
+  border-radius: 0.2rem;
+  padding: 0.4rem;
+`;
+
 export const WrapperRow = styled.div`
   display: flex;
   flex-direction: row;
@@ -34,6 +57,7 @@ export const WrapperRow = styled.div`
 export const WrapperCol = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 export const WrapperGrid = styled.div`
