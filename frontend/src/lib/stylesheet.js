@@ -32,8 +32,8 @@ export const StyledButton = styled.button`
   border: 0.2rem solid #1dd19e;
   border-radius: 0.2rem;
   padding: 0.4rem;
+  margin: 0.2rem;
   cursor: pointer;
-  margin: 0.4rem 0;
 `;
 
 export const ButtonText = styled.h5`

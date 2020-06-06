@@ -24,7 +24,7 @@ export const CreateConnectGrid = ({ createG, buttonText, labelText }) => {
         <Paragraph>
           <label>
             {/* {labelText} */}
-            <input
+            <Input
               placeholder={labelText}
               required
               value={textField}

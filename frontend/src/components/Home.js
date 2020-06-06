@@ -8,11 +8,11 @@ import { user } from "../reducers/user";
 
 import { Header } from "./Header";
 import { Navbar } from "./Navbar";
-import { HomePage } from "./pages/HomePage";
+import { HomePage } from "../pages/HomePage";
 import { Form } from "./Form";
-import { About } from "./pages/About";
-import { ConnectedGrids } from "./pages/ConnectedGrids";
-import { CreatedGrids } from "./pages/CreatedGrids";
+import { About } from "../pages/About";
+import { ConnectedGrids } from "../pages/ConnectedGrids";
+import { CreatedGrids } from "../pages/CreatedGrids";
 
 export const Home = () => {
   const reducer = combineReducers({

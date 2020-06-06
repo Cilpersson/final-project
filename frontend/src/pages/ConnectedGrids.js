@@ -2,16 +2,16 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "uuidv4";
 import { accessGrid } from "reducers/user";
-import { HomePage } from "components/pages/HomePage";
-import { GridPage } from "components/pages/GridPage";
+import { HomePage } from "pages/HomePage";
+import { GridPage } from "pages/GridPage";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
-import { Greeting, Paragraph } from "lib/stylesheet";
+import { Greeting, StyledButton } from "lib/stylesheet";
 
-export const CreatedGrids = () => {
+export const ConnectedGrids = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
 
-  const createdGrids = useSelector((store) => store.user.grid.createdGrids);
+  const connectedGrids = useSelector((store) => store.user.grid.connectedGrids);
   const name = useSelector((store) => store.user.login.name);
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
 
@@ -21,41 +21,46 @@ export const CreatedGrids = () => {
 
   if (currentGrid !== null) {
     return <GridPage />;
-  } else if (accessToken && createdGrids.length > 0) {
+  } else if (accessToken && connectedGrids.length > 0 && currentGrid === null) {
     return (
       <>
         <Greeting>
-          {createdGrids.length === 1 ? "This" : "These"} are your created grids:
+          {connectedGrids.length === 1 ? "This" : "These"} are your connected
+          grids:
           <ul>
-            {createdGrids.map((grid) => {
+            {connectedGrids.map((grid) => {
               return (
-                <button
+                <StyledButton
                   key={uuid()}
                   onClick={() => handleOnClick(grid.accessToken)}>
                   <li key={uuid()}>{grid.name}</li>
-                </button>
+                </StyledButton>
               );
             })}
           </ul>
         </Greeting>
         <CreateConnectGrid
-          createG={true}
-          buttonText="Create grid"
-          labelText="Grid name"
+          createG={false}
+          buttonText="Connect to grid"
+          labelText="Accesstoken"
         />
       </>
     );
-  } else if (accessToken && createdGrids.length === 0) {
+  } else if (
+    accessToken &&
+    connectedGrids.length === 0 &&
+    currentGrid === null
+  ) {
     return (
       <>
-        <Greeting>
-          Hey {name} looks like you haven't created any grids yet. Let's get
-          started!
-        </Greeting>
+        <div>
+          Hey {name} looks like you haven't connected to any grids yet. Let's
+          get started!
+        </div>
         <CreateConnectGrid
-          createG={true}
-          buttonText="Create grid"
-          labelText="Grid name"
+          createG={false}
+          buttonText="Connect to grid"
+          labelText="Accesstoken"
         />
       </>
     );
