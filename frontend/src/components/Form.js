@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { signup, login } from "reducers/user";
 import { HomePage } from "pages/HomePage";
 import { Button } from "components/smallerComps/Button";
-import { Input, Paragraph, WrapperRow } from "lib/stylesheet";
+import { Input, Legend, Fieldset } from "lib/stylesheet";
 
 const Signup = styled.form`
   display: flex;
@@ -12,20 +12,6 @@ const Signup = styled.form`
   margin: auto;
 `;
 const Label = styled.label``;
-
-const Fieldset = styled.fieldset`
-  padding: 0.8rem 1.6rem;
-  margin: 0.4rem auto;
-  border-radius: 0.2rem;
-  border-color: #1dd19e;
-  width: 65%;
-`;
-
-const Legend = styled.legend`
-  font-size: 1.2rem;
-  padding: 0 0.8rem;
-  color: black;
-`;
 
 export const Form = () => {
   const dispatch = useDispatch();
@@ -58,7 +44,7 @@ export const Form = () => {
     return <HomePage />;
   } else {
     return (
-      <section>
+      <>
         <Fieldset>
           <Legend>{signUp ? "Sign up!" : "Log in!"}</Legend>
           <Signup>
@@ -121,17 +107,14 @@ export const Form = () => {
               />
             )}
           </Signup>
-          <WrapperRow>
-            <Paragraph>Already have an account?</Paragraph>
-            <Button
-              onClick={() => setSignUp(!signUp)}
-              type="button"
-              disabled={false}
-              text={signUp ? "Log in" : "Sign up!"}
-            />
-          </WrapperRow>
+          <Button
+            onClick={() => setSignUp(!signUp)}
+            type="button"
+            disabled={false}
+            text={signUp ? "Already have an account" : "Click to sign up!"}
+          />
         </Fieldset>
-      </section>
+      </>
     );
   }
 };

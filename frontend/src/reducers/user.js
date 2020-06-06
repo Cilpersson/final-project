@@ -99,6 +99,7 @@ export const login = (email, password) => {
           })
         );
         dispatch(usersGrids());
+        dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
       })
       .catch((err) => {
         dispatch(logout());
@@ -126,6 +127,7 @@ export const authorization = () => {
       .then((json) => {
         dispatch(user.actions.setIsSignedIn({ isSignedIn: true }));
         localStorage.setItem("isSignedIn", JSON.stringify(true));
+        dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
       })
       .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
@@ -165,10 +167,11 @@ export const signup = (name, email, password) => {
           })
         );
         dispatch(authorization());
+        dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
       })
       .catch((err) => {
         dispatch(logout());
-        // dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
 };
@@ -200,6 +203,7 @@ export const createGrid = (gridName) => {
           })
         );
         dispatch(usersGrids());
+        dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
       })
       .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
@@ -292,9 +296,10 @@ export const accessGrid = (accessTokenGrid) => {
             currentGrid: json,
           })
         );
+        dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
       })
       .catch((err) => {
-        // dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
 };

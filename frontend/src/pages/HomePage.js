@@ -7,7 +7,6 @@ import { HomePageSignedOut } from "components/HomePageSignedOut";
 export const HomePage = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
-  const isSignedIn = useSelector((store) => store.user.login.isSignedIn);
 
   useEffect(() => {
     if (accessToken) {

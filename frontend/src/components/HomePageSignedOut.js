@@ -7,37 +7,17 @@ import { WelcomeGrid } from "./WelcomeGrid";
 export const HomePageSignedOut = () => {
   return (
     <>
-      <WelcomeGrid />
       <Greeting>Welcome to PHOTO GRID</Greeting>
-
       <Paragraph>
         PHOTO GRID changes the way we view social media. This is a platform
         where you decide who can see your images. You create grids and you
         decide who can access them.
       </Paragraph>
       <Paragraph>
-        Start by creating a grid, and share the password to whomever you want.
-        Did you and your favourite person just get married? Do you want to see
-        images that where taken that day? Then it's time for you to make a
-        wedding grid.
+        Start by signing up, then you can make your first grid. You can either
+        keep it for yourself or share the password with others.
       </Paragraph>
-      <Paragraph>
-        Or perhaps you just had a baby, if that's the case congratulations! Now
-        make sure to create a baby grid so everyone you want to share those
-        images with can see them!
-      </Paragraph>
-      <Paragraph>
-        Then there are those other moments in life that aren't as happy, when we
-        loose someone we love. Maybe you want to keep your favourite pictures of
-        that special person in one place. Then you should make a grid, and keep
-        that password for yourself.
-      </Paragraph>
-      <Paragraph>
-        And you know what, you don't need life changing events to create a grid,
-        make one before you have some friends over for dinner and let them
-        upload the images while at your place! There is allways a reason to
-        grid!
-      </Paragraph>
+      <WelcomeGrid />
     </>
   );
 };

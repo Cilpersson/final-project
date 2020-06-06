@@ -2,9 +2,21 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createGrid, connectToGrid } from "reducers/user";
 import { Button } from "components/smallerComps/Button";
-import { Greeting, Paragraph, Input } from "lib/stylesheet";
+import styled from "styled-components/macro";
+import { Fieldset, Legend, Input } from "lib/stylesheet";
 
-export const CreateConnectGrid = ({ createG, buttonText, labelText }) => {
+const SmallFieldset = styled(Fieldset)`
+  margin: 0 auto;
+  width: 100%;
+  margin-top: 1.5rem;
+`;
+
+export const CreateConnectGrid = ({
+  createG,
+  buttonText,
+  labelText,
+  legend,
+}) => {
   const [textField, setTextField] = useState("");
   const dispatch = useDispatch();
 
@@ -19,27 +31,22 @@ export const CreateConnectGrid = ({ createG, buttonText, labelText }) => {
   };
 
   return (
-    <>
-      <form>
-        <Paragraph>
-          <label>
-            {/* {labelText} */}
-            <Input
-              placeholder={labelText}
-              required
-              value={textField}
-              onChange={(event) => setTextField(event.target.value)}
-            />
-          </label>
-
-          <Button
-            type="submit"
-            disabled={false}
-            text={buttonText}
-            onClick={() => handleSubmit()}
-          />
-        </Paragraph>
-      </form>
-    </>
+    <SmallFieldset>
+      <Legend>{legend}</Legend>
+      <label>
+        <Input
+          placeholder={labelText}
+          required
+          value={textField}
+          onChange={(event) => setTextField(event.target.value)}
+        />
+      </label>
+      <Button
+        type="submit"
+        disabled={false}
+        text={buttonText}
+        onClick={() => handleSubmit()}
+      />
+    </SmallFieldset>
   );
 };

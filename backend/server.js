@@ -46,7 +46,12 @@ const app = express();
 const listEndpoints = require("express-list-endpoints");
 
 app.use(cors());
-app.use(bodyParser.json({ limit: "10mb", extended: true }));
+app.use(bodyParser.json({ limit: "3mb", extended: true }));
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
 
 const authenticateUser = async (req, res, next) => {
   try {

@@ -5,7 +5,7 @@ import { accessGrid } from "reducers/user";
 import { HomePage } from "pages/HomePage";
 import { GridPage } from "pages/GridPage";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
-import { Greeting, StyledButton } from "lib/stylesheet";
+import { Greeting, StyledButton, Wrapper, Ul } from "lib/stylesheet";
 
 export const CreatedGrids = () => {
   const dispatch = useDispatch();
@@ -23,41 +23,43 @@ export const CreatedGrids = () => {
     return <GridPage />;
   } else if (accessToken && createdGrids.length > 0) {
     return (
-      <>
+      <Wrapper>
         <Greeting>
           {createdGrids.length === 1 ? "This" : "These"} are your created grids:
-          <ul>
-            {createdGrids.map((grid) => {
-              return (
-                <StyledButton
-                  key={uuid()}
-                  onClick={() => handleOnClick(grid.accessToken)}>
-                  <li key={uuid()}>{grid.name}</li>
-                </StyledButton>
-              );
-            })}
-          </ul>
         </Greeting>
+        <Ul>
+          {createdGrids.map((grid) => {
+            return (
+              <StyledButton
+                key={uuid()}
+                onClick={() => handleOnClick(grid.accessToken)}>
+                <li key={uuid()}>{grid.name}</li>
+              </StyledButton>
+            );
+          })}
+        </Ul>
         <CreateConnectGrid
+          legend="Create a new grid!"
           createG={true}
-          buttonText="Create grid"
+          buttonText="Connect"
           labelText="Grid name"
         />
-      </>
+      </Wrapper>
     );
   } else if (accessToken && createdGrids.length === 0) {
     return (
-      <>
+      <Wrapper>
         <Greeting>
           Hey {name} looks like you haven't created any grids yet. Let's get
           started!
         </Greeting>
         <CreateConnectGrid
+          legend="Create a new grid!"
           createG={true}
-          buttonText="Create grid"
+          buttonText="Create"
           labelText="Grid name"
         />
-      </>
+      </Wrapper>
     );
   } else {
     return <HomePage />;

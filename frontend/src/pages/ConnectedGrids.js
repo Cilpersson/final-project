@@ -5,7 +5,7 @@ import { accessGrid } from "reducers/user";
 import { HomePage } from "pages/HomePage";
 import { GridPage } from "pages/GridPage";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
-import { Greeting, StyledButton } from "lib/stylesheet";
+import { Greeting, StyledButton, Wrapper, Ul } from "lib/stylesheet";
 
 export const ConnectedGrids = () => {
   const dispatch = useDispatch();
@@ -23,46 +23,44 @@ export const ConnectedGrids = () => {
     return <GridPage />;
   } else if (accessToken && connectedGrids.length > 0 && currentGrid === null) {
     return (
-      <>
+      <Wrapper>
         <Greeting>
           {connectedGrids.length === 1 ? "This" : "These"} are your connected
           grids:
-          <ul>
-            {connectedGrids.map((grid) => {
-              return (
-                <StyledButton
-                  key={uuid()}
-                  onClick={() => handleOnClick(grid.accessToken)}>
-                  <li key={uuid()}>{grid.name}</li>
-                </StyledButton>
-              );
-            })}
-          </ul>
         </Greeting>
+        <Ul>
+          {connectedGrids.map((grid) => {
+            return (
+              <StyledButton
+                key={uuid()}
+                onClick={() => handleOnClick(grid.accessToken)}>
+                <li key={uuid()}>{grid.name}</li>
+              </StyledButton>
+            );
+          })}
+        </Ul>
         <CreateConnectGrid
+          legend="Connect to a new grid!"
           createG={false}
-          buttonText="Connect to grid"
+          buttonText="Connect"
           labelText="Accesstoken"
         />
-      </>
+      </Wrapper>
     );
-  } else if (
-    accessToken &&
-    connectedGrids.length === 0 &&
-    currentGrid === null
-  ) {
+  } else if (accessToken && connectedGrids.length === 0) {
     return (
-      <>
-        <div>
+      <Wrapper>
+        <Greeting>
           Hey {name} looks like you haven't connected to any grids yet. Let's
           get started!
-        </div>
+        </Greeting>
         <CreateConnectGrid
+          legend="Connect to a new grid!"
           createG={false}
           buttonText="Connect to grid"
           labelText="Accesstoken"
         />
-      </>
+      </Wrapper>
     );
   } else {
     return <HomePage />;
