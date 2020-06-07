@@ -6,13 +6,17 @@ import { HomePage } from "pages/HomePage";
 import { Button } from "components/smallerComps/Button";
 import { Input, Legend, Fieldset } from "lib/stylesheet";
 import { Grid } from "../components/logo/Grid";
+import { PasswordStrength } from "./smallerComps/PasswordStrength";
+import { PasswordMatch } from "./smallerComps/PasswordMatch";
 
 const Signup = styled.form`
   display: flex;
   flex-direction: column;
   margin: auto;
 `;
-const Label = styled.label``;
+const Label = styled.label`
+  margin-bottom: 0.6rem;
+`;
 
 export const Form = () => {
   const dispatch = useDispatch();
@@ -79,6 +83,7 @@ export const Form = () => {
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />
+              {signUp && <PasswordStrength password={password} />}
             </Label>
             {signUp && (
               <Label>
@@ -89,6 +94,12 @@ export const Form = () => {
                   value={passwordCheck}
                   onChange={(event) => setPasswordCheck(event.target.value)}
                 />
+                {signUp && (
+                  <PasswordMatch
+                    password={password}
+                    passwordCheck={passwordCheck}
+                  />
+                )}
               </Label>
             )}
             {signUp && (
