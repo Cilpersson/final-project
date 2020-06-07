@@ -8,6 +8,7 @@ const initialState = {
     errorMessage: null,
     isSignedIn: false,
     name: null,
+    firstSignUp: null,
   },
   grid: {
     gridName: null,
@@ -43,6 +44,10 @@ export const user = createSlice({
     setName: (state, action) => {
       const { name } = action.payload;
       state.login.name = name;
+    },
+    setFirstSignUp: (state, action) => {
+      const { firstSignUp } = action.payload;
+      state.login.firstSignUp = firstSignUp;
     },
     setCurrentGrid: (state, action) => {
       const { currentGrid } = action.payload;

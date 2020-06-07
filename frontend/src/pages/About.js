@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components/macro";
-import { Paragraph, Greeting } from "lib/stylesheet";
+import { Paragraph, Greeting, SectionWrapper } from "lib/stylesheet";
+import { Grid } from "../components/logo/Grid";
 
 export const About = () => {
   return (
-    <>
+    <SectionWrapper>
+      <Grid />
       <Greeting>What is PHOTO GRID?</Greeting>
       <Paragraph>
         Start by creating a grid, and share the password to whomever you want.
@@ -32,6 +34,6 @@ export const About = () => {
         upload the images while at your place! There is allways a reason to
         grid!
       </Paragraph>
-    </>
+    </SectionWrapper>
   );
 };

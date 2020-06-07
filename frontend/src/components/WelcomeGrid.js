@@ -19,12 +19,6 @@ import img12 from "../images_animations/imagesPG/happy12.jpg";
 const Img = styled.img`
   width: 100%;
   margin: auto;
-
-  @media (min-width: 668px) {
-  }
-
-  @media (min-width: 1024px) {
-  }
 `;
 
 const Grid = styled(WrapperGrid)`

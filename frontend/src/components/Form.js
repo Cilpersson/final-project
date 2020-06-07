@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components/macro";
-import { signup, login } from "reducers/user";
+import { signup, login, user } from "reducers/user";
 import { HomePage } from "pages/HomePage";
 import { Button } from "components/smallerComps/Button";
 import { Input, Legend, Fieldset } from "lib/stylesheet";
+import { Grid } from "../components/logo/Grid";
 
 const Signup = styled.form`
   display: flex;
@@ -27,6 +28,7 @@ export const Form = () => {
   const handleSignup = (event) => {
     event.preventDefault();
     dispatch(signup(name, email, password));
+    dispatch(user.actions.setFirstSignUp({ firstSignUp: true }));
     setName("");
     setEmail("");
     setPassword("");
@@ -36,6 +38,7 @@ export const Form = () => {
   const handleLogin = (event) => {
     event.preventDefault();
     dispatch(login(email, password));
+    dispatch(user.actions.setFirstSignUp({ firstSignUp: false }));
     setEmail("");
     setPassword("");
   };
@@ -47,6 +50,8 @@ export const Form = () => {
       <>
         <Fieldset>
           <Legend>{signUp ? "Sign up!" : "Log in!"}</Legend>
+          <Grid />
+          <br />
           <Signup>
             {signUp && (
               <Label>

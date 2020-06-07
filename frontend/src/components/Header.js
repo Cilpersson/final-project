@@ -1,10 +1,11 @@
 import React from "react";
 import { Logo } from "components/logo/Logo";
+import { StyledHeader } from "lib/stylesheet";
 
 export const Header = () => {
   return (
-    <div>
+    <StyledHeader>
       <Logo />
-    </div>
+    </StyledHeader>
   );
 };

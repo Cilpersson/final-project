@@ -1,11 +1,23 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "uuidv4";
+import styled from "styled-components/macro";
 import { accessGrid } from "reducers/user";
 import { HomePage } from "pages/HomePage";
 import { GridPage } from "pages/GridPage";
+import { Grid } from "../components/logo/Grid";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
-import { Greeting, StyledButton, Wrapper, Ul } from "lib/stylesheet";
+import {
+  Greeting,
+  StyledButton,
+  Wrapper,
+  Ul,
+  SectionWrapper,
+} from "lib/stylesheet";
+
+const StyledGreeting = styled(Greeting)`
+  padding: 1.4rem 0 0.8rem;
+`;
 
 export const CreatedGrids = () => {
   const dispatch = useDispatch();
@@ -23,10 +35,17 @@ export const CreatedGrids = () => {
     return <GridPage />;
   } else if (accessToken && createdGrids.length > 0) {
     return (
-      <Wrapper>
-        <Greeting>
+      <SectionWrapper>
+        <Grid />
+        <CreateConnectGrid
+          legend="Create a new grid!"
+          createG={true}
+          buttonText="Connect"
+          labelText="Grid name"
+        />
+        <StyledGreeting>
           {createdGrids.length === 1 ? "This" : "These"} are your created grids:
-        </Greeting>
+        </StyledGreeting>
         <Ul>
           {createdGrids.map((grid) => {
             return (
@@ -38,13 +57,7 @@ export const CreatedGrids = () => {
             );
           })}
         </Ul>
-        <CreateConnectGrid
-          legend="Create a new grid!"
-          createG={true}
-          buttonText="Connect"
-          labelText="Grid name"
-        />
-      </Wrapper>
+      </SectionWrapper>
     );
   } else if (accessToken && createdGrids.length === 0) {
     return (

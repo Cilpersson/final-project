@@ -13,7 +13,7 @@ const WrapperCol = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0.5rem 0 0.25rem 0;
+  padding: 0.5rem 0 0.25rem 0;
 `;
 
 const WrapperRow = styled.div`

@@ -8,31 +8,33 @@ import { GridPageTitle, Form, StyledButton, Ul } from "lib/stylesheet";
 const Img = styled.img`
   width: 100%;
   margin: auto;
-  transform: all 0.5s;
+  border: 0.1rem solid #1dd19e;
+  border-radius: 0.1rem;
 
-  &:active {
-    width: 30%;
-    position: absolute;
-    z-index: 10;
-    margin: auto;
-    border-radius: 0.2rem;
-    border: 0.2rem solid #1dd19e;
-    left: 0;
-    right: 0;
+  @media (min-width: 1024px) {
+    transition: 0.3s ease-in;
+    &:hover {
+      transform: scale(1.5);
+      margin: auto;
+      border-radius: 0.2rem;
+      border: 0.1rem solid #1dd19e;
+    }
   }
 `;
 
 const LargerGrid = styled(Ul)`
-  grid-template-columns: repeat(4, 1fr);
-  padding: 0.5rem;
-  position: relative;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 3rem;
 
   @media (min-width: 668px) {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    padding: 4rem;
   }
 
   @media (min-width: 1024px) {
-    grid-template-columns: repeat(10, 1fr);
+    gap: 0.5rem;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 6rem;
   }
 `;
 

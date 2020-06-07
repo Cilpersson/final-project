@@ -1,11 +1,23 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "uuidv4";
+import styled from "styled-components/macro";
 import { accessGrid } from "reducers/user";
 import { HomePage } from "pages/HomePage";
 import { GridPage } from "pages/GridPage";
+import { Grid } from "../components/logo/Grid";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
-import { Greeting, StyledButton, Wrapper, Ul } from "lib/stylesheet";
+import {
+  Greeting,
+  StyledButton,
+  Wrapper,
+  Ul,
+  SectionWrapper,
+} from "lib/stylesheet";
+
+const StyledGreeting = styled(Greeting)`
+  padding: 1.4rem 0 0.8rem;
+`;
 
 export const ConnectedGrids = () => {
   const dispatch = useDispatch();
@@ -23,11 +35,18 @@ export const ConnectedGrids = () => {
     return <GridPage />;
   } else if (accessToken && connectedGrids.length > 0 && currentGrid === null) {
     return (
-      <Wrapper>
-        <Greeting>
+      <SectionWrapper>
+        <Grid />
+        <CreateConnectGrid
+          legend="Connect to a new grid!"
+          createG={false}
+          buttonText="Connect"
+          labelText="Accesstoken"
+        />
+        <StyledGreeting>
           {connectedGrids.length === 1 ? "This" : "These"} are your connected
           grids:
-        </Greeting>
+        </StyledGreeting>
         <Ul>
           {connectedGrids.map((grid) => {
             return (
@@ -39,13 +58,7 @@ export const ConnectedGrids = () => {
             );
           })}
         </Ul>
-        <CreateConnectGrid
-          legend="Connect to a new grid!"
-          createG={false}
-          buttonText="Connect"
-          labelText="Accesstoken"
-        />
-      </Wrapper>
+      </SectionWrapper>
     );
   } else if (accessToken && connectedGrids.length === 0) {
     return (

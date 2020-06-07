@@ -9,9 +9,10 @@ import { logout } from "reducers/user";
 const List = styled.ul`
   display: flex;
   justify-content: space-around;
+  background: #84eccf;
 
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
+  border-bottom: 0.2rem solid #1dd19e;
+  border-top: 0.2rem solid #1dd19e;
   padding: 0.25rem 0;
   margin-bottom: 0.5rem;
 `;
