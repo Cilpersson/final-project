@@ -13,7 +13,7 @@ const List = styled.ul`
 
   border-bottom: 0.2rem solid #1dd19e;
   border-top: 0.2rem solid #1dd19e;
-  padding: 0.25rem 0;
+  padding: 0.5rem 0;
   margin-bottom: 0.5rem;
 `;
 const ListItem = styled.li`
@@ -47,27 +47,29 @@ export const Navbar = () => {
 
   if (isSignedIn) {
     return (
-      <nav>
-        <List>
-          <Link to="/">
-            <ListItem>Home</ListItem>
-          </Link>
-          <Link to="/MyGrids" onClick={() => clearCurrentGrid("/MyGrids")}>
-            <ListItem>My grids</ListItem>
-          </Link>
-          <Link
-            to="/ConnectedGrids"
-            onClick={() => clearCurrentGrid("/ConnectedGrids")}>
-            <ListItem>Connected grids</ListItem>
-          </Link>
-          <Link to="/About">
-            <ListItem>About</ListItem>
-          </Link>
-          <Link to="/" onClick={signOut}>
-            <ListItem>Sign out</ListItem>
-          </Link>
-        </List>
-      </nav>
+      <>
+        <nav>
+          <List>
+            <Link to="/">
+              <ListItem>Home</ListItem>
+            </Link>
+            <Link to="/MyGrids" onClick={() => clearCurrentGrid("/MyGrids")}>
+              <ListItem>My grids</ListItem>
+            </Link>
+            <Link
+              to="/ConnectedGrids"
+              onClick={() => clearCurrentGrid("/ConnectedGrids")}>
+              <ListItem>Connected grids</ListItem>
+            </Link>
+            <Link to="/About">
+              <ListItem>About</ListItem>
+            </Link>
+            <Link to="/" onClick={signOut}>
+              <ListItem>Sign out</ListItem>
+            </Link>
+          </List>
+        </nav>
+      </>
     );
   } else {
     return (

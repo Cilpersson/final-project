@@ -6,7 +6,7 @@ export const Title = styled.h1`
 `;
 
 export const GridPageTitle = styled.h2`
-  margin: 0.8rem 0;
+  margin: 0.8rem 0 0 0;
   color: black;
   text-align: center;
   font-size: 2rem;
@@ -28,6 +28,7 @@ export const ButtonText = styled.h5`
   font-size: 1rem;
   font-weight: 500;
   color: #084030;
+  text-align: center;
 `;
 
 export const Paragraph = styled.p`
@@ -60,7 +61,7 @@ export const SectionWrapper = styled.section`
 `;
 
 export const StyledButton = styled.button`
-  background: #1dd19e50;
+  background: #84eccf;
   border: 0.2rem solid #1dd19e;
   border-radius: 0.2rem;
   padding: 0.4rem;
@@ -74,7 +75,7 @@ export const Fieldset = styled.fieldset`
   margin: 0.4rem auto;
   border-radius: 0.2rem;
   border-color: #1dd19e;
-  width: 80%;
+  width: 90%;
   max-width: 20rem;
   background: #ffffff;
 `;
@@ -130,10 +131,66 @@ export const Wrapper = styled.section`
 
 export const Ul = styled.ul`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 0.5rem;
 `;
 
 export const StyledHeader = styled.header`
   background: white;
+`;
+export const Img = styled.img`
+  width: 100%;
+  margin: auto;
+  max-width: 250px;
+
+  @media (min-width: 1024px) {
+    max-width: 350px;
+  }
+`;
+
+export const LargerGrid = styled(Ul)`
+  background: #ffffff99;
+  grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
+  /* grid-template-columns: repeat(3, 1fr); */
+  border: 0.1rem solid #1dd19e50;
+  border-radius: 0.1rem;
+  margin: 2rem;
+  background: white;
+  padding: 1rem;
+
+  @media (min-width: 668px) {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* grid-template-columns: repeat(4, 1fr); */
+    padding: 2rem;
+    margin: 4rem 8rem;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat( auto-fit, minmax(350px, 1fr) );
+    padding: 2rem;
+    margin: 4rem;
+    /* &:hover > ${Img} {
+      opacity: 0.3;
+    }
+
+    &:hover > ${Img}:hover {
+      transform: scale(1.3);
+      opacity: 1;
+    } */
+  }
+`;
+
+export const GridForm = styled(Form)`
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  max-width: 20rem;
+  margin: auto;
+`;
+
+export const Submit = styled(StyledButton)`
+  width: 100%;
 `;

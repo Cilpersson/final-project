@@ -1,5 +1,5 @@
 {
-  "name": "project-auth-frontend",
+  "name": "final-project-frontend",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -13,10 +13,12 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-photo-gallery": "^8.0.0",
     "react-redux": "^7.2.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.0",
+    "redux-thunk": "^2.3.0",
     "styled-components": "^5.1.1",
     "uuidv4": "^6.1.0"
   },

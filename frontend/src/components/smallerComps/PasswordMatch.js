@@ -3,7 +3,7 @@ import { PasswordInfo } from "lib/stylesheet";
 
 export const PasswordMatch = ({ password, passwordCheck }) => {
   const passwordMatch = (pass, passCheck) => {
-    if (passCheck.length > 5) {
+    if (pass.length === passCheck.length) {
       return pass === passCheck ? "" : "Your passwords don't match";
     }
   };

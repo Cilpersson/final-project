@@ -27,7 +27,7 @@ export const PasswordStrength = ({ password }) => {
   const checkPassStrength = (pass) => {
     let score = scorePassword(pass);
     const scoreArr = [
-      "Required length 6 chars",
+      "Required length is at least 6 characters",
       "Your password is: weak",
       "Your password is: Ok",
       "Your password is: Good",

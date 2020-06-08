@@ -1,56 +1,42 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components/macro";
 import { uuid } from "uuidv4";
+import { Grid } from "../components/logo/Grid";
 import { postToGrid, accessGrid } from "reducers/user";
-import { GridPageTitle, Form, StyledButton, Ul } from "lib/stylesheet";
+import {
+  GridPageTitle,
+  SectionWrapper,
+  Fieldset,
+  Legend,
+  LargerGrid,
+  Img,
+  GridForm,
+  Submit,
+  ButtonText,
+  Ul,
+  Greeting,
+} from "lib/stylesheet";
+import { Button } from "components/smallerComps/Button";
 
-const Img = styled.img`
+const StyledATag = styled.a`
+  background: #84eccf;
+  border: 0.2rem solid #1dd19e;
+  border-radius: 0.2rem;
+  padding: 0.4rem;
+  margin: 0.2rem 0.1rem;
+  cursor: pointer;
   width: 100%;
-  margin: auto;
-  border: 0.1rem solid #1dd19e;
-  border-radius: 0.1rem;
-
-  @media (min-width: 1024px) {
-    transition: 0.3s ease-in;
-    &:hover {
-      transform: scale(1.5);
-      margin: auto;
-      border-radius: 0.2rem;
-      border: 0.1rem solid #1dd19e;
-    }
-  }
-`;
-
-const LargerGrid = styled(Ul)`
-  grid-template-columns: repeat(3, 1fr);
-  padding: 3rem;
-
-  @media (min-width: 668px) {
-    grid-template-columns: repeat(4, 1fr);
-    padding: 4rem;
-  }
-
-  @media (min-width: 1024px) {
-    gap: 0.5rem;
-    grid-template-columns: repeat(5, 1fr);
-    padding: 6rem;
-  }
-`;
-
-const GridForm = styled(Form)`
-  padding: 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80%;
-  max-width: 20rem;
-  margin: auto;
 `;
 
-const Submit = styled(StyledButton)`
-  width: 100%;
+const SectionWrapperRow = styled(SectionWrapper)`
+  display: flex;
+  flex-direction: row;
+  margin: 1.5rem;
+  padding: 1.5rem;
 `;
 
 const LabelActingInput = styled.label``;
@@ -94,40 +80,86 @@ export const GridPage = () => {
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const errorMessage = useSelector((store) => store.user.login.errorMessage);
+  const usersGrids = useSelector((store) => store.user.grid.createdGrids);
 
   const fileInput = useRef();
   const formData = new FormData();
+  const textAreaRef = useRef(null);
 
   useEffect(() => {
     if (accessToken) {
       dispatch(accessGrid(currentGrid.accessToken));
     }
-
-    //isLoading makes the images loaded instantly
+    //isLoading makes the images loaded to grid instantly
   }, [isLoading, accessToken, currentGrid.accessToken, dispatch]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
     formData.append("image", fileInput.current.files[0]);
     dispatch(postToGrid(formData));
   };
 
+  const copyOnClick = (event) => {
+    textAreaRef.current.select();
+    document.execCommand("copy");
+    event.target.focus();
+  };
+
+  const checkUser = () => {
+    const gridCheck = usersGrids.filter(
+      (grid) => grid.accessToken === currentGrid.accessToken
+    );
+
+    if (gridCheck.length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   return (
     <>
-      <GridPageTitle>{currentGrid.name}</GridPageTitle>
-      <GridForm onSubmit={handleFormSubmit}>
-        {!isLoading && (
-          <>
-            <HideInput type="file" name="file" id="file" ref={fileInput} />
-            <LabelActingInput htmlFor="file">Select image</LabelActingInput>
-
-            <Submit type="submit">Submit</Submit>
-            {errorMessage}
-          </>
+      <SectionWrapper>
+        <Grid />
+        <GridPageTitle>{currentGrid.name}</GridPageTitle>
+        <Fieldset>
+          <Legend>Upload images here!</Legend>
+          <GridForm onSubmit={handleFormSubmit}>
+            {!isLoading && (
+              <>
+                <HideInput type="file" name="file" id="file" ref={fileInput} />
+                <LabelActingInput htmlFor="file">Select image</LabelActingInput>
+                <Submit type="submit">
+                  <ButtonText>Submit</ButtonText>
+                </Submit>
+                {errorMessage}
+              </>
+            )}
+            {isLoading && <p>Uploading your image</p>}
+          </GridForm>
+        </Fieldset>
+        {checkUser() && (
+          <Ul>
+            <Greeting>Share grid with your friends!</Greeting>
+            <Button
+              disabled={false}
+              text="Copy accesstoken for grid"
+              type="button"
+              onClick={copyOnClick}
+            />
+            <StyledATag
+              href={`mailto:?subject=I have a link I want to share with you!&body=Head over to https://www.photogrid.community and sign up to access my grid!%0D%0A%0D%0APaste in this code: ${currentGrid.accessToken}%0D%0A%0D%0AAnd make sure to upload some pictures to it!`}>
+              <ButtonText>Share with a friend!</ButtonText>
+            </StyledATag>
+            <textarea
+              // Style properties hides textarea from screen, pretty hacky but it works
+              style={{ position: "fixed", top: "-1000px" }}
+              ref={textAreaRef}
+              value={currentGrid.accessToken}
+            />
+          </Ul>
         )}
-        {isLoading && <p>Uploading your image</p>}
-      </GridForm>
+      </SectionWrapper>
 
       <LargerGrid>
         {currentGrid.imgList.map((img) => {

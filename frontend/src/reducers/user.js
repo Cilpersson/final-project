@@ -349,12 +349,11 @@ export const postToGrid = (formData) => {
 
 export const logout = () => {
   return (dispatch) => {
-    localStorage.setItem("isSignedIn", JSON.stringify(false));
     dispatch(user.actions.setErrorMessage({ errorMessage: null }));
     dispatch(user.actions.setAccessToken({ accessToken: null }));
     dispatch(user.actions.setUserId({ userId: 0 }));
     dispatch(user.actions.setIsSignedIn({ isSignedIn: false }));
     dispatch(user.actions.setCurrentGrid({ currentGrid: null }));
-    localStorage.clear();
+    window.localStorage.clear();
   };
 };
