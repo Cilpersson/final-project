@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Greeting, SectionWrapper } from "lib/stylesheet";
+import { LottiePlayer } from "./LottiePlayer";
+import { Greeting, SectionWrapper, RelativeWrapper } from "lib/stylesheet";
 import { Grid } from "../components/logo/Grid";
 
 export const HomePageSignedIn = () => {
@@ -8,10 +9,13 @@ export const HomePageSignedIn = () => {
   const firstSignUp = useSelector((store) => store.user.login.firstSignUp);
   return (
     <SectionWrapper>
-      <Grid />
-      <Greeting>
-        Hello {name}, welcome {firstSignUp ? "to PHOTO GRID" : "back"}!
-      </Greeting>
+      <RelativeWrapper>
+        <Grid />
+        <Greeting>
+          Hello {name}, welcome {firstSignUp ? "to PHOTO GRID" : "back"}!
+        </Greeting>
+      </RelativeWrapper>
+      <LottiePlayer />
     </SectionWrapper>
   );
 };

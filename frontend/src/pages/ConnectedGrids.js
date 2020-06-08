@@ -44,8 +44,8 @@ export const ConnectedGrids = () => {
           labelText="Accesstoken"
         />
         <StyledGreeting>
-          {connectedGrids.length === 1 ? "This" : "These"} are your connected
-          grids:
+          {connectedGrids.length === 1 ? "This is" : "These are"} your connected
+          {connectedGrids.length === 1 ? " grid" : " grids"}:
         </StyledGreeting>
         <Ul>
           {connectedGrids.map((grid) => {

@@ -44,7 +44,8 @@ export const CreatedGrids = () => {
           labelText="Grid name"
         />
         <StyledGreeting>
-          {createdGrids.length === 1 ? "This" : "These"} are your created grids:
+          {createdGrids.length === 1 ? "This is" : "These are"} are your created{" "}
+          {createdGrids.length === 1 ? "grid" : "grids"}:
         </StyledGreeting>
         <Ul>
           {createdGrids.map((grid) => {

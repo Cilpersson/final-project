@@ -12,6 +12,8 @@ import User from "./models/user";
 import Grid from "./models/grid";
 import Image from "./models/image";
 
+var probe = require("probe-image-size");
+
 dotenv.config();
 const cloudinary = cloudinaryframework.v2;
 
@@ -168,12 +170,25 @@ app.post(
   parser.single("image"),
   async (req, res) => {
     const { accessTokenGrid } = req.params;
+    // let height;
+    // let width;
     // Look into parser.array for several images at once
     try {
+      // await probe(req.file.path).then((result) => {
+      //   height = result.height;
+      //   width = result.width;
+      //   console.log("Height: ", height, "Width: ", width);
+      // });
+
+      const { width, height } = await probe(req.file.path);
+
       const image = await new Image({
         imageUrl: req.file.path,
         imageId: req.file.filename,
+        width: width,
+        height: height,
       }).save();
+      console.log(image);
 
       const populatedGrid = await Grid.findOneAndUpdate(
         { accessToken: accessTokenGrid },
@@ -185,7 +200,8 @@ app.post(
               $position: 0,
             },
           },
-        }
+        },
+        { new: true }
       ).populate("imgList");
 
       // If pop null throw exception
@@ -195,7 +211,7 @@ app.post(
         res.status(201).json(populatedGrid);
       }
     } catch (err) {
-      res.status(400).json({ message: "Could not post image to grid catch" });
+      res.status(400).json({ message: "Could not post image to grid" });
       console.log(err);
     }
   }
@@ -217,7 +233,7 @@ app.post("/users/:id/connect", async (req, res) => {
       await User.findOneAndUpdate(
         { _id: id },
         {
-          $push: { connectedGrids: gridToConnect },
+          $push: { connectedGrids: gridToConnect, $position: 0 },
         }
       ).populate("connectedGrids");
       res.status(201).json(gridToConnect);

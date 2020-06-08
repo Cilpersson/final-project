@@ -19,6 +19,12 @@ const imageSchema = new mongoose.Schema({
     type: Date,
     default: () => new Date(),
   },
+  width: {
+    type: Number,
+  },
+  height: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model("Image", imageSchema);

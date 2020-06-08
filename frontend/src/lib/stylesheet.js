@@ -46,8 +46,9 @@ export const SectionWrapper = styled.section`
   flex-direction: column;
   align-items: center;
   background: white;
-  padding: 0.7rem 1.5rem 1.5rem 1.5rem;
+  padding: 1.5rem;
   margin: 1.5rem;
+  position: relative;
 
   @media (min-width: 668px) {
     width: 70%;
@@ -58,6 +59,11 @@ export const SectionWrapper = styled.section`
     width: 50%;
     margin: 1.5rem auto;
   }
+`;
+
+export const RelativeWrapper = styled.div`
+  position: relative;
+  margin-bottom: -2rem;
 `;
 
 export const StyledButton = styled.button`
