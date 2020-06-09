@@ -62,18 +62,21 @@ export const ConnectedGrids = () => {
     );
   } else if (accessToken && connectedGrids.length === 0) {
     return (
-      <Wrapper>
-        <Greeting>
-          Hey {name} looks like you haven't connected to any grids yet. Let's
-          get started!
-        </Greeting>
-        <CreateConnectGrid
-          legend="Connect to a new grid!"
-          createG={false}
-          buttonText="Connect to grid"
-          labelText="Accesstoken"
-        />
-      </Wrapper>
+      <SectionWrapper>
+        <Grid />
+        <Wrapper>
+          <Greeting>
+            Hey {name} looks like you haven't connected to any grids yet. Let's
+            get started!
+          </Greeting>
+          <CreateConnectGrid
+            legend="Connect to a new grid!"
+            createG={false}
+            buttonText="Connect to grid"
+            labelText="Accesstoken"
+          />
+        </Wrapper>
+      </SectionWrapper>
     );
   } else {
     return <HomePage />;

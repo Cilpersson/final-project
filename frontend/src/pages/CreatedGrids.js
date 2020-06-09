@@ -44,7 +44,7 @@ export const CreatedGrids = () => {
           labelText="Grid name"
         />
         <StyledGreeting>
-          {createdGrids.length === 1 ? "This is" : "These are"} are your created{" "}
+          {createdGrids.length === 1 ? "This is" : "These are"} your created{" "}
           {createdGrids.length === 1 ? "grid" : "grids"}:
         </StyledGreeting>
         <Ul>
@@ -62,18 +62,21 @@ export const CreatedGrids = () => {
     );
   } else if (accessToken && createdGrids.length === 0) {
     return (
-      <Wrapper>
-        <Greeting>
-          Hey {name} looks like you haven't created any grids yet. Let's get
-          started!
-        </Greeting>
-        <CreateConnectGrid
-          legend="Create a new grid!"
-          createG={true}
-          buttonText="Create"
-          labelText="Grid name"
-        />
-      </Wrapper>
+      <SectionWrapper>
+        <Grid />
+        <Wrapper>
+          <Greeting>
+            Hey {name} looks like you haven't created any grids yet. Let's get
+            started!
+          </Greeting>
+          <CreateConnectGrid
+            legend="Create a new grid!"
+            createG={true}
+            buttonText="Create"
+            labelText="Grid name"
+          />
+        </Wrapper>
+      </SectionWrapper>
     );
   } else {
     return <HomePage />;

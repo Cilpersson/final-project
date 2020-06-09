@@ -20,6 +20,7 @@ const WrapperRow = styled.div`
 const Title = styled.h1`
   font-size: 2.8rem;
   margin: 0;
+  margin-top: 1rem;
   display: flex;
   align-items: center;
 

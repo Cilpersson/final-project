@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components/macro";
 import { Paragraph, Greeting, SectionWrapper } from "lib/stylesheet";
 import { Grid } from "../components/logo/Grid";
 

@@ -1,13 +1,11 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { configureStore, createStore, combineReducers } from "@reduxjs/toolkit";
+import { createStore, combineReducers } from "@reduxjs/toolkit";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import thunk from "redux-thunk";
 import { applyMiddleware, compose } from "@reduxjs/toolkit";
-
 import { ui } from "../reducers/ui";
 import { user } from "../reducers/user";
-
 import { Header } from "./Header";
 import { Navbar } from "./Navbar";
 import { HomePage } from "../pages/HomePage";
@@ -45,8 +43,6 @@ export const Home = () => {
   };
 
   const persistedState = loadFromLocalStorage();
-
-  // const store = configureStore({ reducer });
   const store = createStore(
     reducer,
     persistedState,

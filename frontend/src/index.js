@@ -5,8 +5,8 @@ import GlobalStyle from "lib/globalStyles";
 
 ReactDOM.render(
   <>
-    <GlobalStyle />
     <App />
+    <GlobalStyle />
   </>,
   document.getElementById("root")
 );

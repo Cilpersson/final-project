@@ -200,3 +200,75 @@ export const GridForm = styled(Form)`
 export const Submit = styled(StyledButton)`
   width: 100%;
 `;
+
+export const StyledATag = styled.a`
+  background: #84eccf;
+  border: 0.2rem solid #1dd19e;
+  border-radius: 0.2rem;
+  padding: 0.4rem;
+  margin: 0.2rem 0.1rem;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+// STYLING FOR GRID
+
+export const PhotoGrid = styled.section`
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(25px, 1fr));
+  /* grid-auto-rows: 35px; */
+  grid-auto-rows: 25px;
+  width: 90%;
+  background: white;
+  padding: 1.5rem;
+  margin: 1.5rem auto;
+
+  @media (min-width: 668px) {
+    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+    /* grid-auto-rows: 30px; */
+    grid-auto-rows: 20px;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    /* grid-auto-rows: 60px; */
+    grid-auto-rows: 50px;
+  }
+`;
+export const Card = styled.div`
+  box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem,
+    rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
+  height: 100%;
+  width: 100%;
+  border-radius: 0.2rem;
+
+  background-image: url(${(props) => props.img});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  grid-row: span 4 / auto;
+  grid-column: span 4 / auto;
+`;
+
+export const CardTall = styled(Card)`
+  grid-row: span 7 / auto;
+  grid-column: span 4 / auto;
+  @media (min-width: 668px) {
+    grid-row: span 6 / auto;
+    grid-column: span 4 / auto;
+  }
+`;
+
+export const CardWide = styled(Card)`
+  grid-column: span 4 / auto;
+  grid-row: span 3 / auto;
+  @media (min-width: 668px) {
+    grid-column: span 6 / auto;
+    grid-row: span 4 / auto;
+  }
+`;
