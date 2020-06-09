@@ -219,24 +219,22 @@ export const StyledATag = styled.a`
 export const PhotoGrid = styled.section`
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(25px, 1fr));
-  /* grid-auto-rows: 35px; */
-  grid-auto-rows: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(5px, 1fr));
+  grid-auto-rows: 5px;
   width: 90%;
   background: white;
   padding: 1.5rem;
   margin: 1.5rem auto;
+  grid-auto-flow: dense;
 
   @media (min-width: 668px) {
     grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
-    /* grid-auto-rows: 30px; */
     grid-auto-rows: 20px;
   }
 
   @media (min-width: 1024px) {
-    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-    /* grid-auto-rows: 60px; */
-    grid-auto-rows: 50px;
+    padding: 3rem;
+    /* width: 50%; */
   }
 `;
 export const Card = styled.div`
@@ -253,22 +251,49 @@ export const Card = styled.div`
 
   grid-row: span 4 / auto;
   grid-column: span 4 / auto;
+
+  cursor: pointer;
+
+  @media (min-width: 668px) {
+  }
 `;
 
 export const CardTall = styled(Card)`
-  grid-row: span 7 / auto;
+  grid-row: span 6 / auto;
   grid-column: span 4 / auto;
+
   @media (min-width: 668px) {
-    grid-row: span 6 / auto;
-    grid-column: span 4 / auto;
+    grid-row: span 8 / auto;
+    grid-column: span 6 / auto;
+  }
+`;
+
+export const CardTinyTall = styled(Card)`
+  grid-row: span 5 / auto;
+  grid-column: span 3 / auto;
+
+  @media (min-width: 668px) {
+    grid-row: span 4 / auto;
+    grid-column: span 3 / auto;
   }
 `;
 
 export const CardWide = styled(Card)`
+  grid-column: span 5 / auto;
+  grid-row: span 3 / auto;
+
+  @media (min-width: 668px) {
+    grid-column: span 7 / auto;
+    grid-row: span 5 / auto;
+  }
+`;
+
+export const CardTinyWide = styled(Card)`
   grid-column: span 4 / auto;
   grid-row: span 3 / auto;
+
   @media (min-width: 668px) {
-    grid-column: span 6 / auto;
-    grid-row: span 4 / auto;
+    grid-column: span 4 / auto;
+    grid-row: span 3 / auto;
   }
 `;

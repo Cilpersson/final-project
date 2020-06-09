@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 import { Grid } from "./Grid";
 
@@ -53,8 +53,7 @@ const UnderTitle = styled.h3`
   }
 `;
 
-const innerWidth = () => {
-  const width = window.innerWidth;
+const innerWidth = (width) => {
   if (width < 668) {
     return "0.6rem";
   } else if (width > 1024) {
@@ -63,9 +62,9 @@ const innerWidth = () => {
     return "0.7rem";
   }
 };
+
 // Functions are identical but not sure how to combine them
-const marginLeft = () => {
-  const width = window.innerWidth;
+const marginLeft = (width) => {
   if (width < 668) {
     return "0.5rem";
   } else if (width > 1024) {
@@ -76,6 +75,15 @@ const marginLeft = () => {
 };
 
 export const Logo = () => {
+  const [width, setWidth] = useState(window.innerWidth);
+
+  //Gets width of screen on rezise
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+    });
+  }, [window]);
+
   return (
     <WrapperCol>
       <WrapperRow>
@@ -84,9 +92,9 @@ export const Logo = () => {
           <Slim>
             <WrapperRow>
               <Grid
-                marginLeft={marginLeft()}
-                width={innerWidth()}
-                height={innerWidth()}
+                marginLeft={marginLeft(width)}
+                width={innerWidth(width)}
+                height={innerWidth(width)}
               />
               RID
             </WrapperRow>

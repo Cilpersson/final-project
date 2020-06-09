@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components/macro";
 import { Grid } from "../components/logo/Grid";
 import { DisplayGrid } from "components/DisplayGrid";
+import { DisplayGridAlternative } from "components/DisplayGridAlternative";
 import { ShareGrid } from "components/ShareGrid";
 import { postToGrid, accessGrid } from "reducers/user";
 import {
@@ -34,7 +35,8 @@ const HideInput = styled.input`
     cursor: pointer;
     width: 100%;
     text-align: center;
-    font-size: 1.7rem;
+    font-size: 1.2rem;
+    font-weight: 500;
   }
   &:focus + ${LabelActingInput} {
   }
@@ -109,7 +111,8 @@ export const GridPage = () => {
         </Fieldset>
         {checkUser() && <ShareGrid />}
       </SectionWrapper>
-      <DisplayGrid />
+      <DisplayGridAlternative />
+      {/* <DisplayGrid /> */}
     </>
   );
 };
