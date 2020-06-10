@@ -15,8 +15,8 @@ export const ShareGrid = () => {
   };
   return (
     <>
+      <Greeting>Share this grid with your friends!</Greeting>
       <Ul>
-        <Greeting>Share this grid with your friends!</Greeting>
         <Button
           disabled={false}
           text="Copy accesstoken for grid"

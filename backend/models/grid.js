@@ -17,6 +17,10 @@ const gridSchema = new mongoose.Schema({
       ref: "Image",
     },
   ],
+  createdAt: {
+    type: Date,
+    default: () => new Date(),
+  },
 });
 
 module.exports = mongoose.model("Grid", gridSchema);

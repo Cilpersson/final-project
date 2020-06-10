@@ -137,7 +137,8 @@ export const Wrapper = styled.section`
 
 export const Ul = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem;
 `;
 

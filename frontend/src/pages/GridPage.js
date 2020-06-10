@@ -72,7 +72,13 @@ export const GridPage = () => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    formData.append("image", fileInput.current.files[0]);
+
+    for (let i = 0; i < fileInput.current.files.length; i++) {
+      formData.append("images", fileInput.current.files[i]);
+    }
+
+    // fileInput.current.files.map((file) => formData.append("images", file));
+
     dispatch(postToGrid(formData));
   };
 
@@ -98,8 +104,16 @@ export const GridPage = () => {
           <GridForm onSubmit={handleFormSubmit}>
             {!isLoading && (
               <>
-                <HideInput type="file" name="file" id="file" ref={fileInput} />
-                <LabelActingInput htmlFor="file">Select image</LabelActingInput>
+                <HideInput
+                  type="file"
+                  name="files"
+                  id="files"
+                  multiple
+                  ref={fileInput}
+                />
+                <LabelActingInput htmlFor="files">
+                  Select image
+                </LabelActingInput>
                 <Submit type="submit">
                   <ButtonText>Submit</ButtonText>
                 </Submit>

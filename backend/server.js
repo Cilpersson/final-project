@@ -130,6 +130,8 @@ app.get("/users/:id", async (req, res) => {
   const { id } = req.params;
 
   const user = await User.findOne({ _id: id })
+    .sort({ "createdGrids.createdAt": -1 })
+    .sort({ "connectedGrids.createdAt": -1 })
     .populate("createdGrids")
     .populate("connectedGrids")
     .exec();
@@ -157,6 +159,7 @@ app.post("/users/:id/grid", async (req, res) => {
         $push: { createdGrids: createdGrid._id },
       }
     ).populate("createdGrids");
+
     res.status(201).json(createdGrid);
   } catch (err) {
     res.status(400).json({ message: "Could not create grid" });
@@ -167,28 +170,24 @@ app.post("/users/:id/grid", async (req, res) => {
 // app.post("/users/grid/post/:accessTokenGrid", authenticateUser);
 app.post(
   "/users/grid/post/:accessTokenGrid",
-  parser.single("image"),
+  parser.array("images"),
   async (req, res) => {
     const { accessTokenGrid } = req.params;
-    // let height;
-    // let width;
     // Look into parser.array for several images at once
     try {
-      // await probe(req.file.path).then((result) => {
-      //   height = result.height;
-      //   width = result.width;
-      //   console.log("Height: ", height, "Width: ", width);
-      // });
+      const images = [];
+      for (const file of req.files) {
+        const { width, height } = await probe(file.path);
 
-      const { width, height } = await probe(req.file.path);
+        const image = await new Image({
+          src: file.path,
+          imageId: file.filename,
+          width: width,
+          height: height,
+        }).save();
 
-      const image = await new Image({
-        imageUrl: req.file.path,
-        imageId: req.file.filename,
-        width: width,
-        height: height,
-      }).save();
-      console.log(image);
+        images.push(image);
+      }
 
       const populatedGrid = await Grid.findOneAndUpdate(
         { accessToken: accessTokenGrid },
@@ -196,14 +195,13 @@ app.post(
           $push: {
             imgList: {
               // Pushes images to first place in imgList array
-              $each: [image],
+              $each: images,
               $position: 0,
             },
           },
         },
         { new: true }
       ).populate("imgList");
-
       // If pop null throw exception
       if (populatedGrid === null || populatedGrid === undefined) {
         throw "Could not post image to grid";
@@ -212,7 +210,6 @@ app.post(
       }
     } catch (err) {
       res.status(400).json({ message: "Could not post image to grid" });
-      console.log(err);
     }
   }
 );
@@ -233,9 +230,10 @@ app.post("/users/:id/connect", async (req, res) => {
       await User.findOneAndUpdate(
         { _id: id },
         {
-          $push: { connectedGrids: gridToConnect, $position: 0 },
+          $push: { connectedGrids: gridToConnect },
         }
       ).populate("connectedGrids");
+
       res.status(201).json(gridToConnect);
     } else {
       res.status(400).json({ message: "Could not connect grid to user" });
@@ -249,14 +247,14 @@ app.post("/users/:id/connect", async (req, res) => {
 // Had to add the accesstoken for the grid as an param.
 // Couldn't have it in the body because endpoint is GET.
 // Is this concidered a secure enough solution, I don't really know?
-app.get("/grids/grid:accessTokenGrid", authenticateUser);
+app.get("/grids/grid/:accessTokenGrid", authenticateUser);
 app.get("/grids/grid/:accessTokenGrid", async (req, res) => {
   const { accessTokenGrid } = req.params;
 
   try {
-    const grid = await Grid.findOne({ accessToken: accessTokenGrid }).populate(
-      "imgList"
-    );
+    const grid = await Grid.findOne({ accessToken: accessTokenGrid })
+      .populate("imgList")
+      .sort({ createdAt: -1 });
     res.status(201).json(grid);
   } catch (error) {
     res.status(400).json({ message: "Could not display grid" });

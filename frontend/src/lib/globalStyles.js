@@ -24,7 +24,7 @@ body {
 
 a {
   text-decoration: none;
-  color:black;
+  color:#000000;
 }
 
 li {

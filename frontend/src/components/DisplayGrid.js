@@ -16,7 +16,6 @@ import {
 export const DisplayGrid = () => {
   const [image, setImage] = useState(null);
   const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
   const [yOffset, setYOffset] = useState(0);
 

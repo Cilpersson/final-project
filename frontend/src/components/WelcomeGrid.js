@@ -53,7 +53,7 @@ export const WelcomeGrid = () => {
     window.addEventListener("resize", () => {
       setWidth(window.innerWidth);
     });
-  }, [window]);
+  }, []);
 
   return (
     <Welcome>

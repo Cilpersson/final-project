@@ -59,11 +59,11 @@ export const user = createSlice({
     },
     setCreatedGrids: (state, action) => {
       const { createdGrids } = action.payload;
-      state.grid.createdGrids = createdGrids;
+      state.grid.createdGrids = createdGrids.reverse();
     },
     setConnectedGrids: (state, action) => {
       const { connectedGrids } = action.payload;
-      state.grid.connectedGrids = connectedGrids;
+      state.grid.connectedGrids = connectedGrids.reverse();
     },
   },
 });

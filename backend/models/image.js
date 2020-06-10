@@ -7,7 +7,7 @@ const imageSchema = new mongoose.Schema({
   //   required: true,
   //   minlength: 5,
   // },
-  imageUrl: {
+  src: {
     type: String,
     required: true,
   },

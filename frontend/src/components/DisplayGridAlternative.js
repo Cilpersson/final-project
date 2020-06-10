@@ -4,21 +4,13 @@ import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { useSelector } from "react-redux";
 import styled from "styled-components/macro";
 import { uuid } from "uuidv4";
-import {
-  CardTall,
-  CardWide,
-  Card,
-  PhotoGrid,
-  CardTinyTall,
-  CardTinyWide,
-} from "lib/stylesheet";
 
 export const DisplayGridAlternative = () => {
   const [image, setImage] = useState(null);
   const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
   const [yOffset, setYOffset] = useState(0);
+  let [imgIndex, setImgIndex] = useState(null);
 
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -28,36 +20,65 @@ export const DisplayGridAlternative = () => {
 
   useScrollPosition(({ prevPos, currPos }) => {
     setYOffset(Math.abs(currPos.y));
-    console.log(yOffset);
   });
 
-  const random = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
-
-  const lightBox = (image) => {
-    setImage(image);
-  };
+  const lightBox = (image) => {};
 
   return (
     <>
-      {image !== null && (
-        <Background onClick={() => setImage(null)} top={yOffset}>
-          <Image img={image} loading="lazy" />
-        </Background>
+      {currentGrid.imgList.length !== 0 && (
+        <>
+          {image !== null && (
+            <Background top={yOffset}>
+              {/* BACK BUTTON STARTS HERE */}
+              <button
+                onClick={() => {
+                  imgIndex === 0
+                    ? setImgIndex(currentGrid.imgList.length - 1)
+                    : setImgIndex(imgIndex - 1);
+                  console.log("This is the local index state: ", imgIndex);
+                  setImage(currentGrid.imgList[imgIndex].src);
+                }}>
+                back
+              </button>
+
+              {/* EXIT BUTTON STARTS HERE */}
+              <button onClick={() => setImage(null)}>exit</button>
+              <Image img={image} loading="lazy" />
+
+              {/* NEXT BUTTON STARTS HERE */}
+              <button
+                onClick={() => {
+                  imgIndex === currentGrid.imgList.length - 1
+                    ? setImgIndex(0)
+                    : setImgIndex(imgIndex + 1);
+                  console.log("This is the local index state: ", imgIndex);
+                  setImage(currentGrid.imgList[imgIndex].src);
+                }}>
+                next
+              </button>
+            </Background>
+          )}
+          <Ul>
+            {currentGrid.imgList.map((item, index) => {
+              return (
+                <Li key={uuid()}>
+                  <Img
+                    onClick={() => {
+                      setImgIndex(index);
+                      console.log("This is the local index state: ", imgIndex);
+                      setImage(item.src);
+                      console.log("This is the current index: ", index);
+                    }}
+                    src={item.src}
+                  />
+                </Li>
+              );
+            })}
+            <FinalLI></FinalLI>
+          </Ul>
+        </>
       )}
-      <Ul>
-        {currentGrid.imgList.map((item, index) => {
-          return (
-            <Li>
-              <Img src={item.src} onClick={() => lightBox(item.src)} />
-            </Li>
-          );
-        })}
-        <FinalLI></FinalLI>
-      </Ul>
     </>
   );
 };
@@ -143,7 +164,8 @@ const Image = styled.div`
 `;
 
 const Background = styled.section`
-  background: #00000099;
+  background: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
   height: ${(props) => props.height};
   width: ${(props) => props.width};
 
@@ -158,3 +180,47 @@ const Background = styled.section`
 
   overflow-y: hidden;
 `;
+// return (
+//   <>
+//     {currentGrid.imgList.length !== 0 && (
+//       <>
+//         {image !== null && (
+//           <Background
+//             // onClick={() => setImage(null)}
+//             top={yOffset}>
+//             {/* <button
+//               onClick={() => {
+//                 setImgIndex(imgIndex--);
+//                 setImage(currentGrid.imgList[imgIndex]);
+//                 console.log(image);
+//               }}>
+//               back
+//             </button> */}
+//             <Image img={image} loading="lazy" />
+//             {/* <button onClick={setImage((imgIndex = imgIndex + 1))}>
+//               next
+//             </button> */}
+//           </Background>
+//         )}
+//         <Ul>
+//           {currentGrid.imgList.map((item, index) => {
+//             return (
+//               <Li key={uuid()}>
+//                 <Img
+//                   src={item.src}
+//                   onClick={() => {
+//                     // console.log(index);
+//                     setImgIndex(index);
+//                     lightBox(item.src);
+//                   }}
+//                 />
+//               </Li>
+//             );
+//           })}
+//           <FinalLI></FinalLI>
+//         </Ul>
+//       </>
+//     )}
+//   </>
+// );
+// };
