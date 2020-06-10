@@ -77,7 +77,7 @@ export const StyledButton = styled.button`
 `;
 
 export const Fieldset = styled.fieldset`
-  padding: 0.8rem 1.6rem;
+  padding: 1rem;
   margin: 0.4rem auto;
   border-radius: 0.2rem;
   border-color: #1dd19e;

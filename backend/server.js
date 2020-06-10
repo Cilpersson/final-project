@@ -28,7 +28,7 @@ const storage = cloudinaryStorage({
   params: {
     folder: "photo_grid",
     allowedFormats: ["jpg", "png", "jpeg"],
-    transformation: [{ width: 700, height: 700, crop: "limit" }],
+    transformation: [{ width: 1000, height: 1000, crop: "limit" }],
   },
 });
 

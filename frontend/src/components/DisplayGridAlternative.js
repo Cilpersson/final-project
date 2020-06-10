@@ -1,9 +1,41 @@
 import React, { useState, useEffect } from "react";
-// Hook written by: https://dev.to/n8tb1t/tracking-scroll-position-with-react-hooks-3bbj pretty cool stuff
+// Hook written by: https://dev.to/n8tb1t/tracking-scroll-position-with-react-hooks-3bbj
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faForward,
+  faBackward,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import styled from "styled-components/macro";
 import { uuid } from "uuidv4";
+
+const LightboxButton = styled.button`
+  border: none;
+  background: none;
+  color: #fff;
+
+  position: absolute;
+  font-size: ${(props) => props.size};
+  top: ${(props) => props.top};
+  bottom: ${(props) => props.bottom};
+  left: ${(props) => props.left};
+  right: ${(props) => props.right};
+  margin: ${(props) => props.margin};
+  cursor: pointer;
+  opacity: 0.4;
+  transition: all 0.2s;
+
+  &:hover {
+    color: #84eccf;
+    opacity: 1;
+  }
+
+  @media (min-width: 668px) {
+    margin: ${(props) => props.marginMedia};
+  }
+`;
 
 export const DisplayGridAlternative = () => {
   const [image, setImage] = useState(null);
@@ -22,8 +54,6 @@ export const DisplayGridAlternative = () => {
     setYOffset(Math.abs(currPos.y));
   });
 
-  const lightBox = (image) => {};
-
   return (
     <>
       {currentGrid.imgList.length !== 0 && (
@@ -31,7 +61,13 @@ export const DisplayGridAlternative = () => {
           {image !== null && (
             <Background top={yOffset}>
               {/* BACK BUTTON STARTS HERE */}
-              <button
+
+              <LightboxButton
+                right="50%"
+                bottom="3rem"
+                size="2.5rem"
+                margin="0 1rem 0 0"
+                // marginMedia="0 0 0 15rem"
                 onClick={() => {
                   imgIndex === 0
                     ? setImgIndex(currentGrid.imgList.length - 1)
@@ -39,15 +75,28 @@ export const DisplayGridAlternative = () => {
                   console.log("This is the local index state: ", imgIndex);
                   setImage(currentGrid.imgList[imgIndex].src);
                 }}>
-                back
-              </button>
+                <FontAwesomeIcon icon={faBackward} />
+              </LightboxButton>
 
               {/* EXIT BUTTON STARTS HERE */}
-              <button onClick={() => setImage(null)}>exit</button>
+              <LightboxButton
+                top="1.5rem"
+                right="1.5rem"
+                size="3rem"
+                margin=""
+                marginMedia="0 auto"
+                onClick={() => setImage(null)}>
+                <FontAwesomeIcon icon={faTimes} />
+              </LightboxButton>
               <Image img={image} loading="lazy" />
 
               {/* NEXT BUTTON STARTS HERE */}
-              <button
+              <LightboxButton
+                left="50%"
+                bottom="3rem"
+                size="2.5rem"
+                margin="0 0 0 1rem"
+                // marginMedia="0 15rem 0 0"
                 onClick={() => {
                   imgIndex === currentGrid.imgList.length - 1
                     ? setImgIndex(0)
@@ -55,8 +104,8 @@ export const DisplayGridAlternative = () => {
                   console.log("This is the local index state: ", imgIndex);
                   setImage(currentGrid.imgList[imgIndex].src);
                 }}>
-                next
-              </button>
+                <FontAwesomeIcon icon={faForward} />
+              </LightboxButton>
             </Background>
           )}
           <Ul>
@@ -65,9 +114,10 @@ export const DisplayGridAlternative = () => {
                 <Li key={uuid()}>
                   <Img
                     onClick={() => {
+                      setImage(item.src);
                       setImgIndex(index);
                       console.log("This is the local index state: ", imgIndex);
-                      setImage(item.src);
+
                       console.log("This is the current index: ", index);
                     }}
                     src={item.src}
@@ -147,8 +197,8 @@ const Image = styled.div`
   background-position: center;
   background-repeat: no-repeat;
 
-  height: 90%;
-  width: 90%;
+  height: 80%;
+  width: 80%;
 
   margin: auto;
   top: 0;
@@ -158,16 +208,17 @@ const Image = styled.div`
   position: absolute;
 
   @media (min-width: 668px) {
-    height: 50%;
-    width: 50%;
+    height: 60%;
+    width: 60%;
   }
 `;
 
 const Background = styled.section`
   background: rgba(0, 0, 0, 0.8);
-  cursor: pointer;
+
   height: ${(props) => props.height};
   width: ${(props) => props.width};
+  padding: 1rem;
 
   position: absolute;
   top: ${(props) => props.top}px;
@@ -180,47 +231,3 @@ const Background = styled.section`
 
   overflow-y: hidden;
 `;
-// return (
-//   <>
-//     {currentGrid.imgList.length !== 0 && (
-//       <>
-//         {image !== null && (
-//           <Background
-//             // onClick={() => setImage(null)}
-//             top={yOffset}>
-//             {/* <button
-//               onClick={() => {
-//                 setImgIndex(imgIndex--);
-//                 setImage(currentGrid.imgList[imgIndex]);
-//                 console.log(image);
-//               }}>
-//               back
-//             </button> */}
-//             <Image img={image} loading="lazy" />
-//             {/* <button onClick={setImage((imgIndex = imgIndex + 1))}>
-//               next
-//             </button> */}
-//           </Background>
-//         )}
-//         <Ul>
-//           {currentGrid.imgList.map((item, index) => {
-//             return (
-//               <Li key={uuid()}>
-//                 <Img
-//                   src={item.src}
-//                   onClick={() => {
-//                     // console.log(index);
-//                     setImgIndex(index);
-//                     lightBox(item.src);
-//                   }}
-//                 />
-//               </Li>
-//             );
-//           })}
-//           <FinalLI></FinalLI>
-//         </Ul>
-//       </>
-//     )}
-//   </>
-// );
-// };
