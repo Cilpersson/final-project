@@ -254,7 +254,8 @@ app.get("/grids/grid/:accessTokenGrid", async (req, res) => {
   try {
     const grid = await Grid.findOne({ accessToken: accessTokenGrid })
       .populate("imgList")
-      .sort({ createdAt: -1 });
+      .populate("commentList")
+      .exec();
     res.status(201).json(grid);
   } catch (error) {
     res.status(400).json({ message: "Could not display grid" });
@@ -265,7 +266,7 @@ app.get("/grids/grid/:accessTokenGrid", async (req, res) => {
 app.post("/grids/grid/:accessTokenGrid", authenticateUser);
 app.post("/grids/grid/:accessTokenGrid", async (req, res) => {
   const { accessTokenGrid } = req.params;
-  const { message, name } = req.body;
+  const { name, message } = req.body;
 
   try {
     const comment = await new Comment({

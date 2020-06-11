@@ -68,8 +68,8 @@ export const user = createSlice({
   },
 });
 
-const API_URL = "https://photo-grid-community.herokuapp.com";
-
+// const API_URL = "https://photo-grid-community.herokuapp.com";
+const API_URL = "http://localhost:8080";
 /* THUNKS */
 
 // USER LOGIN
@@ -330,6 +330,45 @@ export const postToGrid = (formData) => {
           return res.json();
         }
         throw "Could not post photo, make sure you added all information";
+      })
+      .then((json) => {
+        dispatch(
+          user.actions.setCurrentGrid({
+            currentGrid: json,
+          })
+        );
+        dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
+        dispatch(ui.actions.setLoading(false));
+      })
+      .catch((err) => {
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(ui.actions.setLoading(false));
+      });
+  };
+};
+
+//POST COMMENT TO GRID
+export const postCommentToGrid = ({ message }) => {
+  const USERS_URL = `${API_URL}/grids/grid`;
+  return (dispatch, getState) => {
+    dispatch(ui.actions.setLoading(true));
+    const accessToken = getState().user.login.accessToken;
+    const gridAccessToken = getState().user.grid.currentGrid.accessToken;
+    const name = getState().user.login.name;
+
+    fetch(`${USERS_URL}/${gridAccessToken}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: accessToken,
+      },
+      body: JSON.stringify({ name, message }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw "Could not post comment.";
       })
       .then((json) => {
         dispatch(

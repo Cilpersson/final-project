@@ -15,9 +15,15 @@ import {
   Fieldset,
   Legend,
   PasswordInfo,
+  WrapperCol,
 } from "lib/stylesheet";
 import { LottiePlayer } from "components/LottiePlayer";
 import animation from "../images_animations/animations/loader.json";
+import { GridComments } from "components/GridComments";
+
+const GridPageWrapper = styled.section`
+  margin-right: 5rem;
+`;
 
 const GridFormP = styled(Paragraph)`
   text-align: center;
@@ -88,42 +94,45 @@ export const GridPage = () => {
   };
 
   return (
-    <>
-      <SectionWrapper>
-        <Grid />
-        <GridPageTitle>{currentGrid.name}</GridPageTitle>
-        <Fieldset>
-          <Legend>Upload images here!</Legend>
-          {/* <GridForm> */}
-          {!isLoading && (
-            <>
-              <Dropzone
-                onDrop={(acceptedFiles) => handleFormSubmit(acceptedFiles)}>
-                {({ getRootProps, getInputProps }) => (
-                  <section>
-                    <DropzoneWrapper {...getRootProps()}>
-                      <input {...getInputProps()} />
-                      <GridFormP>
-                        DROP <Span>||</Span> CLICK
-                      </GridFormP>
-                    </DropzoneWrapper>
-                  </section>
-                )}
-              </Dropzone>
-              {errorMessage}
-            </>
-          )}
-          {isLoading && (
-            <>
-              <LottiePlayer animation={animation} height="25%" width="25%" />
-              <PasswordInfo>UPLOADING</PasswordInfo>
-            </>
-          )}
-          {/* </GridForm> */}
-        </Fieldset>
-        {checkUser() && <ShareGrid />}
-      </SectionWrapper>
-      <DisplayGridAlternative />
-    </>
+    <div>
+      <GridPageWrapper>
+        <SectionWrapper>
+          <Grid />
+          <GridPageTitle>{currentGrid.name}</GridPageTitle>
+          <Fieldset>
+            <Legend>Upload images here!</Legend>
+            {/* <GridForm> */}
+            {!isLoading && (
+              <>
+                <Dropzone
+                  onDrop={(acceptedFiles) => handleFormSubmit(acceptedFiles)}>
+                  {({ getRootProps, getInputProps }) => (
+                    <section>
+                      <DropzoneWrapper {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <GridFormP>
+                          DROP <Span>||</Span> CLICK
+                        </GridFormP>
+                      </DropzoneWrapper>
+                    </section>
+                  )}
+                </Dropzone>
+                {errorMessage}
+              </>
+            )}
+            {isLoading && (
+              <>
+                <LottiePlayer animation={animation} height="25%" width="25%" />
+                <PasswordInfo>UPLOADING</PasswordInfo>
+              </>
+            )}
+            {/* </GridForm> */}
+          </Fieldset>
+          {checkUser() && <ShareGrid />}
+        </SectionWrapper>
+        {/* <GridComments /> */}
+        <DisplayGridAlternative />
+      </GridPageWrapper>
+    </div>
   );
 };
