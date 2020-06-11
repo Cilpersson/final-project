@@ -1,15 +1,14 @@
 import React from "react";
 import Lottie from "lottie-react-web";
-import animation from "../images_animations/animations/welcome.json";
 
-export const LottiePlayer = () => {
+export const LottiePlayer = ({ animation, height, width }) => {
   return (
     <Lottie
       options={{
         animationData: animation,
       }}
-      height="50%"
-      width="50%"
+      height={height}
+      width={width}
     />
   );
 };

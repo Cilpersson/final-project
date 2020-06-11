@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { LottiePlayer } from "./LottiePlayer";
+import animation from "../images_animations/animations/welcome.json";
 import { Greeting, SectionWrapper, RelativeWrapper } from "lib/stylesheet";
 import { Grid } from "../components/logo/Grid";
 
@@ -15,7 +16,7 @@ export const HomePageSignedIn = () => {
           Hello {name}, welcome {firstSignUp ? "to PHOTO GRID" : "back"}!
         </Greeting>
       </RelativeWrapper>
-      <LottiePlayer />
+      <LottiePlayer animation={animation} height="50%" width="50%" />
     </SectionWrapper>
   );
 };

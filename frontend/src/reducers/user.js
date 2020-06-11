@@ -349,11 +349,11 @@ export const postToGrid = (formData) => {
 
 export const logout = () => {
   return (dispatch) => {
+    window.localStorage.clear();
     dispatch(user.actions.setErrorMessage({ errorMessage: null }));
     dispatch(user.actions.setAccessToken({ accessToken: null }));
     dispatch(user.actions.setUserId({ userId: 0 }));
     dispatch(user.actions.setIsSignedIn({ isSignedIn: false }));
     dispatch(user.actions.setCurrentGrid({ currentGrid: null }));
-    window.localStorage.clear();
   };
 };

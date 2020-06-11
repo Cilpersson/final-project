@@ -14,7 +14,11 @@ import {
   SectionWrapper,
   Fieldset,
   Legend,
+  PasswordInfo,
 } from "lib/stylesheet";
+import { LottiePlayer } from "components/LottiePlayer";
+
+import animation from "../images_animations/animations/loader.json";
 
 const GridFormP = styled(Paragraph)`
   text-align: center;
@@ -26,6 +30,11 @@ const GridFormP = styled(Paragraph)`
   @media (min-width: 668px) {
     font-size: 1.5rem;
   }
+`;
+
+const GridFormPLoading = styled(GridFormP)`
+  color: #84eccf;
+  text-shadow: 0.1rem 0.1rem #074835;
 `;
 
 const Span = styled.span`
@@ -54,7 +63,7 @@ export const GridPage = () => {
   const formData = new FormData();
 
   useEffect(() => {
-    if (accessToken) {
+    if (currentGrid) {
       dispatch(accessGrid(currentGrid.accessToken));
     }
     //isLoading makes the images loaded to grid instantly
@@ -106,10 +115,10 @@ export const GridPage = () => {
             </>
           )}
           {isLoading && (
-            <GridFormP>
-              Uploading... Uploading several images can take a few seconds, be
-              patient.
-            </GridFormP>
+            <>
+              <LottiePlayer animation={animation} height="25%" width="25%" />
+              <PasswordInfo>UPLOADING</PasswordInfo>
+            </>
           )}
           {/* </GridForm> */}
         </Fieldset>

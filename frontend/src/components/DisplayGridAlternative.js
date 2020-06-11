@@ -136,10 +136,14 @@ export const DisplayGridAlternative = () => {
 const Ul = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  width: 85%;
-  margin: auto;
-  padding: 2rem;
+  padding: 1.5rem;
+  margin: 1.5rem;
   background: white;
+
+  @media (min-width: 668px) {
+    width: 75%;
+    margin: 1.5rem auto;
+  }
 
   @media (max-aspect-ratio: 1/1) and (max-width: 668px) {
     flex-direction: row;

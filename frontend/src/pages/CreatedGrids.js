@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "uuidv4";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
-import { accessGrid } from "reducers/user";
+import { accessGrid, setCurrentGrid, user } from "reducers/user";
 import { HomePage } from "pages/HomePage";
 import { GridPage } from "pages/GridPage";
 import { Grid } from "../components/logo/Grid";
@@ -14,6 +15,14 @@ import {
   Ul,
   SectionWrapper,
 } from "lib/stylesheet";
+
+const Li = styled.li`
+  list-style: none;
+  min-height: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const StyledGreeting = styled(Greeting)`
   padding: 1.4rem 0 0.8rem;
@@ -49,12 +58,17 @@ export const CreatedGrids = () => {
         </StyledGreeting>
         <Ul>
           {createdGrids.map((grid) => {
+            {
+              console.log(grid);
+            }
             return (
+              // <Link to={`/GridPage/${grid.accessToken}`}>
               <StyledButton
                 key={uuid()}
                 onClick={() => handleOnClick(grid.accessToken)}>
-                <li key={uuid()}>{grid.name}</li>
+                <Li key={uuid()}>{grid.name}</Li>
               </StyledButton>
+              // </Link>
             );
           })}
         </Ul>
