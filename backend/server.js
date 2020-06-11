@@ -173,7 +173,6 @@ app.post(
   parser.array("images"),
   async (req, res) => {
     const { accessTokenGrid } = req.params;
-    // Look into parser.array for several images at once
     try {
       const images = [];
       for (const file of req.files) {

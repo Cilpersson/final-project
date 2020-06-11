@@ -14,6 +14,7 @@ import { About } from "../pages/About";
 import { ConnectedGrids } from "../pages/ConnectedGrids";
 import { CreatedGrids } from "../pages/CreatedGrids";
 import { GridPage } from "pages/GridPage";
+import { PageNotFound } from "../pages/PageNotFound";
 
 export const Home = () => {
   const composeEnhancer =
@@ -63,6 +64,7 @@ export const Home = () => {
           <Route path="/ConnectedGrids" component={ConnectedGrids} />
           <Route path="/MyGrids" component={CreatedGrids} />
           <Route path="/GridPage/:gridAccessToken" component={GridPage} />
+          <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>
     </Provider>

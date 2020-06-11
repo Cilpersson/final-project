@@ -17,7 +17,6 @@ import {
   PasswordInfo,
 } from "lib/stylesheet";
 import { LottiePlayer } from "components/LottiePlayer";
-
 import animation from "../images_animations/animations/loader.json";
 
 const GridFormP = styled(Paragraph)`
