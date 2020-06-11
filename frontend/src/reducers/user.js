@@ -68,7 +68,7 @@ export const user = createSlice({
   },
 });
 
-const API_URL = "http://localhost:8080";
+const API_URL = "https://photo-grid-community.herokuapp.com";
 
 /* THUNKS */
 
@@ -187,7 +187,7 @@ export const createGrid = (gridName) => {
     const accessToken = getState().user.login.accessToken;
     const userId = getState().user.login.userId;
     const name = gridName;
-    fetch(`http://localhost:8080/users/${userId}/grid`, {
+    fetch(`${USERS_URL}/${userId}/grid`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

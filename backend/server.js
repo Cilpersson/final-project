@@ -11,6 +11,7 @@ import dotenv from "dotenv";
 import User from "./models/user";
 import Grid from "./models/grid";
 import Image from "./models/image";
+import Comment from "./models/comment";
 
 var probe = require("probe-image-size");
 
@@ -257,6 +258,33 @@ app.get("/grids/grid/:accessTokenGrid", async (req, res) => {
     res.status(201).json(grid);
   } catch (error) {
     res.status(400).json({ message: "Could not display grid" });
+  }
+});
+
+// POST COMMENT TO GRID
+app.post("/grids/grid/:accessTokenGrid", authenticateUser);
+app.post("/grids/grid/:accessTokenGrid", async (req, res) => {
+  const { accessTokenGrid } = req.params;
+  const { message, name } = req.body;
+
+  try {
+    const comment = await new Comment({
+      message: message,
+      name: name,
+    }).save();
+
+    const grid = await Grid.findOneAndUpdate(
+      { accessToken: accessTokenGrid },
+      {
+        $push: { commentList: comment },
+      },
+      { new: true }
+    )
+      .populate("commentList")
+      .exec();
+    res.status(201).json(grid);
+  } catch (error) {
+    res.status(400).json({ message: "Could not post comment" });
   }
 });
 

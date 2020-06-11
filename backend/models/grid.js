@@ -17,6 +17,7 @@ const gridSchema = new mongoose.Schema({
       ref: "Image",
     },
   ],
+  commentList: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   createdAt: {
     type: Date,
     default: () => new Date(),
