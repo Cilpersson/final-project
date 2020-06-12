@@ -74,6 +74,7 @@ export const StyledButton = styled.button`
   margin: 0.2rem 0;
   cursor: pointer;
   width: 100%;
+  max-width: 15rem;
 `;
 
 export const Fieldset = styled.fieldset`

@@ -31,7 +31,7 @@ export const ShareGrid = () => {
           // Style properties hides textarea from screen, pretty hacky but it works
           style={{ position: "fixed", top: "-1000px" }}
           ref={textAreaRef}
-          defaultValue={currentGrid.accessToken}
+          defaultValue={`http://localhost:3000/GridPage/${currentGrid.accessToken}`}
         />
       </Ul>
     </>

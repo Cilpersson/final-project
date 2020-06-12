@@ -29,6 +29,7 @@ const StyledGreeting = styled(Greeting)`
 `;
 
 export const CreatedGrids = () => {
+  let history = useHistory();
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
 
@@ -40,16 +41,23 @@ export const CreatedGrids = () => {
     dispatch(accessGrid(gridAccessToken));
   };
 
-  if (currentGrid !== null) {
-    return <GridPage />;
-  } else if (accessToken && createdGrids.length > 0) {
+  useEffect(() => {
+    if (currentGrid !== null) {
+      history.push(`/GridPage/${currentGrid.accessToken}`);
+    }
+  }, [currentGrid]);
+
+  // if (currentGrid !== null) {
+  //   return <GridPage />;
+  // } else
+  if (accessToken && createdGrids.length > 0) {
     return (
       <SectionWrapper>
         <Grid />
         <CreateConnectGrid
           legend="Create a new grid!"
           createG={true}
-          buttonText="Connect"
+          buttonText="Create"
           labelText="Grid name"
         />
         <StyledGreeting>

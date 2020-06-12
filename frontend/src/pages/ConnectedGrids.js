@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "uuidv4";
 import styled from "styled-components/macro";
 import { accessGrid } from "reducers/user";
 import { HomePage } from "pages/HomePage";
 import { GridPage } from "pages/GridPage";
+import { Form } from "components/Form";
+
 import { Grid } from "../components/logo/Grid";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
 import {
@@ -14,12 +16,14 @@ import {
   Ul,
   SectionWrapper,
 } from "lib/stylesheet";
+import { useHistory } from "react-router";
 
 const StyledGreeting = styled(Greeting)`
   padding: 1.4rem 0 0.8rem;
 `;
 
 export const ConnectedGrids = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
 
@@ -31,9 +35,17 @@ export const ConnectedGrids = () => {
     dispatch(accessGrid(gridAccessToken));
   };
 
-  if (currentGrid !== null) {
-    return <GridPage />;
-  } else if (accessToken && connectedGrids.length > 0 && currentGrid === null) {
+  useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      if (currentGrid !== null) {
+        history.push(`/GridPage/${currentGrid.accessToken}`);
+      }
+    }
+    mounted = false;
+  }, [currentGrid]);
+
+  if (accessToken && connectedGrids.length > 0 && currentGrid === null) {
     return (
       <SectionWrapper>
         <Grid />
@@ -79,6 +91,6 @@ export const ConnectedGrids = () => {
       </SectionWrapper>
     );
   } else {
-    return <HomePage />;
+    return <Form />;
   }
 };

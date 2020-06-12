@@ -13,9 +13,12 @@ const Signup = styled.form`
   display: flex;
   flex-direction: column;
   margin: auto;
+  align-items: center;
 `;
 const Label = styled.label`
   margin-bottom: 0.6rem;
+  max-width: 15rem;
+  width: 100%;
 `;
 
 export const Form = () => {

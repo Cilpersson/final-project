@@ -9,7 +9,8 @@ import { PixelHeart } from "components/PixelHeart";
 import { postCommentToGrid } from "reducers/user";
 
 const Comment = styled.div`
-  background: #fff;
+  background: #84eccf;
+  color: #084030;
   padding: 0.5rem;
   margin: 0.5rem;
   border-radius: 0.2rem;
@@ -43,13 +44,14 @@ const CommentText = styled.p`
 `;
 const WrittenBy = styled.p`
   text-align: right;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   margin: 0;
   opacity: 0.5;
 `;
 
 const GuestBook = styled.section`
-  background: #84eccf;
+  background: #fff;
+
   border-radius: 0.2rem;
 
   display: flex;
