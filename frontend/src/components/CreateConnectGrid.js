@@ -9,7 +9,7 @@ const SmallFieldset = styled(Fieldset)`
   margin: 0 auto;
   width: 100%;
   margin-top: 1.5rem;
-  max-width: 15rem;
+  max-width: 20rem;
 `;
 
 export const CreateConnectGrid = ({

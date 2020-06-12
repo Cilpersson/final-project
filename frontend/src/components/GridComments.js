@@ -19,6 +19,7 @@ const Comment = styled.div`
   flex-direction: column;
   justify-content: space-between;
   min-height: 4rem;
+  max-width: 30rem;
 `;
 
 const Button = styled.button`

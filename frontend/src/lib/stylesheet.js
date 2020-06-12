@@ -75,6 +75,7 @@ export const StyledButton = styled.button`
   cursor: pointer;
   width: 100%;
   max-width: 15rem;
+  min-width: 10rem;
 `;
 
 export const Fieldset = styled.fieldset`
@@ -107,6 +108,8 @@ export const Input = styled.input`
   border-radius: 0.2rem;
   padding: 0.4rem;
   margin: 0.2rem 0;
+  width: 100%;
+  max-width: 15rem;
 `;
 
 export const Form = styled.form`
