@@ -22,7 +22,7 @@ import animation from "../images_animations/animations/loader.json";
 import { GridComments } from "components/GridComments";
 
 const GridPageWrapper = styled.section`
-  margin-right: 5rem;
+  /* margin-right: 5rem; */
 `;
 
 const GridFormP = styled(Paragraph)`
@@ -130,7 +130,7 @@ export const GridPage = () => {
           </Fieldset>
           {checkUser() && <ShareGrid />}
         </SectionWrapper>
-        {/* <GridComments /> */}
+        <GridComments />
         <DisplayGridAlternative />
       </GridPageWrapper>
     </div>

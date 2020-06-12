@@ -58,9 +58,6 @@ export const CreatedGrids = () => {
         </StyledGreeting>
         <Ul>
           {createdGrids.map((grid) => {
-            {
-              console.log(grid);
-            }
             return (
               // <Link to={`/GridPage/${grid.accessToken}`}>
               <StyledButton

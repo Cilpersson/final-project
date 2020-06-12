@@ -15,6 +15,7 @@ const initialState = {
     currentGrid: null,
     createdGrids: [],
     connectedGrids: [],
+    currentGridComments: [],
   },
 };
 
@@ -64,6 +65,10 @@ export const user = createSlice({
     setConnectedGrids: (state, action) => {
       const { connectedGrids } = action.payload;
       state.grid.connectedGrids = connectedGrids.reverse();
+    },
+    setCurrentGridComments: (state, action) => {
+      const { currentGridComments } = action.payload;
+      state.grid.currentGridComments = currentGridComments.reverse();
     },
   },
 });
@@ -278,7 +283,7 @@ export const connectToGrid = (gridAccessToken) => {
   };
 };
 
-// GET ONE GRIDS IMAGES
+// GET ONE GRID
 export const accessGrid = (accessTokenGrid) => {
   const USERS_URL = `${API_URL}/grids/grid`;
   return (dispatch, getState) => {
@@ -298,13 +303,18 @@ export const accessGrid = (accessTokenGrid) => {
       .then((json) => {
         dispatch(
           user.actions.setCurrentGrid({
-            currentGrid: json,
+            currentGrid: json.grid,
+          })
+        );
+        dispatch(
+          user.actions.setCurrentGridComments({
+            currentGridComments: json.commentList,
           })
         );
         dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
       })
       .catch((err) => {
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        // dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
 };
@@ -348,21 +358,21 @@ export const postToGrid = (formData) => {
 };
 
 //POST COMMENT TO GRID
-export const postCommentToGrid = ({ message }) => {
+export const postCommentToGrid = (message) => {
   const USERS_URL = `${API_URL}/grids/grid`;
   return (dispatch, getState) => {
-    dispatch(ui.actions.setLoading(true));
+    // dispatch(ui.actions.setLoading(true));
     const accessToken = getState().user.login.accessToken;
     const gridAccessToken = getState().user.grid.currentGrid.accessToken;
     const name = getState().user.login.name;
-
-    fetch(`${USERS_URL}/${gridAccessToken}`, {
+    //${USERS_URL}/${gridAccessToken}
+    fetch(`http://localhost:8080/grids/grid/${gridAccessToken}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: accessToken,
       },
-      body: JSON.stringify({ name, message }),
+      body: JSON.stringify({ name: name, message: message }),
     })
       .then((res) => {
         if (res.ok) {
@@ -372,15 +382,16 @@ export const postCommentToGrid = ({ message }) => {
       })
       .then((json) => {
         dispatch(
-          user.actions.setCurrentGrid({
-            currentGrid: json,
+          user.actions.setCurrentGridComments({
+            currentGridComments: json.commentList,
           })
         );
+
         dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
         dispatch(ui.actions.setLoading(false));
       })
       .catch((err) => {
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(user.actions.setErrorMessage(err));
         dispatch(ui.actions.setLoading(false));
       });
   };

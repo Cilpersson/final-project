@@ -256,7 +256,7 @@ app.get("/grids/grid/:accessTokenGrid", async (req, res) => {
       .populate("imgList")
       .populate("commentList")
       .exec();
-    res.status(201).json(grid);
+    res.status(201).json({ grid: grid, commentList: grid.commentList });
   } catch (error) {
     res.status(400).json({ message: "Could not display grid" });
   }
@@ -283,7 +283,7 @@ app.post("/grids/grid/:accessTokenGrid", async (req, res) => {
     )
       .populate("commentList")
       .exec();
-    res.status(201).json(grid);
+    res.status(201).json({ commentList: grid.commentList });
   } catch (error) {
     res.status(400).json({ message: "Could not post comment" });
   }
