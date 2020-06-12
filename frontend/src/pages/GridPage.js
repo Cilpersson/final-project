@@ -1,10 +1,13 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components/macro";
 import Dropzone from "react-dropzone";
 import { Grid } from "../components/logo/Grid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileImage } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFileImage,
+  faLessThanEqual,
+} from "@fortawesome/free-solid-svg-icons";
 import { DisplayGridAlternative } from "components/DisplayGridAlternative";
 import { ShareGrid } from "components/ShareGrid";
 import { postToGrid, accessGrid } from "reducers/user";
@@ -16,6 +19,7 @@ import {
   Legend,
   PasswordInfo,
   WrapperCol,
+  WrapperRow,
 } from "lib/stylesheet";
 import { LottiePlayer } from "components/LottiePlayer";
 import animation from "../images_animations/animations/loader.json";
@@ -64,7 +68,8 @@ export const GridPage = () => {
   const errorMessage = useSelector((store) => store.user.login.errorMessage);
   const usersGrids = useSelector((store) => store.user.grid.createdGrids);
 
-  // const fileInput = useRef();
+  const [comments, setComments] = useState(false);
+
   const formData = new FormData();
 
   useEffect(() => {
@@ -101,7 +106,7 @@ export const GridPage = () => {
           <GridPageTitle>{currentGrid.name}</GridPageTitle>
           <Fieldset>
             <Legend>Upload images here!</Legend>
-            {/* <GridForm> */}
+
             {!isLoading && (
               <>
                 <Dropzone
@@ -126,12 +131,16 @@ export const GridPage = () => {
                 <PasswordInfo>UPLOADING</PasswordInfo>
               </>
             )}
-            {/* </GridForm> */}
           </Fieldset>
           {checkUser() && <ShareGrid />}
         </SectionWrapper>
-        <GridComments />
-        <DisplayGridAlternative />
+        <button onClick={() => setComments(!comments)}>
+          {comments ? "Show grid" : "Show comments"}
+        </button>
+        <WrapperRow>
+          {!comments && <DisplayGridAlternative />}
+          {comments && <GridComments />}
+        </WrapperRow>
       </GridPageWrapper>
     </div>
   );

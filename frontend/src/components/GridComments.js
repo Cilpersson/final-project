@@ -1,29 +1,86 @@
 import React, { useState } from "react";
 import styled from "styled-components/macro";
+import moment from "moment";
+import { uuid } from "uuidv4";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Input,
-  Legend,
-  Fieldset,
-  Paragraph,
-  SectionWrapper,
-} from "lib/stylesheet";
+import { Paragraph, WrapperCol } from "lib/stylesheet";
 import { Grid } from "components/logo/Grid";
+import { PixelHeart } from "components/PixelHeart";
 import { postCommentToGrid } from "reducers/user";
 
-const Textarea = styled.textarea`
-  text-align: left;
-  height: 5rem;
+const Comment = styled.div`
+  background: #fff;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 0.2rem;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 4rem;
+`;
+
+const Button = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
+const CommentForm = styled.form`
   width: 100%;
 `;
 
-const Signup = styled.form`
+const CommentText = styled.p`
+  text-align: justify;
+`;
+const WrittenBy = styled.p`
+  text-align: right;
+  font-size: 0.8rem;
+  margin: 0;
+  opacity: 0.5;
+`;
+
+const GuestBook = styled.section`
+  background: #84eccf;
+  border-radius: 0.2rem;
+
   display: flex;
   flex-direction: column;
-  margin: auto;
+  align-items: center;
+  padding: 1.5rem;
+  margin: 1.5rem;
+
+  @media (min-width: 668px) {
+    width: 70%;
+    margin: 1.5rem auto;
+  }
+
+  @media (min-width: 1024px) {
+    width: 50%;
+    margin: 1.5rem auto;
+  }
 `;
+
+const Textarea = styled.textarea`
+  text-align: left;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 0.2rem;
+  border: 0.2rem solid #1dd19e;
+  width: 70%;
+  height: 6rem;
+`;
+
 const Label = styled.label`
-  margin-bottom: 0.6rem;
+  width: 100%;
 `;
 
 const Comments = styled.button`
@@ -70,38 +127,38 @@ export const GridComments = () => {
   };
   return (
     <>
-      <Comments onClick={() => setShowComments(!showComments)}>
-        <GridFormP>{showComments ? "Grid" : "Comments"}</GridFormP>{" "}
-      </Comments>
-
-      {showComments && (
-        <SectionWrapper>
-          <form onSubmit={(event) => handleOnSubmit(event, comment)}>
-            <Fieldset>
-              <Legend>WRITE A COMMENT</Legend>
-              <Grid />
-              <br />
-
-              <Label>
-                <Textarea
-                  required
-                  value={comment}
-                  onChange={(event) => setComment(event.target.value)}
-                />
-              </Label>
-
-              <button type="submit">submit</button>
-            </Fieldset>
-          </form>
-          {currentComments.map((comment) => {
-            return (
-              <p>
-                {comment.message} by {comment.name}
-              </p>
-            );
-          })}
-        </SectionWrapper>
-      )}
+      <GuestBook>
+        <CommentForm onSubmit={(event) => handleOnSubmit(event, comment)}>
+          {/* <Grid height="0.5rem" width="0.5rem" /> */}
+          GUEST BOOK
+          <br />
+          <WrapperCol>
+            <Label>
+              <Textarea
+                placeholder={`Leave a message!`}
+                required
+                value={comment}
+                onChange={(event) => setComment(event.target.value)}
+              />
+            </Label>
+            <Button type="submit">
+              <PixelHeart />
+              SUBMIT
+            </Button>
+          </WrapperCol>
+        </CommentForm>
+        {currentComments.map((comment) => {
+          return (
+            <Comment key={uuid()}>
+              <CommentText>{comment.message}</CommentText>
+              <WrittenBy>
+                {" "}
+                by {comment.name} - {moment(comment.createdAt).fromNow()}
+              </WrittenBy>
+            </Comment>
+          );
+        })}
+      </GuestBook>
     </>
   );
 };
