@@ -11,7 +11,17 @@ body {
   width: 100vw;
   margin: 0;
   padding: 0;
+
+  @media (max-width: 668px) {
+    background-background-attachment: scroll;
+  }
 }
+
+@media (max-width: 668px) {
+   body {
+    background-attachment: scroll;
+   } 
+  }
 
 *{
   font-family: 'Poppins', sans-serif;

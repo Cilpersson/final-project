@@ -48,6 +48,10 @@ const DropzoneWrapper = styled.div`
   border-radius: 0.2rem;
   padding: 2rem;
   cursor: pointer;
+
+  @media (max-width: 668px) {
+    background-background-attachment: scroll;
+  }
 `;
 
 export const GridNotNull = () => {
