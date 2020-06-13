@@ -87,61 +87,51 @@ export const GridNotNull = () => {
     }
   };
 
-  if (currentGrid !== null) {
-    return (
-      <div>
-        <GridPageWrapper>
-          <SectionWrapper>
-            <Grid />
-            <GridPageTitle>{currentGrid.name}</GridPageTitle>
-            <Fieldset>
-              <Legend>Upload images here!</Legend>
+  return (
+    <GridPageWrapper>
+      <SectionWrapper>
+        <Grid />
+        <GridPageTitle>{currentGrid.name}</GridPageTitle>
+        <Fieldset>
+          <Legend>Upload images here!</Legend>
 
-              {!isLoading && (
-                <>
-                  <Dropzone
-                    onDrop={(acceptedFiles) => handleFormSubmit(acceptedFiles)}>
-                    {({ getRootProps, getInputProps }) => (
-                      <section>
-                        <DropzoneWrapper {...getRootProps()}>
-                          <input {...getInputProps()} />
-                          <GridFormP>
-                            DROP <Span>||</Span> CLICK
-                          </GridFormP>
-                        </DropzoneWrapper>
-                      </section>
-                    )}
-                  </Dropzone>
-                  {errorMessage}
-                </>
-              )}
-              {isLoading && (
-                <>
-                  <LottiePlayer
-                    animation={animation}
-                    height="25%"
-                    width="25%"
-                  />
-                  <PasswordInfo>UPLOADING</PasswordInfo>
-                </>
-              )}
-            </Fieldset>
-            {checkUser() && <ShareGrid />}
-          </SectionWrapper>
-          <Button
-            onClick={() => setComments(!comments)}
-            text={comments ? "Show grid" : "Show comments"}
-            disabled={false}
-            type="button"
-          />
-          <WrapperRow>
-            {!comments && <DisplayGridAlternative />}
-            {comments && <GridComments />}
-          </WrapperRow>
-        </GridPageWrapper>
-      </div>
-    );
-  } else {
-    return <div>hello</div>;
-  }
+          {!isLoading && (
+            <>
+              <Dropzone
+                onDrop={(acceptedFiles) => handleFormSubmit(acceptedFiles)}>
+                {({ getRootProps, getInputProps }) => (
+                  <section>
+                    <DropzoneWrapper {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <GridFormP>
+                        DROP <Span>||</Span> CLICK
+                      </GridFormP>
+                    </DropzoneWrapper>
+                  </section>
+                )}
+              </Dropzone>
+              {errorMessage}
+            </>
+          )}
+          {isLoading && (
+            <>
+              <LottiePlayer animation={animation} height="25%" width="25%" />
+              <PasswordInfo>UPLOADING</PasswordInfo>
+            </>
+          )}
+        </Fieldset>
+        {checkUser() && <ShareGrid />}
+      </SectionWrapper>
+      <Button
+        onClick={() => setComments(!comments)}
+        text={comments ? "Show grid" : "Show comments"}
+        disabled={false}
+        type="button"
+      />
+      <WrapperRow>
+        {!comments && <DisplayGridAlternative />}
+        {comments && <GridComments />}
+      </WrapperRow>
+    </GridPageWrapper>
+  );
 };
