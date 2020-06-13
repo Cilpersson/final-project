@@ -243,7 +243,7 @@ app.post("/users/:id/connect", async (req, res) => {
   }
 });
 
-// RETURNS INFO ON ONE GRID AND POPULATES THE IMGLIST
+// RETURNS INFO ON ONE GRID AND POPULATES IT
 // Had to add the accesstoken for the grid as an param.
 // Couldn't have it in the body because endpoint is GET.
 // Is this concidered a secure enough solution, I don't really know?

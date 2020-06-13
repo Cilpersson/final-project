@@ -19,12 +19,12 @@ export const ShareGrid = () => {
       <Ul>
         <Button
           disabled={false}
-          text="Copy accesstoken for grid"
+          text="Copy grid link"
           type="button"
           onClick={copyOnClick}
         />
         <StyledATag
-          href={`mailto:?subject=I have a link I want to share with you!&body=Head over to https://www.photogrid.community and sign up to access my grid!%0D%0A%0D%0APaste in this code: ${currentGrid.accessToken}%0D%0A%0D%0AAnd make sure to upload some pictures to it!`}>
+          href={`mailto:?subject=I have a link I want to share with you!&body=Head over to https://www.photogrid.community and sign up to access my grid!%0D%0A%0D%0AWhen you have an account and your loged in, click this link: http://localhost:3000/GridPage/${currentGrid.accessToken}%0D%0A%0D%0AAnd don't forget to upload some images of your own!`}>
           <ButtonText>Share with a friend!</ButtonText>
         </StyledATag>
         <textarea

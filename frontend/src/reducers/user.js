@@ -73,8 +73,8 @@ export const user = createSlice({
   },
 });
 
-// const API_URL = "https://photo-grid-community.herokuapp.com";
-const API_URL = "http://localhost:8080";
+const API_URL = "https://photo-grid-community.herokuapp.com";
+
 /* THUNKS */
 
 // USER LOGIN
@@ -359,14 +359,12 @@ export const postToGrid = (formData) => {
 
 //POST COMMENT TO GRID
 export const postCommentToGrid = (message) => {
-  const USERS_URL = `${API_URL}/grids/grid`;
+  const USER_URL = `${API_URL}/grids/grid`;
   return (dispatch, getState) => {
-    // dispatch(ui.actions.setLoading(true));
     const accessToken = getState().user.login.accessToken;
     const gridAccessToken = getState().user.grid.currentGrid.accessToken;
     const name = getState().user.login.name;
-    //${USERS_URL}/${gridAccessToken}
-    fetch(`http://localhost:8080/grids/grid/${gridAccessToken}`, {
+    fetch(`${USER_URL}/${gridAccessToken}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

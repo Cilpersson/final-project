@@ -1,11 +1,11 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components/macro";
 import Dropzone from "react-dropzone";
 import { Grid } from "../components/logo/Grid";
 import { DisplayGridAlternative } from "components/DisplayGridAlternative";
 import { ShareGrid } from "components/ShareGrid";
-import { postToGrid, accessGrid, connectToGrid } from "reducers/user";
+import { postToGrid, accessGrid } from "reducers/user";
 import {
   Paragraph,
   GridPageTitle,
@@ -19,7 +19,6 @@ import { LottiePlayer } from "components/LottiePlayer";
 import animation from "../images_animations/animations/loader.json";
 import { GridComments } from "components/GridComments";
 import { Button } from "components/smallerComps/Button";
-import { useHistory } from "react-router";
 
 const GridPageWrapper = styled.section`
   /* margin-right: 5rem; */
@@ -35,11 +34,6 @@ const GridFormP = styled(Paragraph)`
   @media (min-width: 668px) {
     font-size: 1.5rem;
   }
-`;
-
-const GridFormPLoading = styled(GridFormP)`
-  color: #84eccf;
-  text-shadow: 0.1rem 0.1rem #074835;
 `;
 
 const Span = styled.span`
@@ -58,7 +52,6 @@ const DropzoneWrapper = styled.div`
 
 export const GridNotNull = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const isLoading = useSelector((store) => store.ui.isLoading);
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
   const accessToken = useSelector((store) => store.user.login.accessToken);
@@ -66,23 +59,12 @@ export const GridNotNull = () => {
   const usersGrids = useSelector((store) => store.user.grid.createdGrids);
 
   const [comments, setComments] = useState(false);
-  const regex = /\/GridPage\//gi;
-  const URL_path = window.location.pathname;
-  const URL_gridAccessToken = URL_path.replace(regex, "");
-
   const formData = new FormData();
 
   useEffect(() => {
-    if (currentGrid === null) {
-      dispatch(connectToGrid(URL_gridAccessToken));
-      history.push(`/ConnectedGrids`);
-    }
-  }, [URL_path, currentGrid]);
-
-  useEffect(() => {
-    if (currentGrid !== null) {
-      dispatch(accessGrid(currentGrid.accessToken));
-    }
+    // if (currentGrid !== null) {
+    dispatch(accessGrid(currentGrid.accessToken));
+    // }
     //isLoading makes the images loaded to grid instantly
   }, [isLoading, accessToken, currentGrid.accessToken, dispatch]);
 

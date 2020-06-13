@@ -3,8 +3,7 @@ import styled from "styled-components/macro";
 import moment from "moment";
 import { uuid } from "uuidv4";
 import { useSelector, useDispatch } from "react-redux";
-import { Paragraph, WrapperCol } from "lib/stylesheet";
-import { Grid } from "components/logo/Grid";
+import { WrapperCol } from "lib/stylesheet";
 import { PixelHeart } from "components/PixelHeart";
 import { postCommentToGrid } from "reducers/user";
 
@@ -86,42 +85,13 @@ const Label = styled.label`
   width: 100%;
 `;
 
-const Comments = styled.button`
-  margin: auto;
-  background-color: #84eccf;
-
-  border: 0.2rem solid #1dd19e;
-  border-radius: 0.2rem;
-  padding: 0.4rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
-`;
-
-const GridFormP = styled(Paragraph)`
-  text-align: center;
-  font-weight: bold;
-  text-shadow: 0.1rem 0.1rem #074835;
-  color: #ffffff;
-  font-size: 1.1rem;
-
-  @media (min-width: 668px) {
-    font-size: 1.5rem;
-  }
-`;
-
 export const GridComments = () => {
-  const currentGrid = useSelector((store) => store.user.grid.currentGrid);
   const currentComments = useSelector(
     (store) => store.user.grid.currentGridComments
   );
   const dispatch = useDispatch();
   const name = useSelector((store) => store.user.login.name);
   const [comment, setComment] = useState("");
-
-  const [showComments, setShowComments] = useState(false);
 
   const handleOnSubmit = (event, message) => {
     event.preventDefault();
@@ -132,13 +102,12 @@ export const GridComments = () => {
     <>
       <GuestBook>
         <CommentForm onSubmit={(event) => handleOnSubmit(event, comment)}>
-          {/* <Grid height="0.5rem" width="0.5rem" /> */}
           GUEST BOOK
           <br />
           <WrapperCol>
             <Label>
               <Textarea
-                placeholder={`Leave a message!`}
+                placeholder={`${name}, you should leave a message!`}
                 required
                 value={comment}
                 onChange={(event) => setComment(event.target.value)}

@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "uuidv4";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components/macro";
-import { accessGrid, setCurrentGrid, user } from "reducers/user";
-import { HomePage } from "pages/HomePage";
-import { GridPage } from "pages/GridPage";
+import {
+  accessGrid,
+  // , setCurrentGrid, user
+} from "reducers/user";
+import { Form } from "components/Form";
 import { Grid } from "../components/logo/Grid";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
 import {
@@ -45,11 +47,8 @@ export const CreatedGrids = () => {
     if (currentGrid !== null) {
       history.push(`/GridPage/${currentGrid.accessToken}`);
     }
-  }, [currentGrid]);
+  }, [currentGrid, history]);
 
-  // if (currentGrid !== null) {
-  //   return <GridPage />;
-  // } else
   if (accessToken && createdGrids.length > 0) {
     return (
       <SectionWrapper>
@@ -67,13 +66,11 @@ export const CreatedGrids = () => {
         <Ul>
           {createdGrids.map((grid) => {
             return (
-              // <Link to={`/GridPage/${grid.accessToken}`}>
               <StyledButton
                 key={uuid()}
                 onClick={() => handleOnClick(grid.accessToken)}>
                 <Li key={uuid()}>{grid.name}</Li>
               </StyledButton>
-              // </Link>
             );
           })}
         </Ul>
@@ -98,6 +95,6 @@ export const CreatedGrids = () => {
       </SectionWrapper>
     );
   } else {
-    return <HomePage />;
+    return <Form />;
   }
 };

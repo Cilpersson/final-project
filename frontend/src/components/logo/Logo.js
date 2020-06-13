@@ -82,7 +82,7 @@ export const Logo = () => {
     window.addEventListener("resize", () => {
       setWidth(window.innerWidth);
     });
-  }, [window]);
+  }, []);
 
   return (
     <WrapperCol>

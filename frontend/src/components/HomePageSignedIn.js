@@ -8,6 +8,7 @@ import { Grid } from "../components/logo/Grid";
 export const HomePageSignedIn = () => {
   const name = useSelector((store) => store.user.login.name);
   const firstSignUp = useSelector((store) => store.user.login.firstSignUp);
+
   return (
     <SectionWrapper>
       <RelativeWrapper>

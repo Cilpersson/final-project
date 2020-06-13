@@ -1,9 +1,6 @@
 import React from "react";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faCameraRetro } from "@fortawesome/free-solid-svg-icons";
 import { Greeting, Paragraph, SectionWrapper } from "lib/stylesheet";
 import { Grid } from "../components/logo/Grid";
-import { WelcomeGrid } from "./WelcomeGrid";
 import { WelcomeGridAlternative } from "./WelcomeGridAlternative";
 
 export const HomePageSignedOut = () => {
@@ -21,7 +18,6 @@ export const HomePageSignedOut = () => {
         </Paragraph>
       </SectionWrapper>
       <WelcomeGridAlternative />
-      {/* <WelcomeGrid /> */}
     </>
   );
 };

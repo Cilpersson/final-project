@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { uuid } from "uuidv4";
 import styled from "styled-components/macro";
 import { SectionWrapper } from "lib/stylesheet";
-
 import img1 from "../images_animations/imagesPG/happy1.jpg";
 import img4 from "../images_animations/imagesPG/happy4.jpg";
 import img3 from "../images_animations/imagesPG/happy3.jpg";
@@ -40,10 +39,6 @@ const Li = styled.li`
   cursor: pointer;
 `;
 
-const FinalLI = styled.li`
-  flex-grow: 10;
-`;
-
 const Img = styled.img`
   max-height: 100%;
   min-width: 100%;
@@ -58,7 +53,6 @@ export const WelcomeGridAlternative = () => {
   const happyArr = [
     img1,
     img3,
-    img4,
     img7,
     img6,
     img9,
@@ -68,7 +62,7 @@ export const WelcomeGridAlternative = () => {
     img11,
     img5,
     img12,
-    // img15,
+    img15,
     img13,
     img16,
     img14,
@@ -79,7 +73,7 @@ export const WelcomeGridAlternative = () => {
     window.addEventListener("resize", () => {
       setWidth(window.innerWidth);
     });
-  }, [window]);
+  }, []);
 
   if (width > 668) {
     return (
@@ -92,7 +86,6 @@ export const WelcomeGridAlternative = () => {
               </Li>
             );
           })}
-          {/* <FinalLI></FinalLI> */}
         </Ul>
       </StyledGridWrapper>
     );

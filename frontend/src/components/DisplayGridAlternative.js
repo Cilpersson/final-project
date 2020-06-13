@@ -48,7 +48,7 @@ export const DisplayGridAlternative = () => {
     window.addEventListener("resize", () => {
       setWidth(window.innerWidth);
     });
-  }, [window]);
+  }, []);
 
   useScrollPosition(({ prevPos, currPos }) => {
     setYOffset(Math.abs(currPos.y));

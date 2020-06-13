@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "uuidv4";
 import styled from "styled-components/macro";
 import { accessGrid } from "reducers/user";
-import { HomePage } from "pages/HomePage";
-import { GridPage } from "pages/GridPage";
 import { Form } from "components/Form";
 
 import { Grid } from "../components/logo/Grid";
@@ -36,13 +34,9 @@ export const ConnectedGrids = () => {
   };
 
   useEffect(() => {
-    let mounted = true;
-    if (mounted) {
-      if (currentGrid !== null) {
-        history.push(`/GridPage/${currentGrid.accessToken}`);
-      }
+    if (currentGrid !== null) {
+      history.push(`/GridPage/${currentGrid.accessToken}`);
     }
-    mounted = false;
   }, [currentGrid]);
 
   if (accessToken && connectedGrids.length > 0 && currentGrid === null) {
