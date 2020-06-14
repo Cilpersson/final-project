@@ -12,7 +12,6 @@ body {
   -o-background-size: cover;
   background-size: cover;
   position:fixed;
-  overflow-y:scroll;
   height: 100%;
   width: 100%;
   margin: 0;
