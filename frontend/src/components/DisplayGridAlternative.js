@@ -162,12 +162,16 @@ const Li = styled.li`
     height: 25vh;
   }
   @media (max-height: 668px) {
-    height: 25vh;
+    height: 15vh;
   }
 
   @media (max-aspect-ratio: 1/1) and (max-width: 668px) {
     height: auto;
     width: 100%;
+  }
+  @media (max-width: 668px) {
+    height: auto;
+    width: 20%;
   }
 `;
 
