@@ -34,7 +34,7 @@ export const Form = () => {
 
   const handleSignup = (event) => {
     event.preventDefault();
-    dispatch(signup(name, email, password));
+    dispatch(signup(name, email.toLowerCase(), password));
     dispatch(user.actions.setFirstSignUp({ firstSignUp: true }));
     setName("");
     setEmail("");
@@ -44,7 +44,7 @@ export const Form = () => {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    dispatch(login(email, password));
+    dispatch(login(email.toLowerCase(), password));
     dispatch(user.actions.setFirstSignUp({ firstSignUp: false }));
     setEmail("");
     setPassword("");
