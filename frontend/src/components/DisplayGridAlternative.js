@@ -171,9 +171,8 @@ const Li = styled.li`
     width: 100%;
   }
   @media (max-width: 668px) {
-    /* height: auto; */
-    height: 7vh;
-    width: auto;
+    height: 10vh;
+    width: 25%;
   }
 `;
 
