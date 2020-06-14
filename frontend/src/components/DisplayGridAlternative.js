@@ -158,9 +158,9 @@ const Li = styled.li`
   border-radius: 0.2rem;
   cursor: pointer;
 
-  @media (max-aspect-ratio: 1/1) {
+  /* @media (max-aspect-ratio: 1/1) {
     height: 25vh;
-  }
+  } */
   @media (max-height: 668px) {
     height: 5vh;
   }
