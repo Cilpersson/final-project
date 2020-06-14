@@ -167,6 +167,7 @@ const Li = styled.li`
 
   @media (max-aspect-ratio: 1/1) and (max-width: 668px) {
     height: auto;
+    height: 5vh;
     width: 100%;
   }
   @media (max-width: 668px) {
