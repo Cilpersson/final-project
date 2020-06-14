@@ -171,6 +171,7 @@ const Li = styled.li`
     width: 100%;
   }
   @media (max-width: 668px) {
+    height: 5vh;
     height: auto;
     width: 20%;
   }
