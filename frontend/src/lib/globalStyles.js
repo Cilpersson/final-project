@@ -11,7 +11,6 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  position:fixed;
   height: 100%;
   width: 100%;
   margin: 0;
