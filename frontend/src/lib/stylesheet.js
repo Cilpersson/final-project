@@ -310,7 +310,7 @@ export const List = styled.ul`
   border-bottom: 0.2rem solid #1dd19e;
   border-top: 0.2rem solid #1dd19e;
   padding: 0.5rem 0;
-  margin-bottom: 0.5rem;
+  /* margin-bottom: 0.5rem; */
 `;
 
 export const ListFooter = styled.ul`
