@@ -40,6 +40,16 @@ const PageWrapper = styled.section`
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+
+  @media (max-width: 668px) {
+    background-color: #ffffff;
+    background-image: linear-gradient(
+      225deg,
+      #ffffff 0%,
+      #e5e5e5 31%,
+      #1ed6a1 100%
+    );
+  }
 `;
 
 const SiteWrapper = styled.section`

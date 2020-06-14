@@ -42,7 +42,7 @@ export const DisplayGridAlternative = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
   const [yOffset, setYOffset] = useState(0);
-  let [imgIndex, setImgIndex] = useState(null);
+  const [imgIndex, setImgIndex] = useState(0);
 
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -67,7 +67,6 @@ export const DisplayGridAlternative = () => {
                 bottom="3rem"
                 size="2.5rem"
                 margin="0 1rem 0 0"
-                // marginMedia="0 0 0 15rem"
                 onClick={() => {
                   imgIndex === 0
                     ? setImgIndex(currentGrid.imgList.length - 1)
@@ -111,17 +110,15 @@ export const DisplayGridAlternative = () => {
           <Ul>
             {currentGrid.imgList.map((item, index) => {
               return (
-                <Li key={uuid()}>
-                  <Img
-                    onClick={() => {
-                      setImage(item.src);
-                      setImgIndex(index);
-                      console.log("This is the local index state: ", imgIndex);
-
-                      console.log("This is the current index: ", index);
-                    }}
-                    src={item.src}
-                  />
+                <Li
+                  key={uuid()}
+                  onClick={() => {
+                    setImage(item.src);
+                    setImgIndex(index);
+                    console.log("This is the local index state: ", imgIndex);
+                    console.log("This is the current index: ", index);
+                  }}>
+                  <Img src={item.src} />
                 </Li>
               );
             })}

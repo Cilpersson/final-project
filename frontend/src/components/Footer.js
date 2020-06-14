@@ -31,8 +31,8 @@ const WrapperIcons = styled(WrapperRow)`
 `;
 const StyledLinks = styled.a`
   font-size: 2rem;
+  color: #1dd19e;
 
-  color: #148867;
   font-size: 1rem;
   border-radius: 0.2rem;
   display: block;
@@ -41,7 +41,7 @@ const StyledLinks = styled.a`
   transition: 0.3s;
 
   &:hover {
-    color: #1dd19e;
+    color: #148867;
     transform: scale(1.2);
   }
 `;
