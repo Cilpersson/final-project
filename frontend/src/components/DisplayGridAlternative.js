@@ -162,7 +162,7 @@ const Li = styled.li`
     height: 25vh;
   }
   @media (max-height: 668px) {
-    height: 15vh;
+    height: 5vh;
   }
 
   @media (max-aspect-ratio: 1/1) and (max-width: 668px) {
