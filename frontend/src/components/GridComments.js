@@ -59,6 +59,7 @@ const GuestBook = styled.section`
   align-items: center;
   padding: 1.5rem;
   margin: 1.5rem;
+  width: 100%;
 
   @media (min-width: 668px) {
     width: 70%;
@@ -79,6 +80,10 @@ const Textarea = styled.textarea`
   border: 0.2rem solid #1dd19e;
   width: 70%;
   height: 6rem;
+
+  &::-webkit-input-placeholder {
+    text-align: center;
+  }
 `;
 
 const Label = styled.label`

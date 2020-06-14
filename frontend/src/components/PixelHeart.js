@@ -2,7 +2,7 @@ import React from "react";
 
 export const PixelHeart = () => {
   return (
-    <svg className="prefix__heart" width={60} height={60} viewBox="0 0 82 72">
+    <svg className="prefix__heart" width={50} height={50} viewBox="0 0 82 72">
       <title>{"pixelHeart"}</title>
       <g fill="none" fillRule="evenodd">
         <path

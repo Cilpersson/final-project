@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Paragraph, Greeting, SectionWrapper } from "lib/stylesheet";
 import { Grid } from "../components/logo/Grid";
 
@@ -8,16 +9,16 @@ export const About = () => {
       <Grid />
       <Greeting>What is PHOTO GRID?</Greeting>
       <Paragraph>
-        Start by creating a grid, and share the password to whomever you want.
-        Did you and your favourite person just get married? Do you want to see
-        images that where taken that day? Then it's time for you to make a
-        wedding grid.
+        Start by creating a grid, and share the grid link with whomever you
+        want. Did you and your favourite person just get married? Do you want to
+        see images that where taken on that day? Then it's time for you to make
+        a wedding grid and share it with everyone that attended the wedding.
       </Paragraph>
       <br />
       <Paragraph>
-        Or perhaps you just had a baby, if that's the case congratulations! Now
-        make sure to create a baby grid so everyone you want to share those
-        images with can see them!
+        Maybe you just had a baby, if that's the case congratulations! Now make
+        sure to create a baby grid so everyone you want to share those images
+        with can see them!
       </Paragraph>
       <br />
       <Paragraph>
@@ -33,6 +34,10 @@ export const About = () => {
         upload the images while at your place! There is allways a reason to
         grid!
       </Paragraph>
+
+      <Link to="/ProjectReflections">
+        Want to read more? Head over to Project Reflections
+      </Link>
     </SectionWrapper>
   );
 };

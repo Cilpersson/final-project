@@ -141,9 +141,16 @@ export const Wrapper = styled.section`
 
 export const Ul = styled.ul`
   display: grid;
-  /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 0.5rem;
+
+  @media (min-width: 668px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 
 export const StyledHeader = styled.header`
@@ -161,8 +168,7 @@ export const Img = styled.img`
 
 export const LargerGrid = styled(Ul)`
   background: #ffffff99;
-  grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
-  /* grid-template-columns: repeat(3, 1fr); */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   border: 0.1rem solid #1dd19e50;
   border-radius: 0.1rem;
   margin: 2rem;
@@ -171,23 +177,14 @@ export const LargerGrid = styled(Ul)`
 
   @media (min-width: 668px) {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    /* grid-template-columns: repeat(4, 1fr); */
     padding: 2rem;
     margin: 4rem 8rem;
   }
 
   @media (min-width: 1024px) {
-    grid-template-columns: repeat( auto-fit, minmax(350px, 1fr) );
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     padding: 2rem;
     margin: 4rem;
-    /* &:hover > ${Img} {
-      opacity: 0.3;
-    }
-
-    &:hover > ${Img}:hover {
-      transform: scale(1.3);
-      opacity: 1;
-    } */
   }
 `;
 
@@ -300,5 +297,47 @@ export const CardTinyWide = styled(Card)`
   @media (min-width: 668px) {
     grid-column: span 4 / auto;
     grid-row: span 3 / auto;
+  }
+`;
+
+// NAV
+
+export const List = styled.ul`
+  display: flex;
+  justify-content: space-around;
+  background: #84eccf;
+
+  border-bottom: 0.2rem solid #1dd19e;
+  border-top: 0.2rem solid #1dd19e;
+  padding: 0.5rem 0;
+  margin-bottom: 0.5rem;
+`;
+
+export const ListFooter = styled.ul`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
+export const ListItem = styled.li`
+  display: inline;
+  text-decoration: none;
+`;
+
+// LINKS/ICONS
+
+export const StyledLinks = styled.a`
+  font-size: 2rem;
+
+  color: #148867;
+  font-size: 1rem;
+  border-radius: 0.2rem;
+  display: block;
+  margin: 0 0.4rem;
+
+  transition: 0.3s;
+
+  &:hover {
+    color: #1dd19e;
+    transform: scale(1.2);
   }
 `;

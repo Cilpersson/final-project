@@ -4,6 +4,7 @@ import styled from "styled-components";
 const ContainerRow = styled.div`
   display: flex;
   justify-content: center;
+  margin: auto 0;
   margin-left: ${(props) => (props.marginLeft ? props.marginLeft : "0rem")};
 `;
 
@@ -18,7 +19,7 @@ const Squre = styled.div`
   margin: 0.09rem;
   border-style: solid;
   border-color: #148867;
-  border-radius: 0.05rem;
+  border-radius: 0.1rem;
   border-width: ${(props) => props.borderWidth};
 `;
 

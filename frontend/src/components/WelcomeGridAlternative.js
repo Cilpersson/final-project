@@ -13,11 +13,11 @@ import img8 from "../images_animations/imagesPG/happy8.jpg";
 import img2 from "../images_animations/imagesPG/happy2.jpg";
 import img11 from "../images_animations/imagesPG/happy11.jpg";
 import img5 from "../images_animations/imagesPG/happy5.jpg";
-import img12 from "../images_animations/imagesPG/happy12.jpg";
-import img13 from "../images_animations/imagesPG/happy13.jpg";
-import img14 from "../images_animations/imagesPG/happy14.jpg";
-import img15 from "../images_animations/imagesPG/happy15.jpg";
-import img16 from "../images_animations/imagesPG/happy16.jpg";
+// import img12 from "../images_animations/imagesPG/happy12.jpg";
+// import img13 from "../images_animations/imagesPG/happy13.jpg";
+// import img14 from "../images_animations/imagesPG/happy14.jpg";
+// import img15 from "../images_animations/imagesPG/happy15.jpg";
+// import img16 from "../images_animations/imagesPG/happy16.jpg";
 
 const StyledGridWrapper = styled(SectionWrapper)``;
 
@@ -61,11 +61,11 @@ export const WelcomeGridAlternative = () => {
     img2,
     img11,
     img5,
-    img12,
-    img15,
-    img13,
-    img16,
-    img14,
+    // img12,
+    // img15,
+    // img13,
+    // img16,
+    // img14,
   ];
   const happyArrSmall = [img1, img3, img4, img7, img6, img9];
 

@@ -5,21 +5,7 @@ import styled from "styled-components";
 import { user } from "reducers/user";
 import { authorization } from "reducers/user";
 import { logout } from "reducers/user";
-
-const List = styled.ul`
-  display: flex;
-  justify-content: space-around;
-  background: #84eccf;
-
-  border-bottom: 0.2rem solid #1dd19e;
-  border-top: 0.2rem solid #1dd19e;
-  padding: 0.5rem 0;
-  margin-bottom: 0.5rem;
-`;
-const ListItem = styled.li`
-  display: inline;
-  text-decoration: none;
-`;
+import { List, ListItem } from "lib/stylesheet";
 
 export const Navbar = () => {
   let history = useHistory();
@@ -60,9 +46,6 @@ export const Navbar = () => {
               to="/ConnectedGrids"
               onClick={() => clearCurrentGrid("/ConnectedGrids")}>
               <ListItem>Connected grids</ListItem>
-            </Link>
-            <Link to="/About">
-              <ListItem>About</ListItem>
             </Link>
             <Link to="/" onClick={signOut}>
               <ListItem>Sign out</ListItem>

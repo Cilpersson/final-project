@@ -18,11 +18,6 @@ body {
   padding: 0;
 }
 
-
-}
-
-
-
 *{
   font-family: 'Poppins', sans-serif;
   padding: 0;

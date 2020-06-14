@@ -62,9 +62,8 @@ export const GridNotNull = () => {
   const formData = new FormData();
 
   useEffect(() => {
-    // if (currentGrid !== null) {
     dispatch(accessGrid(currentGrid.accessToken));
-    // }
+
     //isLoading makes the images loaded to grid instantly
   }, [isLoading, accessToken, currentGrid.accessToken, dispatch]);
 

@@ -1,7 +1,17 @@
 import React, { useRef } from "react";
 import { useSelector } from "react-redux";
+import styled from "styled-components/macro";
 import { Button } from "components/smallerComps/Button";
 import { ButtonText, Ul, Greeting, StyledATag } from "lib/stylesheet";
+
+const ShareGridUl = styled(Ul)`
+  grid-template-columns: repeat(1, 1fr);
+  justify-items: center;
+
+  @media (min-width: 668px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+`;
 
 export const ShareGrid = () => {
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
@@ -16,7 +26,7 @@ export const ShareGrid = () => {
   return (
     <>
       <Greeting>Share this grid with your friends!</Greeting>
-      <Ul>
+      <ShareGridUl>
         <Button
           disabled={false}
           text="Copy grid link"
@@ -33,7 +43,7 @@ export const ShareGrid = () => {
           ref={textAreaRef}
           defaultValue={`https://www.photogrid.community/GridPage/${currentGrid.accessToken}`}
         />
-      </Ul>
+      </ShareGridUl>
     </>
   );
 };
