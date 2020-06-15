@@ -37,7 +37,7 @@ export const ConnectedGrids = () => {
     if (currentGrid !== null) {
       history.push(`/GridPage/${currentGrid.accessToken}`);
     }
-  }, [currentGrid]);
+  }, [currentGrid, history]);
 
   if (accessToken && connectedGrids.length > 0 && currentGrid === null) {
     return (

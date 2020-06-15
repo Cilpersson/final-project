@@ -18,7 +18,6 @@ export const GridNull = () => {
       dispatch(connectToGrid(URL_gridAccessToken));
       history.push(`/ConnectedGrids`);
     }
-    //When I add the missing dependencies, the grid doesn't get added?
-  }, [URL_path, currentGrid]);
+  }, [URL_path, currentGrid, URL_gridAccessToken, dispatch, history]);
   return <></>;
 };

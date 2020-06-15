@@ -67,9 +67,11 @@ export const Footer = () => {
               <Link to="/About">
                 <ListItemFooter>About</ListItemFooter>
               </Link>
+              -
               <Link to="/ProjectReflections">
                 <ListItemFooter>Project Reflections</ListItemFooter>
               </Link>
+              -
               <Link to="/Support">
                 <ListItemFooter>Support</ListItemFooter>
               </Link>
@@ -87,7 +89,6 @@ export const Footer = () => {
                   href="https://www.christinapersson.se/"
                   target="_blank"
                   rel="noopener noreferrer">
-                  <a href=""></a>
                   <FontAwesomeIcon icon={faUserEdit} />
                 </StyledLinks>
                 <StyledLinks

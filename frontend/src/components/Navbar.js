@@ -36,7 +36,7 @@ export const Navbar = () => {
       <>
         <nav>
           <List>
-            <Link to="/">
+            <Link to="/" onClick={() => clearCurrentGrid("/")}>
               <ListItem>Home</ListItem>
             </Link>
             <Link to="/MyGrids" onClick={() => clearCurrentGrid("/MyGrids")}>

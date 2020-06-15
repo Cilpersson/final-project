@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // Hook written by: https://dev.to/n8tb1t/tracking-scroll-position-with-react-hooks-3bbj
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -39,16 +39,9 @@ const LightboxButton = styled.button`
 
 export const DisplayGridAlternative = () => {
   const [image, setImage] = useState(null);
-  const [width, setWidth] = useState(window.innerWidth);
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
   const [yOffset, setYOffset] = useState(0);
-  const [imgIndex, setImgIndex] = useState(0);
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      setWidth(window.innerWidth);
-    });
-  }, []);
+  const [imgIndex, setImgIndex] = useState(null);
 
   useScrollPosition(({ prevPos, currPos }) => {
     setYOffset(Math.abs(currPos.y));
@@ -68,11 +61,13 @@ export const DisplayGridAlternative = () => {
                 size="2.5rem"
                 margin="0 1rem 0 0"
                 onClick={() => {
-                  imgIndex === 0
-                    ? setImgIndex(currentGrid.imgList.length - 1)
-                    : setImgIndex(imgIndex - 1);
-                  console.log("This is the local index state: ", imgIndex);
-                  setImage(currentGrid.imgList[imgIndex].src);
+                  //If imgIndex = 0 => -1 + currentGrid.imgList.length => Shows last image in the array!!!
+
+                  const newImgIndex =
+                    (imgIndex - 1 + currentGrid.imgList.length) %
+                    currentGrid.imgList.length;
+                  setImage(currentGrid.imgList[newImgIndex].src);
+                  setImgIndex(newImgIndex);
                 }}>
                 <FontAwesomeIcon icon={faBackward} />
               </LightboxButton>
@@ -95,13 +90,12 @@ export const DisplayGridAlternative = () => {
                 bottom="3rem"
                 size="2.5rem"
                 margin="0 0 0 1rem"
-                // marginMedia="0 15rem 0 0"
                 onClick={() => {
-                  imgIndex === currentGrid.imgList.length - 1
-                    ? setImgIndex(0)
-                    : setImgIndex(imgIndex + 1);
-                  console.log("This is the local index state: ", imgIndex);
-                  setImage(currentGrid.imgList[imgIndex].src);
+                  const newImgIndex =
+                    (imgIndex + 1) % currentGrid.imgList.length;
+
+                  setImage(currentGrid.imgList[newImgIndex].src);
+                  setImgIndex(newImgIndex);
                 }}>
                 <FontAwesomeIcon icon={faForward} />
               </LightboxButton>
@@ -115,8 +109,8 @@ export const DisplayGridAlternative = () => {
                   onClick={() => {
                     setImage(item.src);
                     setImgIndex(index);
-                    console.log("This is the local index state: ", imgIndex);
-                    console.log("This is the current index: ", index);
+                    console.log("This is the useState index: ", imgIndex);
+                    console.log("This is the map index: ", index);
                   }}>
                   <Img src={item.src} />
                 </Li>
@@ -228,7 +222,7 @@ const Background = styled.section`
 
   position: absolute;
   top: ${(props) => props.top}px;
-  bottom: 0;
+  bottom: -100px;
   left: 0;
   right: 0;
   z-index: 20;

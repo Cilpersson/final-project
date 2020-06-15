@@ -1,7 +1,7 @@
 import React from "react";
 import { Greeting, Paragraph, SectionWrapper } from "lib/stylesheet";
 import { Grid } from "../components/logo/Grid";
-import { PDFDisplay } from "../components/PDFDisplay";
+// import { PDFDisplay } from "../components/PDFDisplay";
 
 export const ProjectReflections = () => {
   return (
