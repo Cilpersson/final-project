@@ -10,6 +10,9 @@ import { LightboxButton } from "components/smallerComps/LightboxButton";
 import { useSelector } from "react-redux";
 import styled from "styled-components/macro";
 import { uuid } from "uuidv4";
+import { LottiePlayer } from "./LottiePlayer";
+
+import { SectionWrapperLottie } from "lib/stylesheet";
 
 export const DisplayGridAlternative = () => {
   const [image, setImage] = useState(null);

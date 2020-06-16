@@ -16,7 +16,10 @@ import {
   Wrapper,
   Ul,
   SectionWrapper,
+  ButtonText,
 } from "lib/stylesheet";
+import { LottiePlayer } from "components/LottiePlayer";
+import animationCamera from "../images_animations/animations/camera.json";
 
 const Li = styled.li`
   list-style: none;
@@ -69,7 +72,9 @@ export const CreatedGrids = () => {
               <StyledButton
                 key={uuid()}
                 onClick={() => handleOnClick(grid.accessToken)}>
-                <Li key={uuid()}>{grid.name}</Li>
+                <Li key={uuid()}>
+                  <ButtonText>{grid.name}</ButtonText>
+                </Li>
               </StyledButton>
             );
           })}
@@ -92,6 +97,9 @@ export const CreatedGrids = () => {
             labelText="Grid name"
           />
         </Wrapper>
+        {createdGrids.length === 0 && (
+          <LottiePlayer animation={animationCamera} height="20%" width="20%" />
+        )}
       </SectionWrapper>
     );
   } else {

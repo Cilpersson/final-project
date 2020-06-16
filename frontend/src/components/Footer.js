@@ -14,7 +14,9 @@ const StyledFooter = styled.footer`
   background: #fff;
   width: 100%;
   padding: 1rem 0.1rem;
+
   border-top: 0.2rem solid #1dd19e;
+  border-bottom: 0.2rem solid #1dd19e;
 
   @media (min-width: 668px) {
     padding: 1rem 2rem;
@@ -30,9 +32,7 @@ const WrapperIcons = styled(WrapperRow)`
   justify-content: center;
 `;
 const StyledLinks = styled.a`
-  font-size: 2rem;
   color: #1dd19e;
-
   font-size: 1rem;
   border-radius: 0.2rem;
   display: block;

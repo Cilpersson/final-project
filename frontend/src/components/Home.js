@@ -36,6 +36,7 @@ const PageWrapper = styled.section`
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  padding-bottom: 1.3rem;
 
   @media (max-width: 668px) {
     background-color: #ffffff;
@@ -43,7 +44,7 @@ const PageWrapper = styled.section`
       225deg,
       #ffffff 0%,
       #e5e5e5 31%,
-      #1ed6a1 100%
+      #84eccf 100%
     );
   }
 `;

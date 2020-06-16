@@ -24,13 +24,6 @@ export const Greeting = styled.h3`
   font-weight: 400;
 `;
 
-export const ButtonText = styled.h5`
-  font-size: 1rem;
-  font-weight: 500;
-  color: #084030;
-  text-align: center;
-`;
-
 export const Paragraph = styled.p`
   text-align: justify;
   line-height: 1.5rem;
@@ -61,11 +54,20 @@ export const SectionWrapper = styled.section`
   }
 `;
 
+export const SectionWrapperLottie = styled(SectionWrapper)`
+  height: fit-content;
+`;
+
 export const RelativeWrapper = styled.div`
   position: relative;
   margin-bottom: -2rem;
 `;
-
+export const ButtonText = styled.h5`
+  font-size: 1rem;
+  font-weight: 500;
+  color: #084030;
+  text-align: center;
+`;
 export const StyledButton = styled.button`
   background: #84eccf;
   border: 0.2rem solid #1dd19e;
@@ -76,6 +78,16 @@ export const StyledButton = styled.button`
   width: 100%;
   max-width: 15rem;
   min-width: 10rem;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #1dd19e;
+    border: 0.2rem solid #84eccf;
+  }
+
+  &:hover ${ButtonText} {
+    color: #ddf7ec;
+  }
 `;
 
 export const Fieldset = styled.fieldset`
@@ -156,6 +168,23 @@ export const Ul = styled.ul`
 export const StyledHeader = styled.header`
   background: white;
 `;
+
+export const HeaderSectionWrapper = styled.section`
+  background: #fff;
+  width: 100%;
+  padding: 1rem 0.1rem;
+
+  border-top: 0.2rem solid #1dd19e;
+
+  @media (min-width: 668px) {
+    padding: 1rem 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 1rem 4rem;
+  }
+`;
+
 export const Img = styled.img`
   width: 100%;
   margin: auto;
@@ -302,15 +331,19 @@ export const CardTinyWide = styled(Card)`
 
 // NAV
 
-export const List = styled.ul`
-  display: flex;
-  justify-content: space-around;
+export const Nav = styled.nav`
   background: #84eccf;
 
   border-bottom: 0.2rem solid #1dd19e;
   border-top: 0.2rem solid #1dd19e;
-  padding: 0.5rem 0;
-  /* margin-bottom: 0.5rem; */
+  padding: 0.5rem 0.3rem;
+`;
+
+export const List = styled.ul`
+  display: flex;
+  justify-content: space-between;
+  max-width: 35rem;
+  margin: auto;
 `;
 
 export const ListFooter = styled.ul`

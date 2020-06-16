@@ -3,11 +3,11 @@ import styled from "styled-components/macro";
 import { Grid } from "./Grid";
 
 const WrapperCol = styled.div`
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 0 0.25rem 0;
+  padding: 0.5rem 0 0.25rem 0; */
 `;
 
 const WrapperRow = styled.div`
@@ -24,53 +24,70 @@ const Title = styled.h1`
   display: flex;
   align-items: center;
 
+  letter-spacing: 0.5rem;
+
   @media (min-width: 668px) {
-    font-size: 3.2rem;
+    /* font-size: 3.2rem;
+    letter-spacing: 1rem;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1024px) { */
     font-size: 4rem;
+    letter-spacing: 1.5rem;
   }
 `;
 
 const Slim = styled.span`
   display: inline-block;
   font-weight: 200;
+
+  margin-left: 0.5rem;
+
+  @media (min-width: 668px) {
+    /* margin-left: 1rem;
+  }
+
+  @media (min-width: 1024px) { */
+    margin-left: 1.5rem;
+  }
 `;
 
 const UnderTitle = styled.h3`
   width: 100%;
-  letter-spacing: 0.4rem;
+  letter-spacing: 0.8rem;
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 0.6rem;
 
   @media (min-width: 668px) {
-    font-size: 1.2rem;
+    /* font-size: 1.25rem;
   }
 
-  @media (min-width: 1024px) {
-    font-size: 1.8rem;
+  @media (min-width: 1024px) { */
+    font-size: 1.4rem;
+    letter-spacing: 1.2rem;
   }
 `;
 
 const innerWidth = (width) => {
   if (width < 668) {
     return "0.6rem";
-  } else if (width > 1024) {
-    return "0.90rem";
+    // } else if (width > 1024) {
+    //   return "0.90rem";
   } else {
-    return "0.7rem";
+    return "0.90rem";
+    // "0.7rem";
   }
 };
 
 // Functions are identical but not sure how to combine them
 const marginLeft = (width) => {
   if (width < 668) {
-    return "0.5rem";
-  } else if (width > 1024) {
-    return "1.3rem";
+    //   return "0.5rem";
+    // } else if (width > 1024) {
+    //   return "1.3rem";
   } else {
-    return "1rem";
+    return "1.3rem";
+    // "1rem";
   }
 };
 
@@ -89,16 +106,14 @@ export const Logo = () => {
       <WrapperRow>
         <Title>
           PHOTO{"   "}
-          <Slim>
-            <WrapperRow>
-              <Grid
-                marginLeft={marginLeft(width)}
-                width={innerWidth(width)}
-                height={innerWidth(width)}
-              />
-              RID
-            </WrapperRow>
-          </Slim>
+          <WrapperRow>
+            <Grid
+              marginLeft={marginLeft(width)}
+              width={innerWidth(width)}
+              height={innerWidth(width)}
+            />
+            <Slim> RID </Slim>
+          </WrapperRow>
         </Title>
       </WrapperRow>
       <WrapperCol>

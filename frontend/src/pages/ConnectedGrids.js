@@ -13,8 +13,11 @@ import {
   Wrapper,
   Ul,
   SectionWrapper,
+  ButtonText,
 } from "lib/stylesheet";
 import { useHistory } from "react-router";
+import { LottiePlayer } from "components/LottiePlayer";
+import animationCamera from "../images_animations/animations/camera.json";
 
 const StyledGreeting = styled(Greeting)`
   padding: 1.4rem 0 0.8rem;
@@ -59,7 +62,9 @@ export const ConnectedGrids = () => {
               <StyledButton
                 key={uuid()}
                 onClick={() => handleOnClick(grid.accessToken)}>
-                <li key={uuid()}>{grid.name}</li>
+                <li key={uuid()}>
+                  <ButtonText>{grid.name}</ButtonText>
+                </li>
               </StyledButton>
             );
           })}
@@ -82,6 +87,9 @@ export const ConnectedGrids = () => {
             labelText="Accesstoken"
           />
         </Wrapper>
+        {ConnectedGrids.length === 0 && (
+          <LottiePlayer animation={animationCamera} height="20%" width="20%" />
+        )}
       </SectionWrapper>
     );
   } else {

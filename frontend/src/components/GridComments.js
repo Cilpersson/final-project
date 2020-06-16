@@ -58,28 +58,30 @@ const GuestBook = styled.section`
   flex-direction: column;
   align-items: center;
   padding: 1.5rem;
-  margin: 1.5rem;
+  margin: 1.5rem auto 0;
   width: 100%;
 
   @media (min-width: 668px) {
     width: 70%;
-    margin: 1.5rem auto;
+    margin: 1.5rem auto 0;
   }
 
   @media (min-width: 1024px) {
     width: 50%;
-    margin: 1.5rem auto;
+    margin: 1.5rem auto 0;
   }
 `;
 
 const Textarea = styled.textarea`
-  text-align: left;
-  padding: 0.5rem;
-  margin: 0.5rem;
-  border-radius: 0.2rem;
-  border: 0.2rem solid #1dd19e;
-  width: 70%;
   height: 6rem;
+  padding: 1rem;
+  margin: 0.4rem auto;
+  border-radius: 0.4rem;
+  border: 0.2rem solid #1dd19e;
+
+  width: 90%;
+  max-width: 20rem;
+  background: #ffffff;
 
   &::-webkit-input-placeholder {
     text-align: center;

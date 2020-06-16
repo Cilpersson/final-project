@@ -16,7 +16,8 @@ import {
   WrapperRow,
 } from "lib/stylesheet";
 import { LottiePlayer } from "components/LottiePlayer";
-import animation from "../images_animations/animations/loader.json";
+import animationLoader from "../images_animations/animations/loader.json";
+import animationCamera from "../images_animations/animations/camera.json";
 import { GridComments } from "components/GridComments";
 import { Button } from "components/smallerComps/Button";
 
@@ -64,8 +65,6 @@ export const GridNotNull = () => {
 
   useEffect(() => {
     dispatch(accessGrid(currentGrid.accessToken));
-
-    //isLoading makes the images loaded to grid instantly
   }, [isLoading, accessToken, currentGrid.accessToken, dispatch]);
 
   const handleFormSubmit = (files) => {
@@ -115,12 +114,19 @@ export const GridNotNull = () => {
           )}
           {isLoading && (
             <>
-              <LottiePlayer animation={animation} height="25%" width="25%" />
+              <LottiePlayer
+                animation={animationLoader}
+                height="25%"
+                width="25%"
+              />
               <PasswordInfo>UPLOADING</PasswordInfo>
             </>
           )}
         </Fieldset>
         {checkUser() && <ShareGrid />}
+        {currentGrid.imgList.length === 0 && !isLoading && (
+          <LottiePlayer animation={animationCamera} height="20%" width="20%" />
+        )}
       </SectionWrapper>
       <Button
         onClick={() => setComments(!comments)}

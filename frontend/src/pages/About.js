@@ -34,9 +34,10 @@ export const About = () => {
         upload the images while at your place! There is allways a reason to
         grid!
       </Paragraph>
-
+      <br />
+      <Paragraph>Enjoy reading?</Paragraph>
       <Link to="/ProjectReflections">
-        Want to read more? Head over to Project Reflections
+        Head over to Project Reflections to read some more!
       </Link>
     </SectionWrapper>
   );

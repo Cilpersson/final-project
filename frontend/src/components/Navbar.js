@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { user } from "reducers/user";
 import { authorization } from "reducers/user";
 import { logout } from "reducers/user";
-import { List, ListItem } from "lib/stylesheet";
+import { List, ListItem, Nav } from "lib/stylesheet";
 
 export const Navbar = () => {
   let history = useHistory();
@@ -34,7 +34,7 @@ export const Navbar = () => {
   if (isSignedIn) {
     return (
       <>
-        <nav>
+        <Nav>
           <List>
             <Link to="/" onClick={() => clearCurrentGrid("/")}>
               <ListItem>Home</ListItem>
@@ -51,12 +51,12 @@ export const Navbar = () => {
               <ListItem>Sign out</ListItem>
             </Link>
           </List>
-        </nav>
+        </Nav>
       </>
     );
   } else {
     return (
-      <nav>
+      <Nav>
         <List>
           <Link to="/">
             <ListItem>Home</ListItem>
@@ -68,7 +68,7 @@ export const Navbar = () => {
             <ListItem>Log in</ListItem>
           </Link>
         </List>
-      </nav>
+      </Nav>
     );
   }
 };

@@ -22,7 +22,7 @@ export const PDFDisplay = () => {
   return (
     <Iframe
       title="Final project brief"
-      src="https://www.docdroid.net/CBoalR8/photogrid-pdf#page=1&view=FitH&zoom=80"
+      src="https://www.docdroid.net/CBoalR8/photogrid-pdf#page=1&view=FitH"
     />
   );
 };
