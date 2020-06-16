@@ -1,23 +1,38 @@
 import React from "react";
-import { Greeting, Paragraph, SectionWrapper } from "lib/stylesheet";
+import {
+  Greeting,
+  Paragraph,
+  SectionWrapper,
+  PasswordInfo,
+} from "lib/stylesheet";
 import { Grid } from "../components/logo/Grid";
-// import { PDFDisplay } from "../components/PDFDisplay";
+import { PDFDisplay } from "../components/PDFDisplay";
 
 export const ProjectReflections = () => {
   return (
     <SectionWrapper>
       <Grid />
       <Greeting>Reflections on this project</Greeting>
-      <Paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non dui
-        velit. Morbi vehicula augue eu dolor fermentum, vel faucibus nibh
-        feugiat. Nunc posuere vestibulum pharetra. Nulla elit erat, luctus sed
-        maximus id, sodales eget felis. Nulla sem metus, aliquam in orci sit
-        amet, eleifend iaculis urna. Praesent quis felis sed purus ultricies
-        volutpat. Mauris congue, dolor nec fermentum feugiat, felis sem aliquam
-        diam, vitae sollicitudin massa ligula sed odio.
+
+      {/* <Paragraph>
+        <PasswordInfo>Monday, June 15 - 2020</PasswordInfo>
+        With just over a week left of this final project I will write down a few
+        thoughts and reflections of the process. This will include what I have
+        learned code wise but also other things I have gotten to know about
+        myself. I will however start with the more technical part.
       </Paragraph>
-      <Paragraph></Paragraph>
+
+      <br />
+      <Paragraph>
+        Further done on this page I have added my project brief that I handed in
+        prior to starting with the project. Pages 2-4 of the brief contain a
+        breakdown of different pages and what I thought they should contain. I
+        rated the different features from [1 - 3] where features rated [1] where
+        the things I should start with. It has been incredibly helpful to have
+        during these weeks. Thanks to a well written breif I have always known
+        both what I have accomplished so far and what I have had left to do.
+      </Paragraph> */}
+      <br />
       <Paragraph>
         Curabitur hendrerit, eros nec auctor semper, lectus nunc posuere libero,
         fermentum laoreet neque ipsum ac odio. Morbi consectetur at enim aliquam
@@ -32,6 +47,7 @@ export const ProjectReflections = () => {
         eget accumsan magna euismod. Mauris in lorem quam. Morbi tincidunt
         turpis at nunc pretium, eu vestibulum libero ullamcorper.
       </Paragraph>
+      {/* <PDFDisplay /> */}
     </SectionWrapper>
   );
 };

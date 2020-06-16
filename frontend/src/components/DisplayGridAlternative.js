@@ -1,41 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // Hook written by: https://dev.to/n8tb1t/tracking-scroll-position-with-react-hooks-3bbj
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faForward,
   faBackward,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
+import { LightboxButton } from "components/smallerComps/LightboxButton";
 import { useSelector } from "react-redux";
 import styled from "styled-components/macro";
 import { uuid } from "uuidv4";
-
-const LightboxButton = styled.button`
-  border: none;
-  background: none;
-  color: #fff;
-
-  position: absolute;
-  font-size: ${(props) => props.size};
-  top: ${(props) => props.top};
-  bottom: ${(props) => props.bottom};
-  left: ${(props) => props.left};
-  right: ${(props) => props.right};
-  margin: ${(props) => props.margin};
-  cursor: pointer;
-  opacity: 0.4;
-  transition: all 0.2s;
-
-  &:hover {
-    color: #84eccf;
-    opacity: 1;
-  }
-
-  @media (min-width: 668px) {
-    margin: ${(props) => props.marginMedia};
-  }
-`;
 
 export const DisplayGridAlternative = () => {
   const [image, setImage] = useState(null);
@@ -47,6 +21,14 @@ export const DisplayGridAlternative = () => {
     setYOffset(Math.abs(currPos.y));
   });
 
+  useEffect(() => {
+    if (image) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [image]);
+
   return (
     <>
       {currentGrid.imgList.length !== 0 && (
@@ -54,23 +36,21 @@ export const DisplayGridAlternative = () => {
           {image !== null && (
             <Background top={yOffset}>
               {/* BACK BUTTON STARTS HERE */}
-
               <LightboxButton
                 right="50%"
                 bottom="3rem"
                 size="2.5rem"
                 margin="0 1rem 0 0"
+                icon={faBackward}
                 onClick={() => {
                   //If imgIndex = 0 => -1 + currentGrid.imgList.length => Shows last image in the array!!!
-
                   const newImgIndex =
                     (imgIndex - 1 + currentGrid.imgList.length) %
                     currentGrid.imgList.length;
                   setImage(currentGrid.imgList[newImgIndex].src);
                   setImgIndex(newImgIndex);
-                }}>
-                <FontAwesomeIcon icon={faBackward} />
-              </LightboxButton>
+                }}
+              />
 
               {/* EXIT BUTTON STARTS HERE */}
               <LightboxButton
@@ -79,9 +59,10 @@ export const DisplayGridAlternative = () => {
                 size="3rem"
                 margin=""
                 marginMedia="0 auto"
-                onClick={() => setImage(null)}>
-                <FontAwesomeIcon icon={faTimes} />
-              </LightboxButton>
+                onClick={() => setImage(null)}
+                icon={faTimes}
+              />
+
               <Image img={image} loading="lazy" />
 
               {/* NEXT BUTTON STARTS HERE */}
@@ -90,15 +71,14 @@ export const DisplayGridAlternative = () => {
                 bottom="3rem"
                 size="2.5rem"
                 margin="0 0 0 1rem"
+                icon={faForward}
                 onClick={() => {
                   const newImgIndex =
                     (imgIndex + 1) % currentGrid.imgList.length;
-
                   setImage(currentGrid.imgList[newImgIndex].src);
                   setImgIndex(newImgIndex);
-                }}>
-                <FontAwesomeIcon icon={faForward} />
-              </LightboxButton>
+                }}
+              />
             </Background>
           )}
           <Ul>
@@ -179,6 +159,8 @@ const Img = styled.img`
   align-items: center;
   justify-content: center;
 
+  cursor: pointer;
+
   @media (max-aspect-ratio: 1/1) and (max-width: 668px) {
     width: 100%;
     max-height: 75vh;
@@ -228,6 +210,4 @@ const Background = styled.section`
   z-index: 20;
   height: 100%;
   width: 100vw;
-
-  overflow-y: hidden;
 `;

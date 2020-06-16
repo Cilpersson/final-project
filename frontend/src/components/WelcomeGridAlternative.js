@@ -36,7 +36,6 @@ const Li = styled.li`
   margin: 0.5rem;
   display: flex;
   border-radius: 0.2rem;
-  cursor: pointer;
 `;
 
 const Img = styled.img`

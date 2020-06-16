@@ -1,47 +1,28 @@
-// import React, { useState } from "react";
-// import { Document, Page } from "react-pdf";
-// import samplePDF from "../images_animations/pdf/PHOTO_GRID_for_website.pdf";
+import React from "react";
+// import samplePDF from "./PHOTOGRID.pdf";
+import styled from "styled-components/macro";
 
-// export const PDFDisplay = () => {
-//   const [numPages, setNumPages] = useState(null);
-//   const [pageNumber, setPageNumber] = useState(1);
+const Iframe = styled.iframe`
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 100%;
+  height: 75vh;
+  margin: 1rem 0.5rem 1.5rem;
+  border-radius: 0.3rem;
+  box-shadow: 0.2rem 0.3rem 0.7rem 0.1rem #2d2a2a95;
 
-//   function onDocumentLoadSuccess({ numPages }) {
-//     setNumPages(numPages);
-//     setPageNumber(1);
-//   }
+  @media (max-width: 668px) {
+    /* width: 80vw;
+    height: 60vh; */
+  }
+`;
 
-//   function changePage(offset) {
-//     setPageNumber((prevPageNumber) => prevPageNumber + offset);
-//   }
-
-//   function previousPage() {
-//     changePage(-1);
-//   }
-
-//   function nextPage() {
-//     changePage(1);
-//   }
-
-//   return (
-//     <>
-//       <Document file={samplePDF} onLoadSuccess={onDocumentLoadSuccess}>
-//         <Page pageNumber={pageNumber} />
-//       </Document>
-//       <div>
-//         <p>
-//           Page {pageNumber || (numPages ? 1 : "--")} of {numPages || "--"}
-//         </p>
-//         <button type="button" disabled={pageNumber <= 1} onClick={previousPage}>
-//           Previous
-//         </button>
-//         <button
-//           type="button"
-//           disabled={pageNumber >= numPages}
-//           onClick={nextPage}>
-//           Next
-//         </button>
-//       </div>
-//     </>
-//   );
-// };
+export const PDFDisplay = () => {
+  return (
+    <Iframe
+      title="Final project brief"
+      src="https://www.docdroid.net/CBoalR8/photogrid-pdf#page=1&view=FitH&zoom=80"
+    />
+  );
+};

@@ -289,6 +289,19 @@ app.post("/grids/grid/:accessTokenGrid", async (req, res) => {
   }
 });
 
+// app.post("/users/grid/delete/:accessTokenGrid", async (req, res) => {
+//   const { accessTokenGrid } = req.params;
+//   const { id } = req.body;
+
+//   const user = await User.findOne({ _id: id });
+
+//   const usersGrid = await user.find({
+//     createdGrids: accessTokenGrid,
+//   });
+
+//   res.status(201).json(usersGrid);
+// });
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });

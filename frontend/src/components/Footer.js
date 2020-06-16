@@ -13,7 +13,7 @@ const ListItemFooter = styled(ListItem)`
 const StyledFooter = styled.footer`
   background: #fff;
   width: 100%;
-  padding: 1rem 0;
+  padding: 1rem 0.1rem;
   border-top: 0.2rem solid #1dd19e;
 
   @media (min-width: 668px) {
@@ -66,12 +66,10 @@ export const Footer = () => {
             <WrapperRow>
               <Link to="/About">
                 <ListItemFooter>About</ListItemFooter>
-              </Link>
-              -
+              </Link>{" "}
               <Link to="/ProjectReflections">
                 <ListItemFooter>Project Reflections</ListItemFooter>
-              </Link>
-              -
+              </Link>{" "}
               <Link to="/Support">
                 <ListItemFooter>Support</ListItemFooter>
               </Link>
