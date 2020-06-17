@@ -50,7 +50,9 @@ export const ConnectedGrids = () => {
   }, []);
 
   useEffect(() => {
-    if (currentGrid !== null) {
+    if (currentGrid === "DELETED") {
+      history.push("/MyGrids");
+    } else if (currentGrid !== null) {
       history.push(`/GridPage/${currentGrid.accessToken}`);
     }
   }, [currentGrid, history]);

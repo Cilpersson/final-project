@@ -292,6 +292,7 @@ app.post("/grids/grid/:accessTokenGrid", async (req, res) => {
   }
 });
 
+app.delete("/users/grid/delete/:accessTokenGrid", authenticateUser);
 app.delete("/users/grid/delete/:accessTokenGrid", async (req, res) => {
   const { accessTokenGrid } = req.params;
   const { id } = req.body;
@@ -302,7 +303,6 @@ app.delete("/users/grid/delete/:accessTokenGrid", async (req, res) => {
   if (gridToDelete.createdBy === id) {
     await gridToDelete.deleteOne();
   }
-
   res.status(201).json("Grid deleted");
 });
 

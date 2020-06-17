@@ -13,7 +13,6 @@ import { GridComments } from "components/GridComments";
 import { Button } from "components/smallerComps/Button";
 import { Slider } from "components/Slider";
 import { DeleteButton } from "./smallerComps/DeleteButton";
-import { useHistory } from "react-router";
 import swal from "sweetalert";
 import {
   Paragraph,
@@ -25,7 +24,6 @@ import {
   WrapperRow,
   WrapperCol,
 } from "lib/stylesheet";
-import { CreatedGrids } from "pages/CreatedGrids";
 const GridPageWrapper = styled.section`
   /* margin-right: 5rem; */
 `;
@@ -71,8 +69,6 @@ export const GridNotNull = () => {
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const errorMessage = useSelector((store) => store.user.login.errorMessage);
   const usersGrids = useSelector((store) => store.user.grid.createdGrids);
-
-  const history = useHistory();
 
   const [comments, setComments] = useState(false);
   const formData = new FormData();
@@ -124,7 +120,6 @@ export const GridNotNull = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        history.push("/");
         dispatch(deleteGrid(currentGrid.accessToken));
         swal("Poof! Your grid has been deleted!", {
           icon: "success",
