@@ -12,7 +12,7 @@ import styled from "styled-components/macro";
 import { uuid } from "uuidv4";
 import { WrapperCol } from "lib/stylesheet";
 
-const Ul = styled.ul`
+const WrapperGrid = styled(WrapperCol)`
   display: flex;
   flex-wrap: wrap;
   padding: 1.5rem;
@@ -21,6 +21,19 @@ const Ul = styled.ul`
 
   @media (min-width: 668px) {
     width: 75%;
+    margin: 1.5rem auto;
+  }
+`;
+
+const Ul = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1.5rem;
+  margin: 1.5rem;
+  background: white;
+
+  @media (min-width: 668px) {
+    width: 100%;
     margin: 1.5rem auto;
   }
 
@@ -128,8 +141,6 @@ export const DisplayGridAlternative = ({ sliderValue }) => {
   const [yOffset, setYOffset] = useState(0);
   const [imgIndex, setImgIndex] = useState(null);
 
-  // const [sliderValue, setSliderValue] = useState(25);
-
   useScrollPosition(({ prevPos, currPos }) => {
     setYOffset(Math.abs(currPos.y));
   });
@@ -144,8 +155,8 @@ export const DisplayGridAlternative = ({ sliderValue }) => {
 
   return (
     <>
-      <WrapperCol margin="auto">
-        {currentGrid.imgList.length !== 0 && (
+      {currentGrid.imgList.length !== 0 && (
+        <WrapperGrid>
           <>
             {image !== null && (
               <Background top={yOffset}>
@@ -214,8 +225,8 @@ export const DisplayGridAlternative = ({ sliderValue }) => {
               <FinalLI></FinalLI>
             </Ul>
           </>
-        )}
-      </WrapperCol>
+        </WrapperGrid>
+      )}
     </>
   );
 };
