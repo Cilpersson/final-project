@@ -5,15 +5,10 @@ import styled from "styled-components/macro";
 const Opacity = styled.div`
   opacity: 0.5;
   transition: 0.3s;
-
-  &:hover {
-  }
 `;
 
 const SliderWrapper = styled.section`
   width: fit-content;
-
-  /* padding: 1rem; */
   margin: 0.5rem auto;
   background: white;
 

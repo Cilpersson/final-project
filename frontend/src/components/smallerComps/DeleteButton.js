@@ -16,13 +16,9 @@ const StyledDeleteButton = styled(StyledButton)`
 
   &:hover {
     background: #ec848e;
-  border-color: #d11d39;
+    border-color: #d11d39;
     opacity: 1;
   }
-
-  /* &:hover ${StyledDeleteText} {
-    color: #ecbcc1;
-  } */
 `;
 
 export const DeleteButton = ({
