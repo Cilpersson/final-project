@@ -338,6 +338,14 @@ export const Nav = styled.nav`
   border-bottom: 0.2rem solid #1dd19e;
   border-top: 0.2rem solid #1dd19e;
   padding: 0.5rem 0.3rem;
+
+  background-color: #ffffff;
+  background-image: linear-gradient(
+    45deg,
+    #ffffff 0%,
+    #e5e5e5 31%,
+    #84eccf 100%
+  );
 `;
 
 export const List = styled.ul`

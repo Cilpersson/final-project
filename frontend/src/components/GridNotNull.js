@@ -14,12 +14,14 @@ import {
   Legend,
   PasswordInfo,
   WrapperRow,
+  WrapperCol,
 } from "lib/stylesheet";
 import { LottiePlayer } from "components/LottiePlayer";
 import animationLoader from "../images_animations/animations/loader.json";
 import animationCamera from "../images_animations/animations/camera.json";
 import { GridComments } from "components/GridComments";
 import { Button } from "components/smallerComps/Button";
+import { Slider } from "components/Slider";
 
 const GridPageWrapper = styled.section`
   /* margin-right: 5rem; */
@@ -52,6 +54,13 @@ const DropzoneWrapper = styled.div`
   background-size: cover;
 `;
 
+const WhiteWrapper = styled(WrapperCol)`
+  background: #fff;
+  width: fit-content;
+  margin: auto;
+  padding: 1rem;
+`;
+
 export const GridNotNull = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((store) => store.ui.isLoading);
@@ -65,6 +74,7 @@ export const GridNotNull = () => {
 
   const [width, setWidth] = useState(window.innerWidth);
   const [didMount, setDidMount] = useState(false);
+  const [sliderValue, setSliderValue] = useState(25);
 
   //Gets width of screen on rezise
   useEffect(() => {
@@ -146,14 +156,19 @@ export const GridNotNull = () => {
           />
         )}
       </SectionWrapper>
-      <Button
-        onClick={() => setComments(!comments)}
-        text={comments ? "Show grid" : "Show comments"}
-        disabled={false}
-        type="button"
-      />
+      <WhiteWrapper>
+        {!comments && (
+          <Slider sliderValue={sliderValue} setSliderValue={setSliderValue} />
+        )}
+        <Button
+          onClick={() => setComments(!comments)}
+          text={comments ? "Show grid" : "Show comments"}
+          disabled={false}
+          type="button"
+        />
+      </WhiteWrapper>
       <WrapperRow>
-        {!comments && <DisplayGridAlternative />}
+        {!comments && <DisplayGridAlternative sliderValue={sliderValue} />}
         {comments && <GridComments />}
       </WrapperRow>
     </GridPageWrapper>

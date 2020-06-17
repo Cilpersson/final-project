@@ -16,7 +16,9 @@ export const PageNotFound = () => {
     <SectionWrapper>
       <NotFound>
         <Grid />
-        <Greeting>Oh no {name}, looks like we messed up!</Greeting>
+        <Greeting>
+          Oh no{`${name ? " " + name : ""}`}, looks like we messed up!
+        </Greeting>
       </NotFound>
       <LottiePlayer animation={animation} height="50%" width="50%" />
     </SectionWrapper>

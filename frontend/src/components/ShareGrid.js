@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components/macro";
 import { Button } from "components/smallerComps/Button";
@@ -15,12 +15,16 @@ const ShareGridUl = styled(Ul)`
 
 export const ShareGrid = () => {
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
-  const textAreaRef = useRef(null);
+  const name = useSelector((store) => store.user.login.name);
 
-  const copyOnClick = () => {
-    textAreaRef.current.select();
-    document.execCommand("copy");
+  const copyToClipBoard = async (copyMe) => {
+    try {
+      await navigator.clipboard.writeText(copyMe);
+    } catch (err) {
+      console.log("Could not copy text");
+    }
   };
+
   return (
     <>
       <Greeting>Share this grid with your friends!</Greeting>
@@ -29,22 +33,20 @@ export const ShareGrid = () => {
           disabled={false}
           text="Copy grid link"
           type="button"
-          onClick={copyOnClick}
+          onClick={() =>
+            copyToClipBoard(
+              `http://localhost:3000/GridPage/${currentGrid.accessToken}`
+            )
+          }
         />
         <StyledButton>
           <ButtonText>
             <a
-              href={`mailto:?subject=I have a link I want to share with you!&body=Head over to https://www.photogrid.community and sign up to access my grid!%0D%0A%0D%0AWhen you have an account and your loged in, click this link: https://www.photogrid.community/GridPage/${currentGrid.accessToken}%0D%0A%0D%0AAnd don't forget to upload some images of your own!`}>
+              href={`mailto:?subject=I have a link I want to share with you!&body=Head over to https://www.photogrid.community and sign up to access my grid!%0D%0A%0D%0AWhen you have an account and you're logged in, click this link: https://www.photogrid.community/GridPage/${currentGrid.accessToken}%0D%0A%0D%0AAnd don't forget to upload some images of your own!%0D%0A%0D%0ALot's of love%0D%0A${name}`}>
               <ButtonText>Share with a friend!</ButtonText>
             </a>
           </ButtonText>
         </StyledButton>
-        <textarea
-          // Style properties hides textarea from screen, pretty hacky but it works
-          style={{ position: "fixed", top: "-1000px" }}
-          ref={textAreaRef}
-          defaultValue={`http://localhost:3000/GridPage/${currentGrid.accessToken}`}
-        />
       </ShareGridUl>
     </>
   );
