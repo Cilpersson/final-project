@@ -42,6 +42,7 @@ export const CreatedGrids = () => {
   const name = useSelector((store) => store.user.login.name);
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
   const [width, setWidth] = useState(window.innerWidth);
+  const [didMount, setDidMount] = useState(false);
 
   const handleOnClick = (gridAccessToken) => {
     dispatch(accessGrid(gridAccessToken));
@@ -49,9 +50,13 @@ export const CreatedGrids = () => {
 
   //Gets width of screen on rezise
   useEffect(() => {
-    window.addEventListener("resize", () => {
-      setWidth(window.innerWidth);
-    });
+    setDidMount(true);
+    if (didMount) {
+      window.addEventListener("resize", () => {
+        setWidth(window.innerWidth);
+      });
+    }
+    return setDidMount(false);
   }, []);
 
   useEffect(() => {

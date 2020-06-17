@@ -22,6 +22,10 @@ const gridSchema = new mongoose.Schema({
     type: Date,
     default: () => new Date(),
   },
+  createdBy: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Grid", gridSchema);

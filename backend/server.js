@@ -152,7 +152,9 @@ app.post("/users/:id/grid", async (req, res) => {
   const { name } = req.body;
 
   try {
-    const createdGrid = await new Grid({ name }).populate("imgList").save();
+    const createdGrid = await new Grid({ name, createdBy: id })
+      .populate("imgList")
+      .save();
 
     await User.findOneAndUpdate(
       { _id: id },
@@ -224,17 +226,21 @@ app.post("/users/:id/connect", async (req, res) => {
     const gridToConnect = await Grid.findOne({
       accessToken: accessToken,
     });
+    if (gridToConnect.createdBy !== id) {
+      if (gridToConnect) {
+        await gridToConnect.save();
 
-    if (gridToConnect) {
-      await gridToConnect.save();
-      await User.findOneAndUpdate(
-        { _id: id },
-        {
-          $push: { connectedGrids: gridToConnect },
-        }
-      ).populate("connectedGrids");
+        //Check if user is aldready connected to the grid or if the user created they grid (pretty much the same thing), don't know how with nested models 🤷🏼‍♀️
 
-      res.status(201).json(gridToConnect);
+        await User.findOneAndUpdate(
+          { _id: id },
+          {
+            $addToSet: { connectedGrids: gridToConnect },
+          }
+        ).populate("connectedGrids");
+
+        res.status(201).json(gridToConnect);
+      }
     } else {
       res.status(400).json({ message: "Could not connect grid to user" });
     }
@@ -244,9 +250,8 @@ app.post("/users/:id/connect", async (req, res) => {
 });
 
 // RETURNS INFO ON ONE GRID AND POPULATES IT
-// Had to add the accesstoken for the grid as an param.
+// Had to add the accesstoken for the grid as a param.
 // Couldn't have it in the body because endpoint is GET.
-// Is this concidered a secure enough solution, I don't really know?
 app.get("/grids/grid/:accessTokenGrid", authenticateUser);
 app.get("/grids/grid/:accessTokenGrid", async (req, res) => {
   const { accessTokenGrid } = req.params;

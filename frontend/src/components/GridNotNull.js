@@ -62,13 +62,19 @@ export const GridNotNull = () => {
 
   const [comments, setComments] = useState(false);
   const formData = new FormData();
+
   const [width, setWidth] = useState(window.innerWidth);
+  const [didMount, setDidMount] = useState(false);
 
   //Gets width of screen on rezise
   useEffect(() => {
-    window.addEventListener("resize", () => {
-      setWidth(window.innerWidth);
-    });
+    setDidMount(true);
+    if (didMount) {
+      window.addEventListener("resize", () => {
+        setWidth(window.innerWidth);
+      });
+    }
+    return () => setDidMount(false);
   }, []);
 
   useEffect(() => {

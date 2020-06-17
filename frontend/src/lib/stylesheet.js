@@ -139,6 +139,7 @@ export const WrapperCol = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: ${(props) => props.margin};
 `;
 
 export const WrapperGrid = styled.div`

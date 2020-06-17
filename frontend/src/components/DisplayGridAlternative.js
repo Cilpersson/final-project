@@ -12,13 +12,15 @@ import styled from "styled-components/macro";
 import { uuid } from "uuidv4";
 import { LottiePlayer } from "./LottiePlayer";
 
-import { SectionWrapperLottie } from "lib/stylesheet";
+import { Greeting, WrapperCol, SectionWrapper } from "lib/stylesheet";
 
 export const DisplayGridAlternative = () => {
   const [image, setImage] = useState(null);
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
   const [yOffset, setYOffset] = useState(0);
   const [imgIndex, setImgIndex] = useState(null);
+
+  const [sliderValue, setSliderValue] = useState(25);
 
   useScrollPosition(({ prevPos, currPos }) => {
     setYOffset(Math.abs(currPos.y));
@@ -34,78 +36,151 @@ export const DisplayGridAlternative = () => {
 
   return (
     <>
-      {currentGrid.imgList.length !== 0 && (
-        <>
-          {image !== null && (
-            <Background top={yOffset}>
-              {/* BACK BUTTON STARTS HERE */}
-              <LightboxButton
-                right="50%"
-                bottom="3rem"
-                size="2.5rem"
-                margin="0 1rem 0 0"
-                icon={faBackward}
-                onClick={() => {
-                  //If imgIndex = 0 => -1 + currentGrid.imgList.length => Shows last image in the array!!!
-                  const newImgIndex =
-                    (imgIndex - 1 + currentGrid.imgList.length) %
-                    currentGrid.imgList.length;
-                  setImage(currentGrid.imgList[newImgIndex].src);
-                  setImgIndex(newImgIndex);
-                }}
-              />
-
-              {/* EXIT BUTTON STARTS HERE */}
-              <LightboxButton
-                top="1.5rem"
-                right="1.5rem"
-                size="3rem"
-                margin=""
-                marginMedia="0 auto"
-                onClick={() => setImage(null)}
-                icon={faTimes}
-              />
-
-              <Image img={image} loading="lazy" />
-
-              {/* NEXT BUTTON STARTS HERE */}
-              <LightboxButton
-                left="50%"
-                bottom="3rem"
-                size="2.5rem"
-                margin="0 0 0 1rem"
-                icon={faForward}
-                onClick={() => {
-                  const newImgIndex =
-                    (imgIndex + 1) % currentGrid.imgList.length;
-                  setImage(currentGrid.imgList[newImgIndex].src);
-                  setImgIndex(newImgIndex);
-                }}
-              />
-            </Background>
-          )}
-          <Ul>
-            {currentGrid.imgList.map((item, index) => {
-              return (
-                <Li
-                  key={uuid()}
+      <WrapperCol margin="auto">
+        {
+          // width > 668 &&
+          currentGrid.imgList.length !== 0 && (
+            <SliderWrapper>
+              <Opacity>
+                <Slider
+                  type="range"
+                  min={10}
+                  max={45}
+                  value={sliderValue}
+                  className="slider"
+                  onChange={(event) => setSliderValue(event.target.value)}
+                />
+                <h4>Slide to adjust image size</h4>
+              </Opacity>
+            </SliderWrapper>
+          )
+        }
+        {currentGrid.imgList.length !== 0 && (
+          <>
+            {image !== null && (
+              <Background top={yOffset}>
+                {/* BACK BUTTON STARTS HERE */}
+                <LightboxButton
+                  right="50%"
+                  bottom="3rem"
+                  size="2.5rem"
+                  margin="0 1rem 0 0"
+                  icon={faBackward}
                   onClick={() => {
-                    setImage(item.src);
-                    setImgIndex(index);
-                    console.log("This is the useState index: ", imgIndex);
-                    console.log("This is the map index: ", index);
-                  }}>
-                  <Img src={item.src} />
-                </Li>
-              );
-            })}
-            <FinalLI></FinalLI>
-          </Ul>
-        </>
-      )}
+                    //If imgIndex = 0 => -1 + currentGrid.imgList.length => Shows last image in the array!!!
+                    const newImgIndex =
+                      (imgIndex - 1 + currentGrid.imgList.length) %
+                      currentGrid.imgList.length;
+                    setImage(currentGrid.imgList[newImgIndex].src);
+                    setImgIndex(newImgIndex);
+                  }}
+                />
+
+                {/* EXIT BUTTON STARTS HERE */}
+                <LightboxButton
+                  top="1.5rem"
+                  right="1.5rem"
+                  size="3rem"
+                  margin=""
+                  marginMedia="0 auto"
+                  onClick={() => setImage(null)}
+                  icon={faTimes}
+                />
+
+                <Image img={image} loading="lazy" />
+
+                {/* NEXT BUTTON STARTS HERE */}
+                <LightboxButton
+                  left="50%"
+                  bottom="3rem"
+                  size="2.5rem"
+                  margin="0 0 0 1rem"
+                  icon={faForward}
+                  onClick={() => {
+                    const newImgIndex =
+                      (imgIndex + 1) % currentGrid.imgList.length;
+                    setImage(currentGrid.imgList[newImgIndex].src);
+                    setImgIndex(newImgIndex);
+                  }}
+                />
+              </Background>
+            )}
+            <Ul>
+              {currentGrid.imgList.map((item, index) => {
+                return (
+                  <Li
+                    height={sliderValue}
+                    key={uuid()}
+                    onClick={() => {
+                      setImage(item.src);
+                      setImgIndex(index);
+                      console.log("This is the useState index: ", imgIndex);
+                      console.log("This is the map index: ", index);
+                    }}>
+                    <Img src={item.src} />
+                  </Li>
+                );
+              })}
+              <FinalLI></FinalLI>
+            </Ul>
+          </>
+        )}
+      </WrapperCol>
     </>
   );
 };
+
+const Opacity = styled.div`
+  opacity: 0.5;
+  transition: 0.3s;
+
+  &:hover {
+  }
+`;
+
+const SliderWrapper = styled.section`
+  width: fit-content;
+
+  padding: 1rem;
+  margin: 0.5rem;
+  background: white;
+
+  &:hover ${Opacity} {
+    opacity: 1;
+  }
+
+  @media (max-width: 668px) {
+    display: none;
+  }
+`;
+
+const Slider = styled.input`
+  appearance: none;
+  width: 20%;
+  height: 1rem;
+  background: #d3d3d3;
+  outline: none;
+
+  background: #84eccf;
+  border: 0.2rem solid #1dd19e;
+  border-radius: 0.2rem;
+  margin: 0.2rem 0;
+  cursor: pointer;
+
+  width: 100%;
+  max-width: 15rem;
+  min-width: 10rem;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: #fff;
+
+    border: 0.2rem solid #c3c3c3;
+    border-radius: 50%;
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+`;
 
 const Ul = styled.ul`
   display: flex;
@@ -123,9 +198,10 @@ const Ul = styled.ul`
     flex-direction: row;
   }
 `;
-
+//15-50 vh for height in LI
 const Li = styled.li`
   height: 25vh;
+  height: ${(props) => props.height}vh;
   flex-grow: 1;
   margin: 0.5rem;
   display: flex;
@@ -157,6 +233,7 @@ const FinalLI = styled.li`
 const Img = styled.img`
   max-height: 100%;
   min-width: 100%;
+  max-width: 100%;
   object-fit: cover;
   vertical-align: bottom;
   align-items: center;
