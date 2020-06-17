@@ -52,9 +52,10 @@ export const ProjectReflections = () => {
         With just over a week left of this final project I will write down a few
         thoughts and reflections of the process. This will include what I have
         learned code wise but also other things I have gotten to know about
-        myself. I will however start with the more technical part.
+        myself.
       </Paragraph>
       <br />
+      <h4>TECH</h4>
       <Paragraph>
         Further done on this page I have added my project brief that I handed in
         prior to starting with the project. Pages 2 - 4 of the brief contains a
@@ -172,6 +173,31 @@ export const ProjectReflections = () => {
         hard, and I'm very proud of what I have done.
       </Paragraph>
       <PDFDisplay />
+      <br />
+      <h4>PERSONAL</h4>
+      <Paragraph>
+        There are a few things that I did't take in account when I was writing
+        my brief. In the thoughts and concerns section I did mention that the
+        project concept was getting quite large. What I didn't think of was how
+        it would affect me being alone with a project of this size. When
+        something didn't work, I didn't have a direct team that I could share
+        that frustration with. We did have stand-ups in the Hippo team every
+        Monday and Wednesday, but when something didn't work with my code that
+        was on me, myself and I. I never considered that before hand, but from
+        now on I will. When you have complete responssibilty for something, then
+        the frustration reagarding that something will be hard to share with
+        others. As proud as I am of what I have done, I must be honest and say
+        that it has been a real challenge doing it by myself. But doing it by
+        myself also means that the final product is me. The endpoints are mine,
+        the design is mine, every single feature on this website is thought out
+        and implemented by me.
+      </Paragraph>
+      <br />
+      <Paragraph>
+        This project has without a doubt been the best way for me to show not
+        only others, but most of all show myself who I am as a developer and
+        what I'm capable of.
+      </Paragraph>
     </SectionWrapper>
   );
 };

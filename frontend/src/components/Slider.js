@@ -56,7 +56,6 @@ const StyledSlider = styled.input`
 
 export const Slider = ({ sliderValue, setSliderValue }) => {
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
-  // const [sliderValue, setSliderValue] = useState(25);
   return (
     <>
       {currentGrid.imgList.length !== 0 && (
@@ -65,7 +64,7 @@ export const Slider = ({ sliderValue, setSliderValue }) => {
             <StyledSlider
               type="range"
               min={10}
-              max={45}
+              max={40}
               value={sliderValue}
               className="slider"
               onChange={(event) => setSliderValue(event.target.value)}
