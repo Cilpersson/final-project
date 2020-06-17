@@ -102,7 +102,7 @@ export const Home = () => {
               <Route path="/" component={HomePage} exact />
               <Route path="/SignUp" component={Form} exact />
               <Route path="/About" component={About} exact />
-              <Route path="/ConnectedGrids" component={ConnectedGrids} />
+              <Route path="/ConnectedGrids" component={ConnectedGrids} exact />
               <Route path="/MyGrids" component={CreatedGrids} exact />
               <Route
                 path="/GridPage/:gridAccessToken"

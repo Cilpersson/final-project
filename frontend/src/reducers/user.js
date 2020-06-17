@@ -73,10 +73,10 @@ export const user = createSlice({
   },
 });
 
-const API_URL = "https://photo-grid-community.herokuapp.com";
-// const API_URL = "http://localhost:8080";
+// const API_URL = "https://photo-grid-community.herokuapp.com";
+const API_URL = "http://localhost:8080";
 
-/* THUNKS */
+/* ~-*-~ THUNKS ~-*-~ */
 
 // USER LOGIN
 export const login = (email, password) => {
@@ -385,7 +385,45 @@ export const postCommentToGrid = (message) => {
             currentGridComments: json.commentList,
           })
         );
+        dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
+        dispatch(ui.actions.setLoading(false));
+      })
+      .catch((err) => {
+        dispatch(user.actions.setErrorMessage(err));
+        dispatch(ui.actions.setLoading(false));
+      });
+  };
+};
 
+//DELETES GRID IF USER ID MATCHES CREATEDBY ID FOR GRID
+export const deleteGrid = (accessTokenGrid) => {
+  const USER_URL = `${API_URL}/users/grid/delete/${accessTokenGrid}`;
+  return (dispatch, getState) => {
+    const accessToken = getState().user.login.accessToken;
+    const userId = getState().user.login.userId;
+
+    fetch(USER_URL, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: accessToken,
+      },
+      body: JSON.stringify({ id: userId }),
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          return res.json();
+        }
+        throw "Could not delete grid.";
+      })
+      .then((json) => {
+        dispatch(usersGrids());
+        dispatch(
+          user.actions.setCurrentGrid({
+            currentGrid: null,
+          })
+        );
         dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
         dispatch(ui.actions.setLoading(false));
       })

@@ -5,7 +5,16 @@ import Dropzone from "react-dropzone";
 import { Grid } from "../components/logo/Grid";
 import { DisplayGridAlternative } from "components/DisplayGridAlternative";
 import { ShareGrid } from "components/ShareGrid";
-import { postToGrid, accessGrid } from "reducers/user";
+import { postToGrid, accessGrid, deleteGrid } from "reducers/user";
+import { LottiePlayer } from "components/LottiePlayer";
+import animationLoader from "../images_animations/animations/loader.json";
+import animationCamera from "../images_animations/animations/camera.json";
+import { GridComments } from "components/GridComments";
+import { Button } from "components/smallerComps/Button";
+import { Slider } from "components/Slider";
+import { DeleteButton } from "./smallerComps/DeleteButton";
+import { useHistory } from "react-router";
+import swal from "sweetalert";
 import {
   Paragraph,
   GridPageTitle,
@@ -16,13 +25,7 @@ import {
   WrapperRow,
   WrapperCol,
 } from "lib/stylesheet";
-import { LottiePlayer } from "components/LottiePlayer";
-import animationLoader from "../images_animations/animations/loader.json";
-import animationCamera from "../images_animations/animations/camera.json";
-import { GridComments } from "components/GridComments";
-import { Button } from "components/smallerComps/Button";
-import { Slider } from "components/Slider";
-
+import { CreatedGrids } from "pages/CreatedGrids";
 const GridPageWrapper = styled.section`
   /* margin-right: 5rem; */
 `;
@@ -69,6 +72,8 @@ export const GridNotNull = () => {
   const errorMessage = useSelector((store) => store.user.login.errorMessage);
   const usersGrids = useSelector((store) => store.user.grid.createdGrids);
 
+  const history = useHistory();
+
   const [comments, setComments] = useState(false);
   const formData = new FormData();
 
@@ -110,6 +115,26 @@ export const GridNotNull = () => {
     }
   };
 
+  const deleteGridOnClick = () => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this grid!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        history.push("/");
+        dispatch(deleteGrid(currentGrid.accessToken));
+        swal("Poof! Your grid has been deleted!", {
+          icon: "success",
+        });
+      } else {
+        swal("Your grid is safe!");
+      }
+    });
+  };
+
   return (
     <GridPageWrapper>
       <SectionWrapper>
@@ -117,7 +142,6 @@ export const GridNotNull = () => {
         <GridPageTitle>{currentGrid.name}</GridPageTitle>
         <Fieldset>
           <Legend>Upload images here!</Legend>
-
           {!isLoading && (
             <>
               <Dropzone
@@ -147,12 +171,21 @@ export const GridNotNull = () => {
             </>
           )}
         </Fieldset>
+
         {checkUser() && <ShareGrid />}
         {currentGrid.imgList.length === 0 && !isLoading && (
           <LottiePlayer
             animation={animationCamera}
             height={width > 668 ? "30%" : "50%"}
             width={width > 668 ? "30%" : "50%"}
+          />
+        )}
+        {checkUser() && (
+          <DeleteButton
+            onClick={() => deleteGridOnClick()}
+            text="Delete grid"
+            disabled={false}
+            type="button"
           />
         )}
       </SectionWrapper>
