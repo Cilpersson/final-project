@@ -62,6 +62,14 @@ export const GridNotNull = () => {
 
   const [comments, setComments] = useState(false);
   const formData = new FormData();
+  const [width, setWidth] = useState(window.innerWidth);
+
+  //Gets width of screen on rezise
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+    });
+  }, []);
 
   useEffect(() => {
     dispatch(accessGrid(currentGrid.accessToken));
@@ -125,7 +133,11 @@ export const GridNotNull = () => {
         </Fieldset>
         {checkUser() && <ShareGrid />}
         {currentGrid.imgList.length === 0 && !isLoading && (
-          <LottiePlayer animation={animationCamera} height="20%" width="20%" />
+          <LottiePlayer
+            animation={animationCamera}
+            height={width > 668 ? "30%" : "50%"}
+            width={width > 668 ? "30%" : "50%"}
+          />
         )}
       </SectionWrapper>
       <Button

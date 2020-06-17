@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "uuidv4";
 import { useHistory } from "react-router-dom";
@@ -41,10 +41,18 @@ export const CreatedGrids = () => {
   const createdGrids = useSelector((store) => store.user.grid.createdGrids);
   const name = useSelector((store) => store.user.login.name);
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
+  const [width, setWidth] = useState(window.innerWidth);
 
   const handleOnClick = (gridAccessToken) => {
     dispatch(accessGrid(gridAccessToken));
   };
+
+  //Gets width of screen on rezise
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+    });
+  }, []);
 
   useEffect(() => {
     if (currentGrid !== null) {
@@ -98,7 +106,11 @@ export const CreatedGrids = () => {
           />
         </Wrapper>
         {createdGrids.length === 0 && (
-          <LottiePlayer animation={animationCamera} height="20%" width="20%" />
+          <LottiePlayer
+            animation={animationCamera}
+            height={width > 668 ? "30%" : "50%"}
+            width={width > 668 ? "30%" : "50%"}
+          />
         )}
       </SectionWrapper>
     );
