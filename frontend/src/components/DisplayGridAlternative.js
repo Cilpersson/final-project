@@ -15,26 +15,24 @@ import { WrapperCol } from "lib/stylesheet";
 const WrapperGrid = styled(WrapperCol)`
   display: flex;
   flex-wrap: wrap;
+  margin: 1.5rem 1.5rem 0 1.5rem;
   padding: 1.5rem;
-  margin: 1.5rem;
   background: white;
 
   @media (min-width: 668px) {
     width: 75%;
     margin: 1.5rem auto;
+    padding: 1.5rem;
   }
 `;
 
 const Ul = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  padding: 1.5rem;
-  margin: 1.5rem;
   background: white;
 
   @media (min-width: 668px) {
     width: 100%;
-    margin: 1.5rem auto;
   }
 
   @media (max-aspect-ratio: 1/1) and (max-width: 668px) {

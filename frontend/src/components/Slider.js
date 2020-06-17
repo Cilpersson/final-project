@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components/macro";
 
 const Opacity = styled.div`
-  opacity: 0.7;
+  opacity: 0.5;
   transition: 0.3s;
 
   &:hover {
@@ -69,8 +69,8 @@ export const Slider = ({ sliderValue, setSliderValue }) => {
               className="slider"
               onChange={(event) => setSliderValue(event.target.value)}
             />
-            <h4>Slide to adjust image size</h4>
           </Opacity>
+          <h4>Slide to adjust image size</h4>
         </SliderWrapper>
       )}
     </>

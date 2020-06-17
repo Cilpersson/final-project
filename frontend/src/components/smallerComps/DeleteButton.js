@@ -9,16 +9,20 @@ const StyledDeleteText = styled(ButtonText)`
 const StyledDeleteButton = styled(StyledButton)`
   background: #ec848e;
   border-color: #d11d39;
-  width: fit-content;
+
+  width: 10.7rem;
+  margin: 0.7rem auto 0;
+  opacity: 0.3;
 
   &:hover {
-    background: #d11d39;
-    border: 0.2rem solid #400810;
+    background: #ec848e;
+  border-color: #d11d39;
+    opacity: 1;
   }
 
-  &:hover ${StyledDeleteText} {
+  /* &:hover ${StyledDeleteText} {
     color: #ecbcc1;
-  }
+  } */
 `;
 
 export const DeleteButton = ({
