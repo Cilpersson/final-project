@@ -73,8 +73,8 @@ export const user = createSlice({
   },
 });
 
-// const API_URL = "https://photo-grid-community.herokuapp.com";
-const API_URL = "http://localhost:8080";
+const API_URL = "https://photo-grid-community.herokuapp.com";
+// const API_URL = "http://localhost:8080";
 
 /* ~-*-~ THUNKS ~-*-~ */
 
