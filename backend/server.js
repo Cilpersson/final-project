@@ -230,8 +230,6 @@ app.post("/users/:id/connect", async (req, res) => {
       if (gridToConnect) {
         await gridToConnect.save();
 
-        //Check if user is aldready connected to the grid or if the user created they grid (pretty much the same thing), don't know how with nested models 🤷🏼‍♀️
-
         await User.findOneAndUpdate(
           { _id: id },
           {
@@ -294,18 +292,19 @@ app.post("/grids/grid/:accessTokenGrid", async (req, res) => {
   }
 });
 
-// app.post("/users/grid/delete/:accessTokenGrid", async (req, res) => {
-//   const { accessTokenGrid } = req.params;
-//   const { id } = req.body;
+app.delete("/users/grid/delete/:accessTokenGrid", async (req, res) => {
+  const { accessTokenGrid } = req.params;
+  const { id } = req.body;
 
-//   const user = await User.findOne({ _id: id });
+  const gridToDelete = await Grid.findOne({
+    accessToken: accessTokenGrid,
+  });
+  if (gridToDelete.createdBy === id) {
+    await gridToDelete.deleteOne();
+  }
 
-//   const usersGrid = await user.find({
-//     createdGrids: accessTokenGrid,
-//   });
-
-//   res.status(201).json(usersGrid);
-// });
+  res.status(201).json("Grid deleted");
+});
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
