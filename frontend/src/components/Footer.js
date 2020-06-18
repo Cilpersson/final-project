@@ -90,7 +90,7 @@ export const Footer = () => {
                   <FontAwesomeIcon icon={faUserEdit} />
                 </StyledLinks>
                 <StyledLinks
-                  href="https://github.com/Cilpersson/final-project"
+                  href="https://github.com/Cilpersson"
                   target="_blank"
                   rel="noopener noreferrer">
                   <FontAwesomeIcon icon={faGithubAlt} />

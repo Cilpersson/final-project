@@ -58,7 +58,7 @@ const GuestBook = styled.section`
   flex-direction: column;
   align-items: center;
   padding: 1.5rem;
-  margin: 1.5rem auto 0;
+  margin: 1.5rem 1.5rem 0;
   width: 100%;
 
   @media (min-width: 668px) {
