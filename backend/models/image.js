@@ -1,12 +1,6 @@
 import mongoose from "mongoose";
 
 const imageSchema = new mongoose.Schema({
-  // Might add name back again
-  // name: {
-  //   type: String,
-  //   required: true,
-  //   minlength: 5,
-  // },
   src: {
     type: String,
     required: true,

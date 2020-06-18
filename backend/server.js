@@ -159,7 +159,8 @@ app.post("/users/:id/grid", async (req, res) => {
     await User.findOneAndUpdate(
       { _id: id },
       {
-        $push: { createdGrids: createdGrid._id },
+        //$push: { createdGrids: createdGrid._id },
+        $push: { createdGrids: createdGrid },
       }
     ).populate("createdGrids");
 
@@ -292,6 +293,7 @@ app.post("/grids/grid/:accessTokenGrid", async (req, res) => {
   }
 });
 
+//NOT DONE BUT WORKS SO FAR
 app.delete("/users/grid/delete/:accessTokenGrid", authenticateUser);
 app.delete("/users/grid/delete/:accessTokenGrid", async (req, res) => {
   const { accessTokenGrid } = req.params;
@@ -306,6 +308,34 @@ app.delete("/users/grid/delete/:accessTokenGrid", async (req, res) => {
   res.status(201).json("Grid deleted");
 });
 
+//LEAVE GRID USER IS CONNECTED TO
+app.put("/users/grid/leave/:accessTokenGrid", authenticateUser);
+app.put("/users/grid/leave/:accessTokenGrid", async (req, res) => {
+  const { accessTokenGrid } = req.params;
+  const { id } = req.body;
+
+  try {
+    const grid = await Grid.findOne({ accessToken: accessTokenGrid });
+
+    if (grid) {
+      await User.findOneAndUpdate(
+        { _id: id },
+        { $pull: { connectedGrids: grid._id } }
+      );
+    }
+    res.status(201).json("Disconnect from grid successful");
+  } catch (error) {
+    res
+      .status(400)
+      .json({ message: "Could not disconnect from grid: ", error: error });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+/*
+cloudinary.v2.api.delete_resources(['image1', 'image2'],
+  function(error, result){console.log(result);});
+*/

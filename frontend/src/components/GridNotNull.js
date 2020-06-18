@@ -5,7 +5,7 @@ import Dropzone from "react-dropzone";
 import { Grid } from "../components/logo/Grid";
 import { DisplayGridAlternative } from "components/DisplayGridAlternative";
 import { ShareGrid } from "components/ShareGrid";
-import { postToGrid, accessGrid, deleteGrid } from "reducers/user";
+import { postToGrid, accessGrid, deleteGrid, leaveGrid } from "reducers/user";
 import { LottiePlayer } from "components/LottiePlayer";
 import animationLoader from "../images_animations/animations/loader.json";
 import animationCamera from "../images_animations/animations/camera.json";
@@ -22,11 +22,8 @@ import {
   Legend,
   PasswordInfo,
   WrapperRow,
-  WrapperCol,
 } from "lib/stylesheet";
-const GridPageWrapper = styled.section`
-  /* margin-right: 5rem; */
-`;
+const GridPageWrapper = styled.section``;
 
 const GridFormP = styled(Paragraph)`
   text-align: center;
@@ -55,11 +52,29 @@ const DropzoneWrapper = styled.div`
   background-size: cover;
 `;
 
-const WhiteWrapper = styled(WrapperCol)`
-  background: #fff;
+const WhiteWrapper = styled(SectionWrapper)`
+  /* background: #fff;
   width: fit-content;
   margin: auto;
-  padding: 1rem;
+  padding: 1rem; */
+
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 1.5rem;
+  margin: 1.5rem;
+  position: relative;
+
+  @media (min-width: 668px) {
+    width: 70%;
+    margin: 1.5rem auto;
+  }
+
+  @media (min-width: 1024px) {
+    width: 50%;
+    margin: 1.5rem auto;
+  } */
 `;
 
 export const GridNotNull = () => {
@@ -125,9 +140,13 @@ export const GridNotNull = () => {
           icon: "success",
         });
       } else {
-        swal("Your grid is safe!");
+        swal("Phew!", "Your grid is safe", "info");
       }
     });
+  };
+
+  const leaveGridOnClick = () => {
+    dispatch(leaveGrid(currentGrid.accessToken));
   };
 
   return (
@@ -179,6 +198,14 @@ export const GridNotNull = () => {
           <DeleteButton
             onClick={() => deleteGridOnClick()}
             text="Delete grid"
+            disabled={false}
+            type="button"
+          />
+        )}
+        {!checkUser() && (
+          <DeleteButton
+            onClick={() => leaveGridOnClick()}
+            text="Leave grid"
             disabled={false}
             type="button"
           />

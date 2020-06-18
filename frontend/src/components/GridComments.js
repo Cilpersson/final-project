@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { WrapperCol } from "lib/stylesheet";
 import { PixelHeart } from "components/PixelHeart";
 import { postCommentToGrid } from "reducers/user";
+import { CommentCount } from "components/smallerComps/CommentCount";
 
 const Comment = styled.div`
   background: #84eccf;
@@ -58,7 +59,7 @@ const GuestBook = styled.section`
   flex-direction: column;
   align-items: center;
   padding: 1.5rem;
-  margin: 1.5rem 1.5rem 0;
+  margin: 1.5rem auto 0;
   width: 100%;
 
   @media (min-width: 668px) {
@@ -72,24 +73,38 @@ const GuestBook = styled.section`
   }
 `;
 
-const Textarea = styled.textarea`
-  height: 6rem;
-  padding: 1rem;
+const Label = styled.label`
+  width: 100%;
+  min-height: 6rem;
+
   margin: 0.4rem auto;
   border-radius: 0.4rem;
   border: 0.2rem solid #1dd19e;
-
-  width: 90%;
+  width: 100%;
   max-width: 20rem;
   background: #ffffff;
+  display: flex;
+  flex-direction: column;
+`;
+const Textarea = styled.textarea`
+  padding: 0.4rem;
+  border: none;
+  min-height: 6rem;
+  width: 100%;
+  max-width: 20rem;
+  background: #ffffff;
+  resize:none;
 
   &::-webkit-input-placeholder {
     text-align: center;
   }
-`;
+  /* &:focus {
+    outline: none;
+  }
 
-const Label = styled.label`
-  width: 100%;
+  &:focus ${Label} {
+    outline: 0.2rem solid #1dd19e;
+  } */
 `;
 
 export const GridComments = () => {
@@ -119,8 +134,11 @@ export const GridComments = () => {
                 value={comment}
                 onChange={(event) => setComment(event.target.value)}
               />
+              <CommentCount charCount={comment.length} />
             </Label>
-            <Button type="submit">
+            <Button
+              type="submit"
+              disabled={comment.length < 5 || comment.length > 140}>
               <PixelHeart />
               SUBMIT
             </Button>
