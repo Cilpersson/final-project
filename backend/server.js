@@ -102,15 +102,6 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// JUST FOR DEVELOPMENT PURPOSE
-app.get("/users", async (req, res) => {
-  const user = await User.find()
-    .populate("createdGrids")
-    .populate("connectedGrids")
-    .exec();
-  res.json({ user: user });
-});
-
 // SIGN-UP FOR NEW USER
 app.post("/signup", async (req, res) => {
   try {
