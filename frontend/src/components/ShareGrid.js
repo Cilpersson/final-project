@@ -35,7 +35,7 @@ export const ShareGrid = () => {
           type="button"
           onClick={() =>
             copyToClipBoard(
-              `http://localhost:3000/GridPage/${currentGrid.accessToken}`
+              `https://www.photogrid.community/GridPage/${currentGrid.accessToken}`
             )
           }
         />
