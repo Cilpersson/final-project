@@ -143,10 +143,14 @@ app.get("/users/:id", async (req, res) => {
 app.post("/users/:id/grid", authenticateUser);
 app.post("/users/:id/grid", async (req, res) => {
   const { id } = req.params;
-  const { name } = req.body;
+  const { name, gridOwner } = req.body;
 
   try {
-    const createdGrid = await new Grid({ name, createdBy: id })
+    const createdGrid = await new Grid({
+      name,
+      createdBy: id,
+      gridOwner,
+    })
       .populate("imgList")
       .save();
 

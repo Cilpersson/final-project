@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components/macro";
 import { signup, login, user } from "reducers/user";
+import { ui } from "../reducers/ui";
 import { HomePage } from "pages/HomePage";
 import { Button } from "components/smallerComps/Button";
-import { Input, Legend, Fieldset } from "lib/stylesheet";
+import { Input, Legend, Fieldset, ErrorInfo } from "lib/stylesheet";
 import { Grid } from "../components/logo/Grid";
 import { PasswordStrength } from "./smallerComps/PasswordStrength";
 import { PasswordMatch } from "./smallerComps/PasswordMatch";
+import { Loader } from "./smallerComps/Loader";
 
 const Signup = styled.form`
   display: flex;
@@ -24,6 +26,8 @@ const Label = styled.label`
 export const Form = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
+  const error = useSelector((store) => store.user.login.errorMessage);
+  const isLoading = useSelector((store) => store.ui.isLoading);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -105,6 +109,7 @@ export const Form = () => {
                 )}
               </Label>
             )}
+            {<ErrorInfo> {error && error.message}</ErrorInfo>}
             {signUp && (
               <Button
                 type="submit"
@@ -127,7 +132,10 @@ export const Form = () => {
             )}
           </Signup>
           <Button
-            onClick={() => setSignUp(!signUp)}
+            onClick={() => {
+              dispatch(user.actions.setErrorMessage(""));
+              setSignUp(!signUp);
+            }}
             type="button"
             disabled={false}
             text={signUp ? "Already have an account" : "Click to sign up!"}

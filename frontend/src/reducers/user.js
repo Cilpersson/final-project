@@ -94,7 +94,6 @@ export const login = (email, password) => {
         throw new Error("Unable to log in, please try again.");
       })
       .then((json) => {
-        dispatch(ui.actions.setLoading(true));
         dispatch(
           user.actions.setAccessToken({
             accessToken: json.accessToken,
@@ -198,13 +197,14 @@ export const createGrid = (gridName) => {
     const accessToken = getState().user.login.accessToken;
     const userId = getState().user.login.userId;
     const name = gridName;
+    const gridOwner = getState().user.login.name;
     fetch(`${USERS_URL}/${userId}/grid`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: accessToken,
       },
-      body: JSON.stringify({ name: name }),
+      body: JSON.stringify({ name: name, gridOwner: gridOwner }),
     })
       .then((res) => {
         if (res.ok) {

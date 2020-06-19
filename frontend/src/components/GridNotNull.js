@@ -7,9 +7,6 @@ import { Grid } from "../components/logo/Grid";
 import { DisplayGridAlternative } from "components/DisplayGridAlternative";
 import { ShareGrid } from "components/ShareGrid";
 import { postToGrid, accessGrid, deleteGrid, leaveGrid } from "reducers/user";
-import { LottiePlayer } from "components/LottiePlayer";
-import animationLoader from "../images_animations/animations/loader.json";
-import animationCamera from "../images_animations/animations/camera.json";
 import { GridComments } from "components/GridComments";
 import { Button } from "components/smallerComps/Button";
 import { Slider } from "components/Slider";
@@ -26,6 +23,7 @@ import {
   PasswordInfo,
   WrapperRow,
   ErrorInfo,
+  Greeting,
 } from "lib/stylesheet";
 const GridPageWrapper = styled.section``;
 
@@ -68,6 +66,7 @@ export const GridNotNull = () => {
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const error = useSelector((store) => store.user.login.errorMessage);
   const usersGrids = useSelector((store) => store.user.grid.createdGrids);
+  const userId = useSelector((store) => store.user.login.userId);
 
   const [files, setFiles] = useState(null);
 
@@ -166,11 +165,20 @@ export const GridNotNull = () => {
     });
   };
 
+  const gridCheck = () => {
+    if (currentGrid.createdBy === userId) {
+      return "You created this grid";
+    } else {
+      return `Grid created by ${currentGrid.gridOwner}`;
+    }
+  };
+
   return (
     <GridPageWrapper>
       <SectionWrapper>
         <Grid />
         <GridPageTitle>{currentGrid.name}</GridPageTitle>
+        <Greeting>{gridCheck()}</Greeting>
         <Fieldset>
           <Legend>Upload images here!</Legend>
           {!isLoading && (
@@ -221,14 +229,6 @@ export const GridNotNull = () => {
             type="button"
           />
         )}
-        {/* {<ErrorInfo> {error && error.message}</ErrorInfo>} */}
-        {/* {currentGrid.imgList.length === 0 && !isLoading && (
-          <LottiePlayer
-            animation={animationCamera}
-            height={width > 668 ? "20%" : "50%"}
-            width={width > 668 ? "20%" : "50%"}
-          />
-        )} */}
       </SectionWrapper>
       <SectionWrapper>
         {!comments && (

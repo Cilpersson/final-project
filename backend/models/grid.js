@@ -26,6 +26,10 @@ const gridSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  gridOwner: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Grid", gridSchema);
