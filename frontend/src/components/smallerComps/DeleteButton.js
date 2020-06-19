@@ -1,25 +1,5 @@
 import React from "react";
-import styled from "styled-components/macro";
-import { ButtonText, StyledButton } from "lib/stylesheet";
-
-const StyledDeleteText = styled(ButtonText)`
-  color: #400810;
-`;
-
-const StyledDeleteButton = styled(StyledButton)`
-  background: #ec848e;
-  border-color: #d11d39;
-
-  width: 10.7rem;
-  margin: 0.7rem auto 0;
-  opacity: 0.3;
-
-  &:hover {
-    background: #ec848e;
-    border-color: #d11d39;
-    opacity: 1;
-  }
-`;
+import { ButtonText, StyledDeleteButton } from "lib/stylesheet";
 
 export const DeleteButton = ({
   disabled,
@@ -34,7 +14,7 @@ export const DeleteButton = ({
       disabled={disabled}
       onClick={onClick}
       type={type}>
-      <StyledDeleteText>{text}</StyledDeleteText>
+      <ButtonText>{text}</ButtonText>
     </StyledDeleteButton>
   );
 };

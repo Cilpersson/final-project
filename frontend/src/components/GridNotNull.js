@@ -24,13 +24,14 @@ import {
   WrapperRow,
   ErrorInfo,
   Greeting,
+  StyledSubmit,
 } from "lib/stylesheet";
 const GridPageWrapper = styled.section``;
 
 const GridFormP = styled(Paragraph)`
   text-align: center;
   font-weight: bold;
-  text-shadow: 0.1rem 0.1rem #074835;
+  text-shadow: 0.1rem 0.1rem #3f7163;
   color: #ffffff;
   font-size: 1.1rem;
 
@@ -53,10 +54,10 @@ const DropzoneWrapper = styled.div`
   background-image: linear-gradient(
     315deg,
     #ffffff 0%,
-    #84eccf 50%,
-    #1dd19e 100%
+    #e5e5e5 31%,
+    #84eccf 100%
   );
-  border: 0.1rem solid #1dd19e;
+  border: 0.1rem solid #84eccf;
 `;
 
 export const GridNotNull = () => {
@@ -105,11 +106,8 @@ export const GridNotNull = () => {
 
   const fileCount = (data) => {
     if (data.length === 1) {
-      console.log("en fil");
-      console.log(data[0].name);
       return data[0].name;
     } else {
-      console.log("flera filer");
       return `You have selected ${data.length} files`;
     }
   };
@@ -202,9 +200,13 @@ export const GridNotNull = () => {
               {files !== null && (
                 <>
                   <PasswordInfo>{fileCount(files)}</PasswordInfo>
-                  <button type="button" onClick={() => handleFormSubmit(files)}>
-                    submit
-                  </button>
+                  <StyledSubmit
+                    type="button"
+                    onClick={() => handleFormSubmit(files)}>
+                    {files.length > 1
+                      ? "Post images to grid"
+                      : "Post image to grid"}
+                  </StyledSubmit>
                 </>
               )}
             </>

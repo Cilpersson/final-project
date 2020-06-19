@@ -87,14 +87,14 @@ const Label = styled.label`
 
   margin: 0.4rem auto;
   border-radius: 0.4rem;
-  border: 0.2rem solid #1dd19e;
+  border: 0.2rem solid #84eccf;
 
   background: #ffffff;
   display: flex;
   flex-direction: column;
 
   &:focus-within {
-    border: 0.2rem solid #148867;
+    border: 0.2rem solid #1dd19e;
   }
   @media (max-width: 668px) {
     width: 100%;

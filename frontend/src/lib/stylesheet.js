@@ -68,6 +68,8 @@ export const RelativeWrapper = styled.div`
   position: relative;
   margin-bottom: -2rem;
 `;
+
+// BUTTONS
 export const ButtonText = styled.h5`
   font-size: 1rem;
   font-weight: 500;
@@ -75,32 +77,48 @@ export const ButtonText = styled.h5`
   text-align: center;
 `;
 export const StyledButton = styled.button`
-  background: #84eccf;
-  border: 0.1rem solid #1dd19e;
   border-radius: 0.2rem;
+  border: 0.1rem solid #84eccf;
   padding: 0.4rem;
   margin: 0.2rem 0;
   cursor: pointer;
   width: 100%;
   max-width: 15rem;
   min-width: 10rem;
-  transition: all 0.2s;
+  transition: all 0.5s;
+  background-color: #84eccf;
+  background-size: 200%;
+  background-image: linear-gradient(to left, #ffffff, #84eccf);
 
   &:hover {
-    background: #1dd19e;
-    border: 0.1rem solid #84eccf;
-  }
-
-  &:hover ${ButtonText} {
-    color: #ddf7ec;
+    background-position: right;
   }
 `;
 
+export const StyledSubmit = styled(StyledButton)`
+  width: fit-content;
+  min-width: 0;
+`;
+
+export const StyledDeleteButton = styled(StyledButton)`
+  background: #ff91ab;
+
+  width: 10.7rem;
+  margin: 0.7rem auto 0;
+  border: 0.1rem solid #fe2256;
+  background-size: 200%;
+  background-image: linear-gradient(to left, #fe2256, #ff91ab, #fff 99%);
+
+  &:hover ${ButtonText} {
+    color: #fff;
+  }
+`;
+//FORMS
 export const Fieldset = styled.fieldset`
   padding: 1rem;
   margin: 0.4rem auto;
   border-radius: 0.2rem;
-  border-color: #1dd19e;
+  border: 0.2rem solid #84eccf;
   width: 90%;
   max-width: 20rem;
   background: #ffffff;
@@ -121,7 +139,7 @@ export const Legend = styled.legend`
 
 export const Input = styled.input`
   width: 100%;
-  background: #1dd19e30;
+  background: #84eccf50;
   border: none;
   border-radius: 0.2rem;
   padding: 0.4rem;
@@ -134,9 +152,9 @@ export const Form = styled.form`
   padding: 0.8rem 1.6rem;
   margin: 0.4rem auto;
   border-radius: 0.2rem;
-  border-color: #1dd19e;
+  border-color: #84eccf;
 `;
-
+// WRAPPERS
 export const WrapperRow = styled.div`
   display: flex;
   flex-direction: row;
@@ -158,6 +176,7 @@ export const Wrapper = styled.section`
   margin: auto;
 `;
 
+// LISTS
 export const Ul = styled.ul`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -172,6 +191,7 @@ export const Ul = styled.ul`
   }
 `;
 
+//HEADER
 export const StyledHeader = styled.header`
   background: white;
 `;
@@ -181,7 +201,7 @@ export const HeaderSectionWrapper = styled.section`
   width: 100%;
   padding: 1rem 0.1rem;
 
-  border-top: 0.2rem solid #1dd19e;
+  border-top: 0.2rem solid #84eccf;
 
   @media (min-width: 668px) {
     padding: 1rem 2rem;
@@ -192,6 +212,7 @@ export const HeaderSectionWrapper = styled.section`
   }
 `;
 
+// IMAGE
 export const Img = styled.img`
   width: 100%;
   margin: auto;
@@ -201,11 +222,11 @@ export const Img = styled.img`
     max-width: 350px;
   }
 `;
-
+//GRID
 export const LargerGrid = styled(Ul)`
   background: #ffffff99;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  border: 0.1rem solid #1dd19e50;
+  border: 0.1rem solid #84eccf50;
   border-radius: 0.1rem;
   margin: 2rem;
   background: white;
@@ -241,7 +262,7 @@ export const Submit = styled(StyledButton)`
 
 export const StyledATag = styled.a`
   background: #84eccf;
-  border: 0.2rem solid #1dd19e;
+  border: 0.2rem solid #84eccf;
   border-radius: 0.2rem;
   padding: 0.4rem;
   margin: 0.2rem 0.1rem;
@@ -341,8 +362,8 @@ export const CardTinyWide = styled(Card)`
 export const Nav = styled.nav`
   background: #84eccf;
 
-  border-bottom: 0.2rem solid #1dd19e;
-  border-top: 0.2rem solid #1dd19e;
+  border-bottom: 0.2rem solid #84eccf;
+  border-top: 0.2rem solid #84eccf;
   padding: 0.5rem 0.3rem;
 
   background-color: #ffffff;
@@ -375,7 +396,7 @@ export const ListItem = styled.li`
 
 export const StyledLinks = styled.a`
   font-size: 2rem;
-  color: #1dd19e;
+  color: #84eccf;
 
   font-size: 1rem;
   border-radius: 0.2rem;
@@ -387,5 +408,37 @@ export const StyledLinks = styled.a`
   &:hover {
     color: #148867;
     transform: scale(1.2);
+  }
+`;
+
+// SLIDER
+
+export const StyledSlider = styled.input`
+  appearance: none;
+  width: 20%;
+  height: 0.7rem;
+  background: #d3d3d3;
+  outline: none;
+
+  background: #84eccf;
+  border: 0.1rem solid #84eccf;
+  border-radius: 0.2rem;
+  margin: 0.2rem 0;
+  cursor: pointer;
+
+  width: 15rem;
+
+  background-color: #84eccf;
+
+  background-image: linear-gradient(to right, #ffffff, #84eccf);
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: #c3c3c3;
+    border: 0.1rem solid #08403070;
+    background: radial-gradient(#fff, #84eccf);
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
   }
 `;
