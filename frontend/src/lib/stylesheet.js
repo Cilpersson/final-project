@@ -34,6 +34,12 @@ export const PasswordInfo = styled.p`
   font-size: 0.7rem;
 `;
 
+export const ErrorInfo = styled(PasswordInfo)`
+  color: red;
+  max-width: 15rem;
+  margin: auto;
+`;
+
 export const SectionWrapper = styled.section`
   display: flex;
   flex-direction: column;
@@ -70,7 +76,7 @@ export const ButtonText = styled.h5`
 `;
 export const StyledButton = styled.button`
   background: #84eccf;
-  border: 0.2rem solid #1dd19e;
+  border: 0.1rem solid #1dd19e;
   border-radius: 0.2rem;
   padding: 0.4rem;
   margin: 0.2rem 0;
@@ -82,7 +88,7 @@ export const StyledButton = styled.button`
 
   &:hover {
     background: #1dd19e;
-    border: 0.2rem solid #84eccf;
+    border: 0.1rem solid #84eccf;
   }
 
   &:hover ${ButtonText} {

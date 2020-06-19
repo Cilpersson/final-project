@@ -115,8 +115,8 @@ export const CreatedGrids = () => {
         {createdGrids.length === 0 && (
           <LottiePlayer
             animation={animationCamera}
-            height={width > 668 ? "30%" : "50%"}
-            width={width > 668 ? "30%" : "50%"}
+            height={width > 668 ? "20%" : "40%"}
+            width={width > 668 ? "20%" : "40%"}
           />
         )}
       </SectionWrapper>

@@ -78,18 +78,21 @@ export const Footer = () => {
               <ListItemFooter>$ whoami</ListItemFooter>
               <WrapperRow>
                 <StyledLinks
+                  aria-label="Linkedin page"
                   href="https://www.linkedin.com/in/christina-persson-b3231ba2/"
                   target="_blank"
                   rel="noopener noreferrer">
                   <FontAwesomeIcon icon={faLinkedinIn} />
                 </StyledLinks>
                 <StyledLinks
+                  aria-label="My portfolio"
                   href="https://www.christinapersson.se/"
                   target="_blank"
                   rel="noopener noreferrer">
                   <FontAwesomeIcon icon={faUserEdit} />
                 </StyledLinks>
                 <StyledLinks
+                  aria-label="Github profile"
                   href="https://github.com/Cilpersson"
                   target="_blank"
                   rel="noopener noreferrer">

@@ -19,7 +19,7 @@ export const GridPage = () => {
       dispatch(user.actions.setCurrentGrid({ currentGrid: null }));
       history.push("/ConnectedGrids");
     }
-  }, [currentGrid, history]);
+  }, [currentGrid, history, dispatch]);
 
   if (currentGrid === "DELETED") {
     return <CreatedGrids />;

@@ -81,7 +81,7 @@ export const WelcomeGridAlternative = () => {
           {happyArr.map((item) => {
             return (
               <Li key={uuid()}>
-                <Img src={item} />
+                <Img src={item} alt="Happy person" />
               </Li>
             );
           })}
@@ -95,7 +95,7 @@ export const WelcomeGridAlternative = () => {
           {happyArrSmall.map((item) => {
             return (
               <Li key={uuid()}>
-                <Img src={item} />
+                <Img src={item} alt="Happy person" />
               </Li>
             );
           })}

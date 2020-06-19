@@ -5,7 +5,7 @@ const initialState = {
   login: {
     accessToken: null,
     userId: 0,
-    errorMessage: null,
+    errorMessage: "",
     isSignedIn: false,
     name: null,
     firstSignUp: null,
@@ -73,8 +73,8 @@ export const user = createSlice({
   },
 });
 
-const API_URL = "https://photo-grid-community.herokuapp.com";
-// const API_URL = "http://localhost:8080";
+// const API_URL = "https://photo-grid-community.herokuapp.com";
+const API_URL = "http://localhost:8080";
 
 /* ~-*-~ THUNKS ~-*-~ */
 
@@ -91,9 +91,10 @@ export const login = (email, password) => {
         if (res.ok) {
           return res.json();
         }
-        throw "Unable to sign in, please try again.";
+        throw new Error("Unable to log in, please try again.");
       })
       .then((json) => {
+        dispatch(ui.actions.setLoading(true));
         dispatch(
           user.actions.setAccessToken({
             accessToken: json.accessToken,
@@ -110,37 +111,11 @@ export const login = (email, password) => {
           })
         );
         dispatch(usersGrids());
+        dispatch(ui.actions.setLoading(false));
         dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
       })
       .catch((err) => {
         dispatch(logout());
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
-      });
-  };
-};
-
-// AUTHORIZATION FOR SIGNUP AND LOGIN
-export const authorization = () => {
-  const USERS_URL = `${API_URL}/users`;
-  return (dispatch, getState) => {
-    const accessToken = getState().user.login.accessToken;
-    const userId = getState().user.login.userId;
-    fetch(`${USERS_URL}/${userId}/secure`, {
-      method: "GET",
-      headers: { Authorization: accessToken },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw "Could not get information. Make sure you are logged in and try again.";
-      })
-      .then((json) => {
-        dispatch(user.actions.setIsSignedIn({ isSignedIn: true }));
-        localStorage.setItem("isSignedIn", JSON.stringify(true));
-        dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
-      })
-      .catch((err) => {
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
@@ -159,7 +134,7 @@ export const signup = (name, email, password) => {
         if (res.ok) {
           return res.json();
         }
-        throw "Unable to sign up, please try again.";
+        throw new Error("Unable to sign up, please try again.");
       })
       .then((json) => {
         dispatch(
@@ -186,6 +161,36 @@ export const signup = (name, email, password) => {
       });
   };
 };
+
+// AUTHORIZATION FOR SIGNUP AND LOGIN
+export const authorization = () => {
+  const USERS_URL = `${API_URL}/users`;
+  return (dispatch, getState) => {
+    const accessToken = getState().user.login.accessToken;
+    const userId = getState().user.login.userId;
+    fetch(`${USERS_URL}/${userId}/secure`, {
+      method: "GET",
+      headers: { Authorization: accessToken },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error(
+          "Could not get information. Make sure you are logged in and try again."
+        );
+      })
+      .then((json) => {
+        dispatch(user.actions.setIsSignedIn({ isSignedIn: true }));
+        localStorage.setItem("isSignedIn", JSON.stringify(true));
+        dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
+      })
+      .catch((err) => {
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+      });
+  };
+};
+
 // CREATES A NEW GRID FOR A USER
 export const createGrid = (gridName) => {
   const USERS_URL = `${API_URL}/users`;
@@ -205,7 +210,7 @@ export const createGrid = (gridName) => {
         if (res.ok) {
           return res.json();
         }
-        throw "Could not create grid, make sure you added all information";
+        throw new Error("Could not create grid.");
       })
       .then((json) => {
         dispatch(
@@ -237,7 +242,7 @@ export const usersGrids = () => {
         if (res.ok) {
           return res.json();
         }
-        throw "Could not get user info.";
+        throw new Error("Could not get user info.");
       })
       .then((json) => {
         dispatch(
@@ -251,7 +256,9 @@ export const usersGrids = () => {
           })
         );
       })
-      .catch((err) => {});
+      .catch((err) => {
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+      });
   };
 };
 
@@ -273,7 +280,9 @@ export const connectToGrid = (gridAccessToken) => {
         if (res.ok) {
           return res.json();
         }
-        throw "Could not create grid, make sure you added all information";
+        throw new Error(
+          "Could not create grid, make sure you added all information"
+        );
       })
       .then(() => {
         dispatch(usersGrids());
@@ -299,7 +308,7 @@ export const accessGrid = (accessTokenGrid) => {
         if (res.ok) {
           return res.json();
         }
-        throw "Could not access grid";
+        throw new Error("Could not access grid");
       })
       .then((json) => {
         dispatch(
@@ -312,10 +321,10 @@ export const accessGrid = (accessTokenGrid) => {
             currentGridComments: json.commentList,
           })
         );
-        dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
+        // dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
       })
       .catch((err) => {
-        // dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
 };
@@ -340,7 +349,7 @@ export const postToGrid = (formData) => {
         if (res.ok) {
           return res.json();
         }
-        throw "Could not post photo, make sure you added all information";
+        throw new Error("Could not post photo.");
       })
       .then((json) => {
         dispatch(
@@ -352,8 +361,8 @@ export const postToGrid = (formData) => {
         dispatch(ui.actions.setLoading(false));
       })
       .catch((err) => {
-        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
         dispatch(ui.actions.setLoading(false));
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
 };
@@ -377,7 +386,7 @@ export const postCommentToGrid = (message) => {
         if (res.ok) {
           return res.json();
         }
-        throw "Could not post comment.";
+        throw new Error("Could not post comment.");
       })
       .then((json) => {
         dispatch(
@@ -415,7 +424,7 @@ export const deleteGrid = (accessTokenGrid) => {
         if (res.ok) {
           return res.json();
         }
-        throw "Could not delete grid.";
+        throw new Error("Could not delete grid.");
       })
       .then((json) => {
         dispatch(usersGrids());
@@ -453,7 +462,7 @@ export const leaveGrid = (accessTokenGrid) => {
         if (res.ok) {
           return res.json();
         }
-        throw "Could not leave grid.";
+        throw new Error("Could not leave grid.");
       })
       .then((json) => {
         dispatch(usersGrids());

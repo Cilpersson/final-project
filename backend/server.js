@@ -56,6 +56,11 @@ app.use(
   })
 );
 
+// ERROR HANDLING MESSAGES
+const ERR_CREATE_USER = "Could not create user";
+const ERR_LOGIN_USER = "Could not log in user";
+
+// AUTHENTICATION FUNCTION
 const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({
@@ -98,7 +103,7 @@ app.post("/login", async (req, res) => {
       res.status(404).json({ signInSuccessful: false });
     }
   } catch (err) {
-    res.status(400).json({ signInSuccessful: false });
+    res.status(400).json({ message: ERR_LOGIN_USER, signInSuccessful: false });
   }
 });
 
@@ -110,10 +115,14 @@ app.post("/signup", async (req, res) => {
     const saved = await user.save();
     res.status(201).json(saved);
   } catch (err) {
-    res
-      .status(400)
-      .json({ message: "Could not create user", signUpSuccessful: false });
+    res.status(400).json({ message: ERR_CREATE_USER, signUpSuccessful: false });
   }
+});
+
+// AUTHORIZATION WHEN SIGNING IN
+app.get("/users/:id/secure", authenticateUser);
+app.get("/users/:id/secure", (req, res) => {
+  res.json({ message: `This is a top secret message for ${req.user.name}` });
 });
 
 // RETURNS INFO ON ONE USER AND POPULATES IT WITH CREATED-  AND CONNECTED GRIDS
@@ -128,12 +137,6 @@ app.get("/users/:id", async (req, res) => {
     .populate("connectedGrids")
     .exec();
   res.json(user);
-});
-
-// AUTHORIZATION WHEN SIGNING IN
-app.get("/users/:id/secure", authenticateUser);
-app.get("/users/:id/secure", (req, res) => {
-  res.json({ message: `This is a top secret message for ${req.user.name}` });
 });
 
 // CREATES A NEW GRID FOR A USER
@@ -284,7 +287,7 @@ app.post("/grids/grid/:accessTokenGrid", async (req, res) => {
   }
 });
 
-//NOT DONE BUT WORKS SO FAR
+//DELETE GRID THAT USER HAS CREATED
 app.delete("/users/grid/delete/:accessTokenGrid", authenticateUser);
 app.delete("/users/grid/delete/:accessTokenGrid", async (req, res) => {
   const { accessTokenGrid } = req.params;
@@ -293,10 +296,15 @@ app.delete("/users/grid/delete/:accessTokenGrid", async (req, res) => {
   const gridToDelete = await Grid.findOne({
     accessToken: accessTokenGrid,
   });
-  if (gridToDelete.createdBy === id) {
-    await gridToDelete.deleteOne();
+
+  try {
+    if (gridToDelete.createdBy === id) {
+      await gridToDelete.deleteOne();
+    }
+    res.status(201).json("Grid deleted");
+  } catch (error) {
+    res.status(400).json({ message: "Could not delete  grid: ", error: error });
   }
-  res.status(201).json("Grid deleted");
 });
 
 //LEAVE GRID USER IS CONNECTED TO

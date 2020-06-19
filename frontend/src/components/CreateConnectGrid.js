@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createGrid, connectToGrid } from "reducers/user";
 import { Button } from "components/smallerComps/Button";
 import styled from "styled-components/macro";
-import { Fieldset, Legend, Input } from "lib/stylesheet";
+import {
+  Fieldset,
+  Legend,
+  Input,
+  PasswordInfo,
+  ErrorInfo,
+} from "lib/stylesheet";
 
 const SmallFieldset = styled(Fieldset)`
   margin: 0 auto;
@@ -20,6 +26,7 @@ export const CreateConnectGrid = ({
 }) => {
   const [textField, setTextField] = useState("");
   const dispatch = useDispatch();
+  const error = useSelector((store) => store.user.login.errorMessage);
 
   const handleSubmit = () => {
     if (createG) {
@@ -36,11 +43,14 @@ export const CreateConnectGrid = ({
       <Legend>{legend}</Legend>
       <label>
         <Input
+          minLength="5"
           placeholder={labelText}
           required
           value={textField}
           onChange={(event) => setTextField(event.target.value)}
         />
+        <PasswordInfo>Required length is at least 5 characters</PasswordInfo>
+        {<ErrorInfo> {error && error.message}</ErrorInfo>}
       </label>
       <Button
         type="submit"

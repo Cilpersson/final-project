@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components/macro";
+import { PasswordInfo, ErrorInfo } from "lib/stylesheet";
 import moment from "moment";
 import { uuid } from "uuidv4";
 import { useSelector, useDispatch } from "react-redux";
@@ -20,6 +21,10 @@ const Comment = styled.div`
   justify-content: space-between;
   min-height: 4rem;
   max-width: 30rem;
+
+  @media (max-width: 668px) {
+    width: 100%;
+  }
 `;
 
 const Button = styled.button`
@@ -41,8 +46,10 @@ const CommentForm = styled.form`
 `;
 
 const CommentText = styled.p`
-  text-align: justify;
+  text-align: left;
+  word-break: break-all;
 `;
+
 const WrittenBy = styled.p`
   text-align: right;
   font-size: 0.7rem;
@@ -59,7 +66,7 @@ const GuestBook = styled.section`
   flex-direction: column;
   align-items: center;
   padding: 1.5rem;
-  margin: 1.5rem auto 0;
+  margin: 1.5rem 1.5rem 0;
   width: 100%;
 
   @media (min-width: 668px) {
@@ -74,52 +81,56 @@ const GuestBook = styled.section`
 `;
 
 const Label = styled.label`
-  width: 100%;
+  width: 70%;
   min-height: 6rem;
+  max-width: 30rem;
 
   margin: 0.4rem auto;
   border-radius: 0.4rem;
   border: 0.2rem solid #1dd19e;
-  width: 100%;
-  max-width: 20rem;
+
   background: #ffffff;
   display: flex;
   flex-direction: column;
+
+  &:focus-within {
+    border: 0.2rem solid #148867;
+  }
+  @media (max-width: 668px) {
+    width: 100%;
+  }
 `;
 const Textarea = styled.textarea`
   padding: 0.4rem;
   border: none;
   min-height: 6rem;
   width: 100%;
-  max-width: 20rem;
   background: #ffffff;
-  resize:none;
+  resize: none;
 
   &::-webkit-input-placeholder {
     text-align: center;
   }
-  /* &:focus {
+  &:focus {
     outline: none;
   }
-
-  &:focus ${Label} {
-    outline: 0.2rem solid #1dd19e;
-  } */
 `;
 
 export const GridComments = () => {
+  const dispatch = useDispatch();
+  const [comment, setComment] = useState("");
+  const error = useSelector((store) => store.user.login.errorMessage);
+  const name = useSelector((store) => store.user.login.name);
   const currentComments = useSelector(
     (store) => store.user.grid.currentGridComments
   );
-  const dispatch = useDispatch();
-  const name = useSelector((store) => store.user.login.name);
-  const [comment, setComment] = useState("");
 
   const handleOnSubmit = (event, message) => {
     event.preventDefault();
     dispatch(postCommentToGrid(message));
     setComment("");
   };
+
   return (
     <>
       <GuestBook>
@@ -129,6 +140,8 @@ export const GridComments = () => {
           <WrapperCol>
             <Label>
               <Textarea
+                minLength="2"
+                maxLength="140"
                 placeholder={`${name}, you should leave a message!`}
                 required
                 value={comment}
@@ -136,9 +149,12 @@ export const GridComments = () => {
               />
               <CommentCount charCount={comment.length} />
             </Label>
+            <PasswordInfo>
+              Write a message between 2 & 140 characters.
+            </PasswordInfo>
             <Button
               type="submit"
-              disabled={comment.length < 5 || comment.length > 140}>
+              disabled={comment.length < 2 || comment.length > 140}>
               <PixelHeart />
               SUBMIT
             </Button>
