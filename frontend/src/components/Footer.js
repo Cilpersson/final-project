@@ -9,6 +9,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ListItemFooter = styled(ListItem)`
   margin: 0 0.2rem;
+
+  &:hover {
+    font-weight: bold;
+  }
 `;
 const StyledFooter = styled.footer`
   background: #fff;
@@ -75,7 +79,7 @@ export const Footer = () => {
               </Link>
             </WrapperRow>
             <WrapperMe>
-              <ListItemFooter>$ whoami</ListItemFooter>
+              $ whoami
               <WrapperRow>
                 <StyledLinks
                   aria-label="Linkedin page"

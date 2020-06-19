@@ -390,6 +390,11 @@ export const ListFooter = styled.ul`
 export const ListItem = styled.li`
   display: inline;
   text-decoration: none;
+  transition: 0.2s;
+
+  &:hover {
+    font-weight: bold;
+  }
 `;
 
 // LINKS/ICONS

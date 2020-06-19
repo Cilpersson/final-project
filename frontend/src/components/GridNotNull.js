@@ -147,7 +147,7 @@ export const GridNotNull = () => {
     swal({
       title: "Are you sure?",
       text:
-        "Once you leave you will need the grid link to access this grid again.",
+        "Once you leave a grid you will need the grid link to connect to it again.",
       icon: "warning",
       buttons: true,
       dangerMode: true,
