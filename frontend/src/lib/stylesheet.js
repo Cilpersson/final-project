@@ -380,6 +380,10 @@ export const List = styled.ul`
   justify-content: space-between;
   max-width: 35rem;
   margin: auto;
+
+  @media (max-width: 668px) {
+    justify-content: space-evenly;
+  }
 `;
 
 export const ListFooter = styled.ul`

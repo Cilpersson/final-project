@@ -12,6 +12,7 @@ import { Button } from "components/smallerComps/Button";
 import { Slider } from "components/Slider";
 import { DeleteButton } from "./smallerComps/DeleteButton";
 import { Loader } from "./smallerComps/Loader";
+import moment from "moment";
 
 import swal from "sweetalert";
 import {
@@ -165,9 +166,11 @@ export const GridNotNull = () => {
 
   const gridCheck = () => {
     if (currentGrid.createdBy === userId) {
-      return "You created this grid";
+      return `You created this grid ${moment(currentGrid.createdAt).fromNow()}`;
     } else {
-      return `Grid created by ${currentGrid.gridOwner}`;
+      return `Grid created by ${currentGrid.gridOwner} ${moment(
+        currentGrid.createdAt
+      ).fromNow()}`;
     }
   };
 
@@ -176,7 +179,7 @@ export const GridNotNull = () => {
       <SectionWrapper>
         <Grid />
         <GridPageTitle>{currentGrid.name}</GridPageTitle>
-        <Greeting>{gridCheck()}</Greeting>
+        <Greeting>{gridCheck()} </Greeting>
         <Fieldset>
           <Legend>Upload images here!</Legend>
           {!isLoading && (

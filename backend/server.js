@@ -87,6 +87,14 @@ app.get("/", (req, res) => {
   res.send(listEndpoints(app));
 });
 
+// app.get("/users", async (req, res) => {
+//   const users = await User.find()
+//     .populate("commentList")
+//     .populate("createdGrids")
+//     .populate("connectedGrids");
+//   res.json(users);
+// });
+
 // LOG-IN FOR EXISTING USER
 app.post("/login", async (req, res) => {
   try {
@@ -337,6 +345,31 @@ app.put("/users/grid/leave/:accessTokenGrid", async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+//PAGINATION FOR IMAGES
+// app.get("/grids/grid/:accessTokenGrid/images", async (req, res) => {
+//   const { accessTokenGrid } = req.params;
+//   // const { sort, page } = req.query;
+
+//   // const pageNbr = +page || 1;
+//   // const perPage = 20;
+//   // const skip = perPage * (pageNbr - 1);
+//   try {
+//     const grid = await Grid.findOne({ accessToken: accessTokenGrid }).populate(
+//       { path: "imgList" },
+//       { sort: { "imgList.$.createdAt": -1 } }
+//     );
+//     // .sort({ "imgList.createdAt": 1 });
+
+//     // await grid.aggregate([{ $unwind: "$imgList" }]);
+
+//     // const pages = Math.ceil(totalImages / perPage);
+
+//     res.status(201).json(grid);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
 
 /*
 cloudinary.v2.api.delete_resources(['image1', 'image2'],
