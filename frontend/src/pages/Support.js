@@ -20,10 +20,10 @@ export const Support = () => {
       <Grid />
       <Greeting>Support</Greeting>
       <Paragraph>
-        PHOTO GRID is a side project and is at this point not meant for
-        continuous use. If you still deside to use it and experience issues,
+        PHOTO GRID is a side project and is currently not intended for
+        continuous use. If you still decide to use it and experience issues,
         feedback is always greatly appreciated. If you don't find any bugs you
-        can always send a mail anayway. Just to say hi!
+        can always send a mail anyway. Just to say hi!
       </Paragraph>
       <br />
       <StyledLinks href="mailto:hello@photogrid.community?subject=Hey I found a lady-🦗!">
