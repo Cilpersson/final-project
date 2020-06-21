@@ -154,6 +154,18 @@ export const Form = styled.form`
   border-radius: 0.2rem;
   border-color: #84eccf;
 `;
+
+export const Signup = styled.form`
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  align-items: center;
+`;
+export const Label = styled.label`
+  margin-bottom: 0.6rem;
+  max-width: 15rem;
+  width: 100%;
+`;
 // WRAPPERS
 export const WrapperRow = styled.div`
   display: flex;

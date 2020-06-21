@@ -1,57 +1,48 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components/macro";
 import { signup, login, user } from "reducers/user";
-import { ui } from "../reducers/ui";
 import { HomePage } from "pages/HomePage";
 import { Button } from "components/smallerComps/Button";
-import { Input, Legend, Fieldset, ErrorInfo } from "lib/stylesheet";
+import {
+  Input,
+  Legend,
+  Fieldset,
+  ErrorInfo,
+  Signup,
+  Label,
+} from "lib/stylesheet";
 import { Grid } from "../components/logo/Grid";
 import { PasswordStrength } from "./smallerComps/PasswordStrength";
 import { PasswordMatch } from "./smallerComps/PasswordMatch";
-import { Loader } from "./smallerComps/Loader";
-
-const Signup = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  align-items: center;
-`;
-const Label = styled.label`
-  margin-bottom: 0.6rem;
-  max-width: 15rem;
-  width: 100%;
-`;
 
 export const Form = () => {
   const dispatch = useDispatch();
-  const accessToken = useSelector((store) => store.user.login.accessToken);
   const error = useSelector((store) => store.user.login.errorMessage);
-  const isLoading = useSelector((store) => store.ui.isLoading);
+  const accessToken = useSelector((store) => store.user.login.accessToken);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [signUp, setSignUp] = useState(true);
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
 
-  const [signUp, setSignUp] = useState(true);
-
-  const handleSignup = (event) => {
+  const handleSingupLogin = (event) => {
     event.preventDefault();
-    dispatch(signup(name, email.toLowerCase(), password));
-    dispatch(user.actions.setFirstSignUp({ firstSignUp: true }));
-    setName("");
-    setEmail("");
-    setPassword("");
-    setPasswordCheck("");
-  };
+    dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
+    if (signUp) {
+      dispatch(signup(name, email.toLowerCase(), password));
+      dispatch(user.actions.setFirstSignUp({ firstSignUp: true }));
+    } else {
+      dispatch(login(email.toLowerCase(), password));
+      dispatch(user.actions.setFirstSignUp({ firstSignUp: false }));
+    }
 
-  const handleLogin = (event) => {
-    event.preventDefault();
-    dispatch(login(email.toLowerCase(), password));
-    dispatch(user.actions.setFirstSignUp({ firstSignUp: false }));
-    setEmail("");
-    setPassword("");
+    if (accessToken) {
+      setName("");
+      setEmail("");
+      setPassword("");
+      setPasswordCheck("");
+    }
   };
 
   if (accessToken) {
@@ -63,7 +54,7 @@ export const Form = () => {
           <Legend>{signUp ? "Sign up!" : "Log in!"}</Legend>
           <Grid />
           <br />
-          <Signup>
+          <Signup onSubmit={(event) => handleSingupLogin(event)}>
             {signUp && (
               <Label>
                 Name
@@ -110,26 +101,8 @@ export const Form = () => {
               </Label>
             )}
             {<ErrorInfo> {error && error.message}</ErrorInfo>}
-            {signUp && (
-              <Button
-                type="submit"
-                disabled={
-                  password.length > 0 && password === passwordCheck
-                    ? false
-                    : true
-                }
-                text="Sign up"
-                onClick={handleSignup}
-              />
-            )}
-            {!signUp && (
-              <Button
-                type="submit"
-                disabled={false}
-                text="Log in"
-                onClick={handleLogin}
-              />
-            )}
+            {signUp && <Button type="submit" disabled={false} text="Sign up" />}
+            {!signUp && <Button type="submit" disabled={false} text="Log in" />}
           </Signup>
           <Button
             onClick={() => {

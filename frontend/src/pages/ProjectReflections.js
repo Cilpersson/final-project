@@ -57,32 +57,38 @@ export const ProjectReflections = () => {
       <br />
       <h4>TECH</h4>
       <Paragraph>
-        Further done on this page I have added my project brief that I handed in
+        Further down on this page I have added my project brief that I handed in
         prior to starting with the project. Pages 2 - 4 of the brief contains a
         breakdown of the website. I tried to visualize the larger components and
-        pages, and wrote down most things I thought they would contain. I rated
-        the different features from [1 - 3] where features rated [ 1 ] where the
-        absolut minimum for the finnished product and therefore the things I
-        should start with. It has been incredibly helpful to look at the brief
-        during these weeks. Thanks to a well structured breif I have always
-        known both what I have accomplished so far and what's been left to do.
-        This is something I will take with me for future projects, I can proudly
-        say that I work incredibly well when I have structure around me.
+        pages, and wrote down most things I could think of that they would
+        contain. I don't even think I need to say that I forgot so many things.
+        I rated the different features from [1 - 3] where features rated [ 1 ]
+        where the absolut minimum for the finnished product and therefore the
+        things I should start with. It has been incredibly helpful to look at
+        the brief during these weeks. Thanks to a well structured breif I have
+        always known both what I have accomplished so far and what's been left
+        to do. This is something I will take with me for future projects, I can
+        proudly say that I work incredibly well when I have structure around me.
       </Paragraph>
       <br />
       <Paragraph>
         There where a few desicions I needed to make right away. The first one
-        was one or two repositories? I chose one, the two main reasons being
-        neither the back- or frontend would be very spectacular without the
-        other and also that everything is written in one language making one
-        repo feel even more right. Besides that reasoning this was one of those
-        times where I could decide to do everything exactly as I wanted since I
-        have done this project by myself, and I took that chance. I have loved
-        having my front- and backend in one big repo. It has been easy to go
-        back and forth between files and folders. It also pushed me to make sure
-        that every file and folder followed the same naming convention which has
-        been a nice bonus. I should also mention that I watched a talk about
-        Googles mono repo, and that might have affected my descision a bit.
+        was one or two repositories? I choose one, I will explain the two main
+        reasons for that. Neither the back- or frontend would be very
+        spectacular without the other, they would need each other to make this
+        project become as I visualized. Since everything is written in
+        Javascript, the entire backend with the help of node.js and the frontend
+        as well, where the styling is CSS-in-JS, going for one repo felt even
+        more right. Besides that reasoning this was one of those times where I
+        could decide to do everything exactly as I wanted since I have done this
+        project by myself, and I took that chance. I have loved having my front-
+        and backend in one big repo. It has been easy to go back and forth
+        between files and folders. It also pushed me to make sure that every
+        file and folder followed the same naming convention which has been a
+        nice bonus. When doing side projects in the future I think it's most
+        likely that I will make those with one repo as well. I should also
+        mention that I watched a talk about Googles mono repo, and that might
+        have affected my descision a bit.
       </Paragraph>
       <br />
       <StyledLinks
@@ -118,6 +124,11 @@ export const ProjectReflections = () => {
         </ListItem>
         <ListItem>Post images to grid</ListItem>
         <ListItem>Post comments to grid</ListItem>
+        <ListItem>Leave a grid the user is connected to</ListItem>
+        <ListItem>
+          Delete grid - This endpoint works, however it does not currently
+          delete the images from cloudinary
+        </ListItem>
         <ListItem>User authentication for most endpoints</ListItem>
         <br />
         <h4>Models</h4>
@@ -130,18 +141,21 @@ export const ProjectReflections = () => {
         than so. Therefore I decided to use flexbox and flex wrap instead. The
         look is much cleaner and I'm glad I tried something else. I was looking
         for a lightbox package so that each image could be viewed in a full
-        screen kind of mode. I didn't find one that looked as I wanted it to, so
-        I made my own. I'm very happy with the end result, the only thing it's
-        missing at this point is key press connected to the buttons. So the user
-        could press esc to exit the fullscreen image mode and arrow
-        functionality to keypress between images.
+        screen mode. I didn't find one that looked as I wanted it to, so I made
+        my own. I'm very happy with the end result, the only thing it's missing
+        at this point is key press connected to the buttons. So the user could
+        press esc to exit the fullscreen image mode and arrow functionality to
+        keypress between images. Another feature related to displaying the
+        images is the slider that adjusts the image size in the grid. I had my
+        sister in mind when adding that feature. She has really bad eyesight,
+        and I know it was a feature that would be useful for her.
       </Paragraph>
       <br />
       <Paragraph>
         Another thing I'm very proud of is the possibility to share a link to a
         grid with another user. The user clicks a a button, the URL link gets
         copied and any another user, that is signed in, can paste that link and
-        the grid get's added to that users connected grids list. I didn't find
+        the grid gets added to that users connected grids list. I didn't find
         any heplful solutions when I googled, but after some thinking I came up
         with an idea on how to solve it and I screamed of joy when it worked.
         useEffect, window.location.pathname and regEx I owe you big time!

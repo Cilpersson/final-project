@@ -87,13 +87,13 @@ app.get("/", (req, res) => {
   res.send(listEndpoints(app));
 });
 
-// app.get("/users", async (req, res) => {
-//   const users = await User.find()
-//     .populate("commentList")
-//     .populate("createdGrids")
-//     .populate("connectedGrids");
-//   res.json(users);
-// });
+app.get("/users", async (req, res) => {
+  const users = await User.find()
+    .populate("commentList")
+    .populate("createdGrids")
+    .populate("connectedGrids");
+  res.json(users);
+});
 
 // LOG-IN FOR EXISTING USER
 app.post("/login", async (req, res) => {
@@ -342,34 +342,57 @@ app.put("/users/grid/leave/:accessTokenGrid", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
-
-//PAGINATION FOR IMAGES
+// ATTEMPT TO PAGINATE IMAGELIST WILL CONTINU WITH THIS AFTER PRESENTATION
+//CURRENT OUTPUT IN POSTMAN:
+/*
+[
+    {
+        "_id": "5eeccb45df969c79fe31a12d",
+        "imgList": [
+            "5eecdf8d13384a7fb3bdee32",
+            "5eecdf8d13384a7fb3bdee33",
+            "5eecdf8d13384a7fb3bdee34",
+            "5eecdf8d13384a7fb3bdee35",
+            "5eecdf8e13384a7fb3bdee36",
+            "5eecdf8e13384a7fb3bdee37",
+            "5eecdf8e13384a7fb3bdee38",
+            "5eecdf8e13384a7fb3bdee39"
+        ]
+    }
+]
+*/
 // app.get("/grids/grid/:accessTokenGrid/images", async (req, res) => {
 //   const { accessTokenGrid } = req.params;
-//   // const { sort, page } = req.query;
-
-//   // const pageNbr = +page || 1;
-//   // const perPage = 20;
-//   // const skip = perPage * (pageNbr - 1);
 //   try {
-//     const grid = await Grid.findOne({ accessToken: accessTokenGrid }).populate(
-//       { path: "imgList" },
-//       { sort: { "imgList.$.createdAt": -1 } }
-//     );
-//     // .sort({ "imgList.createdAt": 1 });
-
-//     // await grid.aggregate([{ $unwind: "$imgList" }]);
-
-//     // const pages = Math.ceil(totalImages / perPage);
+//     const grid = await Grid.aggregate([
+//       { $match: { accessToken: accessTokenGrid } },
+//       { $unwind: "$imgList" },
+//       // {
+//       //   $lookup: {
+//       //     from: "$imgList",
+//       //     foreignField: "_id",
+//       //     localField: "imgList",
+//       //     as: "newArr",
+//       //   },
+//       // },
+//       // { $unwind: "$imgList" },
+//       // {
+//       //   $group: {
+//       //     _id: "$_id",
+//       //     imgList: { $push: "$imgList" },
+//       //   },
+//       // },
+//     ]);
 
 //     res.status(201).json(grid);
 //   } catch (error) {
 //     console.log(error);
 //   }
 // });
+
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
 
 /*
 cloudinary.v2.api.delete_resources(['image1', 'image2'],
