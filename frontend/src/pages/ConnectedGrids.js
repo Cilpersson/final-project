@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "uuidv4";
-import styled from "styled-components/macro";
 import { accessGrid } from "reducers/user";
 import { Form } from "components/Form";
 
@@ -12,16 +11,14 @@ import {
   StyledButton,
   Wrapper,
   Ul,
+  Li,
   SectionWrapper,
   ButtonText,
+  StyledGreeting,
 } from "lib/stylesheet";
 import { useHistory } from "react-router";
 import { LottiePlayer } from "components/LottiePlayer";
 import animationCamera from "../images_animations/animations/camera.json";
-
-const StyledGreeting = styled(Greeting)`
-  padding: 1.4rem 0 0.8rem;
-`;
 
 export const ConnectedGrids = () => {
   const history = useHistory();
@@ -77,9 +74,9 @@ export const ConnectedGrids = () => {
               <StyledButton
                 key={uuid()}
                 onClick={() => handleOnClick(grid.accessToken)}>
-                <li key={uuid()}>
+                <Li key={uuid()}>
                   <ButtonText>{grid.name}</ButtonText>
-                </li>
+                </Li>
               </StyledButton>
             );
           })}

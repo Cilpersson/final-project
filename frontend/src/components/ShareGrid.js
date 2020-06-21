@@ -1,17 +1,13 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components/macro";
 import { Button } from "components/smallerComps/Button";
-import { ButtonText, Ul, Greeting, StyledButton } from "lib/stylesheet";
-
-const ShareGridUl = styled(Ul)`
-  grid-template-columns: repeat(1, 1fr);
-  justify-items: center;
-
-  @media (min-width: 668px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-`;
+import {
+  ButtonText,
+  ShareGridUl,
+  Greeting,
+  StyledButton,
+} from "lib/stylesheet";
 
 export const ShareGrid = () => {
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);

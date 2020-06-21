@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components/macro";
-import { user } from "../reducers/user";
 import Dropzone from "react-dropzone";
-import { Grid } from "../components/logo/Grid";
-import { DisplayGridAlternative } from "components/DisplayGridAlternative";
-import { ShareGrid } from "components/ShareGrid";
-import { postToGrid, accessGrid, deleteGrid, leaveGrid } from "reducers/user";
-import { GridComments } from "components/GridComments";
-import { Button } from "components/smallerComps/Button";
-import { Slider } from "components/Slider";
-import { DeleteButton } from "./smallerComps/DeleteButton";
-import { Loader } from "./smallerComps/Loader";
 import moment from "moment";
+import { user } from "../reducers/user";
+import { postToGrid, accessGrid } from "reducers/user";
+import { Grid } from "components/logo/Grid";
+import { DisplayGridAlternative } from "components/DisplayGridAlternative";
+import { GridComments } from "components/GridComments";
+import { Slider } from "components/Slider";
+import { Button } from "components/smallerComps/Button";
+import { Loader } from "components/smallerComps/Loader";
 
-import swal from "sweetalert";
 import {
   Paragraph,
   GridPageTitle,
@@ -27,6 +24,7 @@ import {
   Greeting,
   StyledSubmit,
 } from "lib/stylesheet";
+import { CheckUsers } from "./CheckUsers";
 const GridPageWrapper = styled.section``;
 
 const GridFormP = styled(Paragraph)`
@@ -113,57 +111,6 @@ export const GridNotNull = () => {
     }
   };
 
-  const checkUser = () => {
-    const gridCheck = usersGrids.filter(
-      (grid) => grid.accessToken === currentGrid.accessToken
-    );
-
-    if (gridCheck.length === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  };
-
-  const deleteGridOnClick = () => {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this grid!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        dispatch(deleteGrid(currentGrid.accessToken));
-        swal("Poof! Your grid has been deleted!", {
-          icon: "success",
-        });
-      } else {
-        swal("Phew!", "Your grid is safe", "info");
-      }
-    });
-  };
-
-  const leaveGridOnClick = () => {
-    swal({
-      title: "Are you sure?",
-      text:
-        "Once you leave a grid you will need the grid link to connect to it again.",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
-      if (willDelete) {
-        dispatch(leaveGrid(currentGrid.accessToken));
-        swal("Poof! You have left the grid.", {
-          icon: "success",
-        });
-      } else {
-        swal("Phew!", "Your still connected to this grid.", "info");
-      }
-    });
-  };
-
   const gridCheck = () => {
     if (currentGrid.createdBy === userId) {
       return `You created this grid ${moment(currentGrid.createdAt).fromNow()}`;
@@ -217,23 +164,7 @@ export const GridNotNull = () => {
           {!isLoading && <ErrorInfo> {error && error.message}</ErrorInfo>}
           <Loader text="UPLOADING" />
         </Fieldset>
-        {checkUser() && <ShareGrid />}
-        {checkUser() && (
-          <DeleteButton
-            onClick={() => deleteGridOnClick()}
-            text="Delete grid"
-            disabled={false}
-            type="button"
-          />
-        )}
-        {!checkUser() && (
-          <DeleteButton
-            onClick={() => leaveGridOnClick()}
-            text="Leave grid"
-            disabled={false}
-            type="button"
-          />
-        )}
+        <CheckUsers />
       </SectionWrapper>
       <SectionWrapper>
         {!comments && (

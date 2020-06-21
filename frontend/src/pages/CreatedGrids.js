@@ -2,36 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "uuidv4";
 import { useHistory } from "react-router-dom";
-import styled from "styled-components/macro";
-import {
-  accessGrid,
-  // , setCurrentGrid, user
-} from "reducers/user";
+import { accessGrid } from "reducers/user";
 import { Form } from "components/Form";
 import { Grid } from "../components/logo/Grid";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
 import {
-  Greeting,
+  StyledGreeting,
   StyledButton,
   Wrapper,
   Ul,
   SectionWrapper,
   ButtonText,
+  Greeting,
+  Li,
 } from "lib/stylesheet";
 import { LottiePlayer } from "components/LottiePlayer";
 import animationCamera from "../images_animations/animations/camera.json";
-
-const Li = styled.li`
-  list-style: none;
-  min-height: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StyledGreeting = styled(Greeting)`
-  padding: 1.4rem 0 0.8rem;
-`;
 
 export const CreatedGrids = () => {
   let history = useHistory();

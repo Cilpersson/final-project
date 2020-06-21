@@ -2,21 +2,13 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createGrid, connectToGrid } from "reducers/user";
 import { Button } from "components/smallerComps/Button";
-import styled from "styled-components/macro";
 import {
-  Fieldset,
+  SmallFieldset,
   Legend,
   Input,
   PasswordInfo,
   ErrorInfo,
 } from "lib/stylesheet";
-
-const SmallFieldset = styled(Fieldset)`
-  margin: 0 auto;
-  width: 100%;
-  margin-top: 1.5rem;
-  max-width: 20rem;
-`;
 
 export const CreateConnectGrid = ({
   createG,

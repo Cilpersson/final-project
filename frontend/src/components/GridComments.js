@@ -1,6 +1,15 @@
 import React, { useState } from "react";
-import styled from "styled-components/macro";
-import { PasswordInfo, ErrorInfo } from "lib/stylesheet";
+import {
+  PasswordInfo,
+  CommentLabel,
+  Textarea,
+  GuestBook,
+  WrittenBy,
+  CommentText,
+  CommentForm,
+  Button,
+  Comment,
+} from "lib/stylesheet";
 import moment from "moment";
 import { uuid } from "uuidv4";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,113 +17,6 @@ import { WrapperCol } from "lib/stylesheet";
 import { PixelHeart } from "components/PixelHeart";
 import { postCommentToGrid } from "reducers/user";
 import { CommentCount } from "components/smallerComps/CommentCount";
-
-const Comment = styled.div`
-  background: #84eccf;
-  color: #084030;
-  padding: 0.5rem;
-  margin: 0.5rem;
-  border-radius: 0.2rem;
-  width: 70%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 4rem;
-  max-width: 30rem;
-
-  @media (max-width: 668px) {
-    width: 100%;
-  }
-`;
-
-const Button = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-`;
-
-const CommentForm = styled.form`
-  width: 100%;
-`;
-
-const CommentText = styled.p`
-  text-align: left;
-  word-break: break-all;
-`;
-
-const WrittenBy = styled.p`
-  text-align: right;
-  font-size: 0.7rem;
-  margin: 0;
-  opacity: 0.5;
-`;
-
-const GuestBook = styled.section`
-  background: #fff;
-
-  border-radius: 0.2rem;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1.5rem;
-  margin: 1.5rem 1.5rem 0;
-  width: 100%;
-
-  @media (min-width: 668px) {
-    width: 70%;
-    margin: 1.5rem auto 0;
-  }
-
-  @media (min-width: 1024px) {
-    width: 50%;
-    margin: 1.5rem auto 0;
-  }
-`;
-
-const Label = styled.label`
-  width: 70%;
-  min-height: 6rem;
-  max-width: 30rem;
-
-  margin: 0.4rem auto;
-  border-radius: 0.4rem;
-  border: 0.2rem solid #84eccf;
-
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
-
-  &:focus-within {
-    border: 0.2rem solid #1dd19e;
-  }
-  @media (max-width: 668px) {
-    width: 100%;
-  }
-`;
-const Textarea = styled.textarea`
-  padding: 0.4rem;
-  border: none;
-  min-height: 6rem;
-  width: 100%;
-  background: #ffffff;
-  resize: none;
-
-  &::-webkit-input-placeholder {
-    text-align: center;
-  }
-  &:focus {
-    outline: none;
-  }
-`;
 
 export const GridComments = () => {
   const dispatch = useDispatch();
@@ -138,7 +40,7 @@ export const GridComments = () => {
           GUEST BOOK
           <br />
           <WrapperCol>
-            <Label>
+            <CommentLabel>
               <Textarea
                 minLength="2"
                 maxLength="140"
@@ -148,7 +50,7 @@ export const GridComments = () => {
                 onChange={(event) => setComment(event.target.value)}
               />
               <CommentCount charCount={comment.length} />
-            </Label>
+            </CommentLabel>
             <PasswordInfo>
               Write a message between 2 & 140 characters.
             </PasswordInfo>
