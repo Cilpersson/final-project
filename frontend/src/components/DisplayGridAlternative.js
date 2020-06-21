@@ -158,7 +158,6 @@ export const DisplayGridAlternative = ({ sliderValue }) => {
           <>
             {image !== null && (
               <Background top={yOffset}>
-                {/* BACK BUTTON STARTS HERE */}
                 <LightboxButton
                   right="50%"
                   bottom="3rem"
@@ -166,7 +165,7 @@ export const DisplayGridAlternative = ({ sliderValue }) => {
                   margin="0 1rem 0 0"
                   icon={faBackward}
                   onClick={() => {
-                    //If imgIndex = 0 => -1 + currentGrid.imgList.length => Shows last image in the array!!!
+                    //If imgIndex = 0 => -1 + currentGrid.imgList.length => Shows last image in the array!
                     const newImgIndex =
                       (imgIndex - 1 + currentGrid.imgList.length) %
                       currentGrid.imgList.length;
@@ -174,8 +173,6 @@ export const DisplayGridAlternative = ({ sliderValue }) => {
                     setImgIndex(newImgIndex);
                   }}
                 />
-
-                {/* EXIT BUTTON STARTS HERE */}
                 <LightboxButton
                   top="1.5rem"
                   right="1.5rem"
@@ -185,10 +182,7 @@ export const DisplayGridAlternative = ({ sliderValue }) => {
                   onClick={() => setImage(null)}
                   icon={faTimes}
                 />
-
                 <Image img={image} loading="lazy" />
-
-                {/* NEXT BUTTON STARTS HERE */}
                 <LightboxButton
                   left="50%"
                   bottom="3rem"

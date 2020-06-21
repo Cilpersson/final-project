@@ -70,11 +70,13 @@ export const user = createSlice({
       const { currentGridComments } = action.payload;
       state.grid.currentGridComments = currentGridComments.reverse();
     },
+    clearAll: () => {
+      return initialState;
+    },
   },
 });
 
 const API_URL = "https://photo-grid-community.herokuapp.com";
-// const API_URL = "http://localhost:8080";
 
 /* ~-*-~ THUNKS ~-*-~ */
 
@@ -185,6 +187,7 @@ export const authorization = () => {
         dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
       })
       .catch((err) => {
+        dispatch(logout());
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
@@ -483,17 +486,7 @@ export const leaveGrid = (accessTokenGrid) => {
 
 export const logout = () => {
   return (dispatch) => {
-    dispatch(user.actions.setErrorMessage({ errorMessage: null }));
-    dispatch(user.actions.setAccessToken({ accessToken: null }));
-    dispatch(user.actions.setUserId({ userId: 0 }));
-    dispatch(user.actions.setIsSignedIn({ isSignedIn: false }));
-    dispatch(user.actions.setCurrentGrid({ currentGrid: null }));
-    dispatch(user.actions.setName({ name: null }));
-    dispatch(user.actions.setFirstSignUp({ firstSignUp: false }));
-    dispatch(user.actions.setGridName({ gridName: null }));
-    dispatch(user.actions.setCreatedGrids({ createdGrids: [] }));
-    dispatch(user.actions.setConnectedGrids({ connectedGrids: [] }));
-    dispatch(user.actions.setCurrentGridComments({ currentGridComments: [] }));
+    dispatch(user.actions.clearAll());
     window.localStorage.clear();
   };
 };
