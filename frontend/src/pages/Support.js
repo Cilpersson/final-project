@@ -25,11 +25,12 @@ export const Support = () => {
         feedback is always greatly appreciated. If you don't find any bugs you
         can always send a mail anayway. Just to say hi!
       </Paragraph>
-
+      <br />
       <StyledLinks href="mailto:hello@photogrid.community?subject=Hey I found a lady-🦗!">
         <Span>Click for </Span>
         <FontAwesomeIcon icon={faPaperPlane} />
       </StyledLinks>
+      <br />
     </SectionWrapper>
   );
 };
