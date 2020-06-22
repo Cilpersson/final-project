@@ -163,6 +163,7 @@ export const DisplayGridAlternative = ({ sliderValue }) => {
                   bottom="3rem"
                   size="2.5rem"
                   margin="0 1rem 0 0"
+                  bottomMobile="0rem"
                   icon={faBackward}
                   onClick={() => {
                     //If imgIndex = 0 => -1 + currentGrid.imgList.length => Shows last image in the array!
@@ -179,6 +180,7 @@ export const DisplayGridAlternative = ({ sliderValue }) => {
                   size="3rem"
                   margin=""
                   marginMedia="0 auto"
+                  topMobile="0rem"
                   onClick={() => setImage(null)}
                   icon={faTimes}
                 />
@@ -188,6 +190,7 @@ export const DisplayGridAlternative = ({ sliderValue }) => {
                   bottom="3rem"
                   size="2.5rem"
                   margin="0 0 0 1rem"
+                  bottomMobile="0rem"
                   icon={faForward}
                   onClick={() => {
                     const newImgIndex =
@@ -207,8 +210,6 @@ export const DisplayGridAlternative = ({ sliderValue }) => {
                     onClick={() => {
                       setImage(item.src);
                       setImgIndex(index);
-                      console.log("This is the useState index: ", imgIndex);
-                      console.log("This is the map index: ", index);
                     }}>
                     <Img src={item.src} />
                   </Li>

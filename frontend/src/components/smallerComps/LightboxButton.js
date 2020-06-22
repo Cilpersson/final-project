@@ -9,14 +9,14 @@ const StyledLightboxButton = styled.button`
 
   position: absolute;
   font-size: ${(props) => props.size};
-  top: ${(props) => props.top};
-  bottom: ${(props) => props.bottom};
+
   left: ${(props) => props.left};
   right: ${(props) => props.right};
   margin: ${(props) => props.margin};
   cursor: pointer;
   opacity: 0.4;
   transition: all 0.2s;
+  z-index: 1000;
 
   &:hover {
     color: #84eccf;
@@ -25,6 +25,12 @@ const StyledLightboxButton = styled.button`
 
   @media (min-width: 668px) {
     margin: ${(props) => props.marginMedia};
+    top: ${(props) => props.top};
+    bottom: ${(props) => props.bottom};
+  }
+  @media (max-width: 668px) {
+    top: ${(props) => props.topMobile};
+    bottom: ${(props) => props.bottomMobile};
   }
 `;
 
@@ -38,6 +44,8 @@ export const LightboxButton = ({
   bottom,
   left,
   marginMedia,
+  bottomMobile,
+  topMobile,
 }) => {
   return (
     <StyledLightboxButton
@@ -48,7 +56,9 @@ export const LightboxButton = ({
       size={size}
       margin={margin}
       marginMedia={marginMedia}
-      onClick={onClick}>
+      onClick={onClick}
+      bottomMobile={bottomMobile}
+      topMobile={topMobile}>
       <FontAwesomeIcon icon={icon} />
     </StyledLightboxButton>
   );
