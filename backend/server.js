@@ -88,7 +88,7 @@ app.get("/", (req, res) => {
 });
 
 // SHOWS ALL USERS
-// app.get("/users", authenticateUser);
+app.get("/users", authenticateUser);
 app.get("/users", async (req, res) => {
   const users = await User.find()
     .populate("commentList")
@@ -413,6 +413,7 @@ app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
 
+// FOR DELETING IMAGES ON CLOUDINARY, WIL DO THIS AFTER PRESENTATION
 /*
 cloudinary.v2.api.delete_resources(['image1', 'image2'],
   function(error, result){console.log(result);});
