@@ -70,7 +70,7 @@ export const user = createSlice({
     },
     setCurrentGridComments: (state, action) => {
       const { currentGridComments } = action.payload;
-      state.grid.currentGridComments = currentGridComments.reverse();
+      state.grid.currentGridComments = currentGridComments;
     },
     setCurrentGridImages: (state, action) => {
       const { currentGridImages } = action.payload;
@@ -79,6 +79,10 @@ export const user = createSlice({
     setCurrentGridPages: (state, action) => {
       const { currentGridPages } = action.payload;
       state.grid.currentGridPages = currentGridPages;
+    },
+    setCurrentCommentPages: (state, action) => {
+      const { currentCommentPages } = action.payload;
+      state.grid.currentCommentPages = currentCommentPages;
     },
     clearAll: () => {
       return initialState;
@@ -329,12 +333,13 @@ export const accessGrid = (accessTokenGrid) => {
             currentGrid: json.grid,
           })
         );
-        dispatch(
-          user.actions.setCurrentGridComments({
-            currentGridComments: json.commentList,
-          })
-        );
+        // dispatch(
+        //   user.actions.setCurrentGridComments({
+        //     currentGridComments: json.commentList,
+        //   })
+        // );
         dispatch(accessGridImages(accessTokenGrid));
+        dispatch(accessGridComments(accessTokenGrid));
         // dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
       })
       .catch((err) => {
@@ -495,7 +500,7 @@ export const leaveGrid = (accessTokenGrid) => {
   };
 };
 
-// GET ONE PAGINATED IMGLIST
+// GET PAGINATED IMGLIST
 export const accessGridImages = (accessTokenGrid, page, sort) => {
   const USERS_URL = `${API_URL}/grids/grid`;
   return (dispatch, getState) => {
@@ -522,6 +527,49 @@ export const accessGridImages = (accessTokenGrid, page, sort) => {
           dispatch(
             user.actions.setCurrentGridPages({
               currentGridPages: json.pages,
+            })
+          );
+        }
+
+        dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
+      })
+      .catch((err) => {
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
+      });
+  };
+};
+
+// GET ONE PAGINATED COMMENTLIST
+export const accessGridComments = (accessTokenGrid, page, sort) => {
+  const USERS_URL = `${API_URL}/grids/grid`;
+  return (dispatch, getState) => {
+    const accessToken = getState().user.login.accessToken;
+    fetch(
+      `${USERS_URL}/${accessTokenGrid}/comments?page=${page}&sort=${sort}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: accessToken,
+        },
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Could not access images");
+      })
+      .then((json) => {
+        console.log("this is json for comments: ", json);
+        if (json.grid.length !== 0) {
+          dispatch(
+            user.actions.setCurrentGridComments({
+              currentGridComments: json.grid[0].commentList,
+            })
+          );
+          dispatch(
+            user.actions.setCurrentCommentPages({
+              currentCommentPages: json.pages,
             })
           );
         }

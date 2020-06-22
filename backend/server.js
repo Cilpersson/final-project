@@ -416,7 +416,7 @@ app.get("/grids/grid/:accessTokenGrid/comments", async (req, res) => {
   const { page, sort } = req.query;
 
   const pageNbr = +page || 1;
-  const perPage = 1;
+  const perPage = 5;
   const skip = perPage * (pageNbr - 1);
   const sorting = +sort || -1;
 
