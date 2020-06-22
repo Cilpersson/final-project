@@ -291,14 +291,13 @@ app.post("/grids/grid/:accessTokenGrid", async (req, res) => {
       {
         $push: {
           commentList: {
-            $each: comment,
+            $each: [comment],
             $position: 0,
           },
         },
       },
       { new: true }
     )
-
       .populate("commentList")
       .exec();
     res.status(201).json({ commentList: grid.commentList });
@@ -427,7 +426,7 @@ app.get("/grids/grid/:accessTokenGrid/comments", async (req, res) => {
   const sorting = +sort || -1;
 
   const totalComments = await Grid.findOne({ accessToken: accessTokenGrid });
-  const pages = Math.ceil(totalComments.commentList.length / perPage);
+  const pages = Math.ceil(totalComments.imgList.length / perPage);
 
   try {
     const grid = await Grid.aggregate([
