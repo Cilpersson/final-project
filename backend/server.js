@@ -426,7 +426,7 @@ app.get("/grids/grid/:accessTokenGrid/comments", async (req, res) => {
   const sorting = +sort || -1;
 
   const totalComments = await Grid.findOne({ accessToken: accessTokenGrid });
-  const pages = Math.ceil(totalComments.imgList.length / perPage);
+  const pages = Math.ceil(totalComments.commentList.length / perPage);
 
   try {
     const grid = await Grid.aggregate([
