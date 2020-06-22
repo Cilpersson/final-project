@@ -420,8 +420,8 @@ app.get("/grids/grid/:accessTokenGrid/comments", async (req, res) => {
   const skip = perPage * (pageNbr - 1);
   const sorting = +sort || -1;
 
-  const totalImages = await Grid.findOne({ accessToken: accessTokenGrid });
-  const pages = Math.ceil(totalImages.imgList.length / perPage);
+  const totalComments = await Grid.findOne({ accessToken: accessTokenGrid });
+  const pages = Math.ceil(totalComments.commentList.length / perPage);
 
   try {
     const grid = await Grid.aggregate([
