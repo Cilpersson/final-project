@@ -80,6 +80,7 @@ export const PageWrapper = styled.section`
 export const WrapperRow = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
 export const WrapperCol = styled.div`
   display: flex;

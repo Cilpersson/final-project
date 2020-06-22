@@ -13,9 +13,10 @@ const initialState = {
   grid: {
     gridName: null,
     currentGrid: null,
+    currentGridComments: [],
+    currentGridImages: [],
     createdGrids: [],
     connectedGrids: [],
-    currentGridComments: [],
   },
 };
 
@@ -73,6 +74,10 @@ export const user = createSlice({
     setCurrentGridImages: (state, action) => {
       const { currentGridImages } = action.payload;
       state.grid.currentGridImages = currentGridImages;
+    },
+    setCurrentGridPages: (state, action) => {
+      const { currentGridPages } = action.payload;
+      state.grid.currentGridPages = currentGridPages;
     },
     clearAll: () => {
       return initialState;
@@ -328,6 +333,7 @@ export const accessGrid = (accessTokenGrid) => {
             currentGridComments: json.commentList,
           })
         );
+        dispatch(accessGridImages(accessTokenGrid));
         // dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
       })
       .catch((err) => {
@@ -508,9 +514,15 @@ export const accessGridImages = (accessTokenGrid, page, sort) => {
       .then((json) => {
         dispatch(
           user.actions.setCurrentGridImages({
-            currentGridImages: json.grid.imgList,
+            currentGridImages: json.grid[0].imgList,
           })
         );
+        dispatch(
+          user.actions.setCurrentGridPages({
+            currentGridPages: json.pages,
+          })
+        );
+
         dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
       })
       .catch((err) => {

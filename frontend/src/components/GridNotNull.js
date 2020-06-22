@@ -76,6 +76,7 @@ export const GridNotNull = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const [didMount, setDidMount] = useState(false);
   const [sliderValue, setSliderValue] = useState(25);
+  const [currentPage, setCurrentPage] = useState(1);
 
   //Gets width of screen on rezise
   useEffect(() => {
@@ -101,8 +102,9 @@ export const GridNotNull = () => {
     }
     dispatch(postToGrid(formData));
     setFiles(null);
+    setCurrentPage(1);
   };
-
+  console.log(currentPage);
   const fileCount = (data) => {
     if (data.length === 1) {
       return data[0].name;
@@ -178,7 +180,13 @@ export const GridNotNull = () => {
         />
       </SectionWrapper>
       <WrapperRow>
-        {!comments && <DisplayGridAlternative sliderValue={sliderValue} />}
+        {!comments && (
+          <DisplayGridAlternative
+            sliderValue={sliderValue}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
         {comments && <GridComments />}
       </WrapperRow>
     </GridPageWrapper>

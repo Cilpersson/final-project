@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components/macro";
 import { uuid } from "uuidv4";
 import { WrapperCol } from "lib/stylesheet";
+import { PaginationImages } from "./smallerComps/PaginationImages";
 
 const WrapperGrid = styled(WrapperCol)`
   display: flex;
@@ -133,9 +134,18 @@ const Background = styled.section`
   width: 100vw;
 `;
 
-export const DisplayGridAlternative = ({ sliderValue }) => {
+export const DisplayGridAlternative = ({
+  sliderValue,
+  currentPage,
+  setCurrentPage,
+}) => {
   const [image, setImage] = useState(null);
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
+  const totalPages = useSelector((store) => store.user.grid.currentGridPages);
+  const currentGridImages = useSelector(
+    (store) => store.user.grid.currentGridImages
+  );
+
   const [yOffset, setYOffset] = useState(0);
   const [imgIndex, setImgIndex] = useState(null);
 
@@ -153,7 +163,7 @@ export const DisplayGridAlternative = ({ sliderValue }) => {
 
   return (
     <>
-      {currentGrid.imgList.length !== 0 && (
+      {currentGridImages.length !== 0 && (
         <WrapperGrid>
           <>
             {image !== null && (
@@ -168,9 +178,9 @@ export const DisplayGridAlternative = ({ sliderValue }) => {
                   onClick={() => {
                     //If imgIndex = 0 => -1 + currentGrid.imgList.length => Shows last image in the array!
                     const newImgIndex =
-                      (imgIndex - 1 + currentGrid.imgList.length) %
-                      currentGrid.imgList.length;
-                    setImage(currentGrid.imgList[newImgIndex].src);
+                      (imgIndex - 1 + currentGridImages.length) %
+                      currentGridImages.length;
+                    setImage(currentGridImages[newImgIndex].src);
                     setImgIndex(newImgIndex);
                   }}
                 />
@@ -194,29 +204,37 @@ export const DisplayGridAlternative = ({ sliderValue }) => {
                   icon={faForward}
                   onClick={() => {
                     const newImgIndex =
-                      (imgIndex + 1) % currentGrid.imgList.length;
-                    setImage(currentGrid.imgList[newImgIndex].src);
+                      (imgIndex + 1) % currentGridImages.length;
+                    setImage(currentGridImages[newImgIndex].src);
                     setImgIndex(newImgIndex);
                   }}
                 />
               </Background>
             )}
-            <Ul>
-              {currentGrid.imgList.map((item, index) => {
-                return (
-                  <Li
-                    height={sliderValue}
-                    key={uuid()}
-                    onClick={() => {
-                      setImage(item.src);
-                      setImgIndex(index);
-                    }}>
-                    <Img src={item.src} />
-                  </Li>
-                );
-              })}
-              <FinalLI></FinalLI>
-            </Ul>
+            <>
+              <div>
+                <PaginationImages
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                />
+              </div>
+              <Ul>
+                {currentGridImages.map((item, index) => {
+                  return (
+                    <Li
+                      height={sliderValue}
+                      key={uuid()}
+                      onClick={() => {
+                        setImage(item.src);
+                        setImgIndex(index);
+                      }}>
+                      <Img src={item.src} />
+                    </Li>
+                  );
+                })}
+                {/* <FinalLI></FinalLI> */}
+              </Ul>
+            </>
           </>
         </WrapperGrid>
       )}
