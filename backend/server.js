@@ -425,11 +425,7 @@ app.get("/grids/grid/:accessTokenGrid/comments", async (req, res) => {
 
   try {
     const grid = await Grid.aggregate([
-      {
-        $match: {
-          accessToken: "6f1bde33c03d6ea061a7d9ea07987a1c",
-        },
-      },
+      { $match: { accessToken: accessTokenGrid } },
       {
         $unwind: {
           path: "$commentList",
