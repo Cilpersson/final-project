@@ -29,6 +29,8 @@ export const Navbar = () => {
   const clearCurrentGrid = (path) => {
     dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
     dispatch(user.actions.setCurrentGrid({ currentGrid: null }));
+    dispatch(user.actions.setCurrentGridPages({ currentGridPages: 0 }));
+    dispatch(user.actions.setCurrentGridImages({ currentGridImages: [] }));
     history.push(path);
   };
 

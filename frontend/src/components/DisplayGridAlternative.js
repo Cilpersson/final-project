@@ -232,7 +232,7 @@ export const DisplayGridAlternative = ({
                     </Li>
                   );
                 })}
-                {/* <FinalLI></FinalLI> */}
+                <FinalLI></FinalLI>
               </Ul>
             </>
           </>

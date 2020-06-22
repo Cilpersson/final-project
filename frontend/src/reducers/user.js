@@ -15,6 +15,7 @@ const initialState = {
     currentGrid: null,
     currentGridComments: [],
     currentGridImages: [],
+    currentGridPages: 0,
     createdGrids: [],
     connectedGrids: [],
   },
@@ -512,16 +513,18 @@ export const accessGridImages = (accessTokenGrid, page, sort) => {
         throw new Error("Could not access images");
       })
       .then((json) => {
-        dispatch(
-          user.actions.setCurrentGridImages({
-            currentGridImages: json.grid[0].imgList,
-          })
-        );
-        dispatch(
-          user.actions.setCurrentGridPages({
-            currentGridPages: json.pages,
-          })
-        );
+        if (json.grid.length !== 0) {
+          dispatch(
+            user.actions.setCurrentGridImages({
+              currentGridImages: json.grid[0].imgList,
+            })
+          );
+          dispatch(
+            user.actions.setCurrentGridPages({
+              currentGridPages: json.pages,
+            })
+          );
+        }
 
         dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
       })
