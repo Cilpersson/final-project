@@ -70,6 +70,10 @@ export const user = createSlice({
       const { currentGridComments } = action.payload;
       state.grid.currentGridComments = currentGridComments.reverse();
     },
+    setCurrentGridImages: (state, action) => {
+      const { currentGridImages } = action.payload;
+      state.grid.currentGridImages = currentGridImages;
+    },
     clearAll: () => {
       return initialState;
     },
@@ -480,6 +484,37 @@ export const leaveGrid = (accessTokenGrid) => {
       .catch((err) => {
         dispatch(user.actions.setErrorMessage(err));
         dispatch(ui.actions.setLoading(false));
+      });
+  };
+};
+
+// GET ONE PAGINATED IMGLIST
+export const accessGridImages = (accessTokenGrid, page, sort) => {
+  const USERS_URL = `${API_URL}/grids/grid`;
+  return (dispatch, getState) => {
+    const accessToken = getState().user.login.accessToken;
+    fetch(`${USERS_URL}/${accessTokenGrid}/images?page=${page}&sort=${sort}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: accessToken,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Could not access images");
+      })
+      .then((json) => {
+        dispatch(
+          user.actions.setCurrentGridImages({
+            currentGridImages: json.grid.imgList,
+          })
+        );
+        dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
+      })
+      .catch((err) => {
+        dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
 };
