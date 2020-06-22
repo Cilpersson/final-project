@@ -31,6 +31,8 @@ export const Navbar = () => {
     dispatch(user.actions.setCurrentGrid({ currentGrid: null }));
     dispatch(user.actions.setCurrentGridPages({ currentGridPages: 0 }));
     dispatch(user.actions.setCurrentGridImages({ currentGridImages: [] }));
+    dispatch(user.actions.setCurrentCommentPages({ currentCommentPages: 0 }));
+    dispatch(user.actions.setCurrentGridComments({ currentGridComments: [] }));
     history.push(path);
   };
 

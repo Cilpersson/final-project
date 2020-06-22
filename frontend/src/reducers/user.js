@@ -16,6 +16,7 @@ const initialState = {
     currentGridComments: [],
     currentGridImages: [],
     currentGridPages: 0,
+    currentCommentPages: 0,
     createdGrids: [],
     connectedGrids: [],
   },
@@ -408,11 +409,12 @@ export const postCommentToGrid = (message) => {
         throw new Error("Could not post comment.");
       })
       .then((json) => {
-        dispatch(
-          user.actions.setCurrentGridComments({
-            currentGridComments: json.commentList,
-          })
-        );
+        // dispatch(
+        //   user.actions.setCurrentGridComments({
+        //     currentGridComments: json.commentList,
+        //   })
+        // );
+        dispatch(accessGridComments(gridAccessToken));
         dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
         dispatch(ui.actions.setLoading(false));
       })
@@ -560,8 +562,8 @@ export const accessGridComments = (accessTokenGrid, page, sort) => {
         throw new Error("Could not access images");
       })
       .then((json) => {
-        console.log("this is json for comments: ", json);
-        if (json.grid.length !== 0) {
+        console.log("this is json for comments: ", json.grid);
+        if (json.grid.length > 0) {
           dispatch(
             user.actions.setCurrentGridComments({
               currentGridComments: json.grid[0].commentList,

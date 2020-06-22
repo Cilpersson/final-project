@@ -139,13 +139,10 @@ export const DisplayGridAlternative = ({
   currentPage,
   setCurrentPage,
 }) => {
-  const [image, setImage] = useState(null);
-  const currentGrid = useSelector((store) => store.user.grid.currentGrid);
-  const totalPages = useSelector((store) => store.user.grid.currentGridPages);
   const currentGridImages = useSelector(
     (store) => store.user.grid.currentGridImages
   );
-
+  const [image, setImage] = useState(null);
   const [yOffset, setYOffset] = useState(0);
   const [imgIndex, setImgIndex] = useState(null);
 
@@ -212,12 +209,12 @@ export const DisplayGridAlternative = ({
               </Background>
             )}
             <>
-              <div>
+              <>
                 <PaginationImages
                   currentPage={currentPage}
                   setCurrentPage={setCurrentPage}
                 />
-              </div>
+              </>
               <Ul>
                 {currentGridImages.map((item, index) => {
                   return (

@@ -17,10 +17,12 @@ import { WrapperCol } from "lib/stylesheet";
 import { PixelHeart } from "components/PixelHeart";
 import { postCommentToGrid } from "reducers/user";
 import { CommentCount } from "components/smallerComps/CommentCount";
+import { PaginationComments } from "./smallerComps/PaginationComments";
 
 export const GridComments = () => {
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
   const error = useSelector((store) => store.user.login.errorMessage);
   const name = useSelector((store) => store.user.login.name);
   const currentComments = useSelector(
@@ -62,6 +64,10 @@ export const GridComments = () => {
             </Button>
           </WrapperCol>
         </CommentForm>
+        <PaginationComments
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
         {currentComments.map((comment) => {
           return (
             <Comment key={uuid()}>

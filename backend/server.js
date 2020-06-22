@@ -289,10 +289,16 @@ app.post("/grids/grid/:accessTokenGrid", async (req, res) => {
     const grid = await Grid.findOneAndUpdate(
       { accessToken: accessTokenGrid },
       {
-        $push: { commentList: comment },
+        $push: {
+          commentList: {
+            $each: comment,
+            $position: 0,
+          },
+        },
       },
       { new: true }
     )
+
       .populate("commentList")
       .exec();
     res.status(201).json({ commentList: grid.commentList });
