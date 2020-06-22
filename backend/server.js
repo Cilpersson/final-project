@@ -345,7 +345,7 @@ app.put("/users/grid/leave/:accessTokenGrid", async (req, res) => {
 });
 
 // ATTEMPT TO PAGINATE IMAGELIST WITH AGGREGATE
-app.put("/grids/grid/:accessTokenGrid/images", authenticateUser);
+app.get("/grids/grid/:accessTokenGrid/images", authenticateUser);
 app.get("/grids/grid/:accessTokenGrid/images", async (req, res) => {
   const { accessTokenGrid } = req.params;
   const { page, sort } = req.query;
@@ -400,6 +400,79 @@ app.get("/grids/grid/:accessTokenGrid/images", async (req, res) => {
         $group: {
           _id: "$_id",
           imgList: { $push: "$imgList" },
+        },
+      },
+    ]);
+    res.status(201).json({ pages: pages, grid: grid });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// ATTEMPT TO PAGINATE COMMENTLIST WITH AGGREGATE
+app.get("/grids/grid/:accessTokenGrid/comments", authenticateUser);
+app.get("/grids/grid/:accessTokenGrid/comments", async (req, res) => {
+  const { accessTokenGrid } = req.params;
+  const { page, sort } = req.query;
+
+  const pageNbr = +page || 1;
+  const perPage = 1;
+  const skip = perPage * (pageNbr - 1);
+  const sorting = +sort || -1;
+
+  const totalImages = await Grid.findOne({ accessToken: accessTokenGrid });
+  const pages = Math.ceil(totalImages.imgList.length / perPage);
+
+  try {
+    const grid = await Grid.aggregate([
+      {
+        $match: {
+          accessToken: "6f1bde33c03d6ea061a7d9ea07987a1c",
+        },
+      },
+      {
+        $unwind: {
+          path: "$commentList",
+        },
+      },
+      {
+        $lookup: {
+          from: "comments",
+          localField: "commentList",
+          foreignField: "_id",
+          as: "commentList",
+        },
+      },
+      {
+        $project: {
+          commentList: 1,
+        },
+      },
+      {
+        $unwind: {
+          path: "$commentList",
+        },
+      },
+      {
+        $sort: {
+          "imgList.createdAt": sorting,
+        },
+      },
+      {
+        $skip: skip,
+      },
+      {
+        $limit: perPage,
+      },
+      {
+        $sort: {
+          "commentList.createdAt": -1,
+        },
+      },
+      {
+        $group: {
+          _id: "$_id",
+          commentList: { $push: "$commentList" },
         },
       },
     ]);
