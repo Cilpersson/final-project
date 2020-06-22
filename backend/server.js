@@ -456,7 +456,7 @@ app.get("/grids/grid/:accessTokenGrid/comments", async (req, res) => {
       },
       {
         $sort: {
-          "imgList.createdAt": sorting,
+          "commentList.createdAt": sorting,
         },
       },
       {
@@ -464,11 +464,6 @@ app.get("/grids/grid/:accessTokenGrid/comments", async (req, res) => {
       },
       {
         $limit: perPage,
-      },
-      {
-        $sort: {
-          "commentList.createdAt": -1,
-        },
       },
       {
         $group: {
