@@ -33,6 +33,7 @@ export const GridComments = () => {
     event.preventDefault();
     dispatch(postCommentToGrid(message));
     setComment("");
+    setCurrentPage(1);
   };
 
   return (

@@ -21,7 +21,6 @@ export const PaginationComments = ({ currentPage, setCurrentPage }) => {
       setCurrentPage(currentPage + 1);
     }
   };
-  console.log("Total pages: ", totalPages);
 
   if (totalPages > 0) {
     return (
