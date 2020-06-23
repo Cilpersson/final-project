@@ -21,7 +21,7 @@ export const PaginationComments = ({ currentPage, setCurrentPage }) => {
       setCurrentPage(currentPage + 1);
     }
   };
-  console.log("totalpages: ", totalPages);
+
   if (totalPages > 0) {
     return (
       <WrapperRow>
@@ -46,6 +46,7 @@ export const PaginationComments = ({ currentPage, setCurrentPage }) => {
 };
 const PaginationText = styled(PasswordInfo)`
   font-size: 1.2rem;
+  color: black;
 `;
 const PaginationButton = styled.button`
   background: none;

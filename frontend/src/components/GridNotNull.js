@@ -23,6 +23,7 @@ import {
   ErrorInfo,
   Greeting,
   StyledSubmit,
+  ItalicGreeting,
 } from "lib/stylesheet";
 import { CheckUsers } from "./CheckUsers";
 const GridPageWrapper = styled.section``;
@@ -128,7 +129,7 @@ export const GridNotNull = () => {
       <SectionWrapper>
         <Grid />
         <GridPageTitle>{currentGrid.name}</GridPageTitle>
-        <Greeting>{gridCheck()} </Greeting>
+        <ItalicGreeting>{gridCheck()} </ItalicGreeting>
         <Fieldset>
           <Legend>Upload images here!</Legend>
           {!isLoading && (

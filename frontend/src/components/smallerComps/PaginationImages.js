@@ -40,6 +40,7 @@ export const PaginationImages = ({ currentPage, setCurrentPage }) => {
 };
 const PaginationText = styled(PasswordInfo)`
   font-size: 1.2rem;
+  color: black;
 `;
 const PaginationButton = styled.button`
   background: none;

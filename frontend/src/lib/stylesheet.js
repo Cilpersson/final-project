@@ -10,18 +10,22 @@ export const GridPageTitle = styled.h2`
   color: black;
   text-align: center;
   font-size: 2rem;
+  font-weight: 400;
 `;
 
 export const Greeting = styled.h3`
-  padding: 0.8rem 0;
+  padding: 0.4rem 0;
   color: black;
   text-align: center;
 
-  padding: 0.8rem 0;
   color: black;
   text-align: center;
   font-size: 1.2rem;
   font-weight: 400;
+`;
+
+export const ItalicGreeting = styled(Greeting)`
+  font-style: italic;
 `;
 
 export const StyledGreeting = styled(Greeting)`
@@ -554,6 +558,7 @@ export const Button = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 0.5rem;
 
   &:hover {
     transform: scale(1.1);

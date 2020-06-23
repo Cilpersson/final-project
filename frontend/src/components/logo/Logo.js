@@ -2,13 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 import { Grid } from "./Grid";
 
-const WrapperCol = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem 0 0.25rem 0; */
-`;
+const WrapperCol = styled.div``;
 
 const WrapperRow = styled.div`
   display: flex;
@@ -27,11 +21,6 @@ const Title = styled.h1`
   letter-spacing: 0.5rem;
 
   @media (min-width: 668px) {
-    /* font-size: 3.2rem;
-    letter-spacing: 1rem;
-  }
-
-  @media (min-width: 1024px) { */
     font-size: 4rem;
     letter-spacing: 1.5rem;
   }
@@ -44,10 +33,6 @@ const Slim = styled.span`
   margin-left: 0.5rem;
 
   @media (min-width: 668px) {
-    /* margin-left: 1rem;
-  }
-
-  @media (min-width: 1024px) { */
     margin-left: 1.5rem;
   }
 `;
@@ -59,10 +44,6 @@ const UnderTitle = styled.h3`
   font-size: 0.6rem;
 
   @media (min-width: 668px) {
-    /* font-size: 1.25rem;
-  }
-
-  @media (min-width: 1024px) { */
     font-size: 1.4rem;
     letter-spacing: 1.2rem;
   }
@@ -71,23 +52,16 @@ const UnderTitle = styled.h3`
 const innerWidth = (width) => {
   if (width < 668) {
     return "0.6rem";
-    // } else if (width > 1024) {
-    //   return "0.90rem";
   } else {
     return "0.90rem";
-    // "0.7rem";
   }
 };
 
 // Functions are identical but not sure how to combine them
 const marginLeft = (width) => {
   if (width < 668) {
-    //   return "0.5rem";
-    // } else if (width > 1024) {
-    //   return "1.3rem";
   } else {
     return "1.3rem";
-    // "1rem";
   }
 };
 

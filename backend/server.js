@@ -356,7 +356,7 @@ app.get("/grids/grid/:accessTokenGrid/images", async (req, res) => {
   const { page, sort } = req.query;
 
   const pageNbr = +page || 1;
-  const perPage = 10;
+  const perPage = 20;
   const skip = perPage * (pageNbr - 1);
   const sorting = +sort || -1;
 

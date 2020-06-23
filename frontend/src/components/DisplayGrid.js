@@ -27,7 +27,6 @@ export const DisplayGrid = () => {
 
   useScrollPosition(({ prevPos, currPos }) => {
     setYOffset(Math.abs(currPos.y));
-    console.log(yOffset);
   });
 
   const random = (min, max) => {
