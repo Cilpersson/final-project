@@ -9,10 +9,11 @@ export const About = () => {
       <Grid />
       <Greeting>What is PHOTO GRID?</Greeting>
       <Paragraph>
-        Start by creating a grid, and share the grid link with whomever you
-        want. Did you and your favourite person just get married? Do you want to
-        see images that where taken on that day? Then it's time for you to make
-        a wedding grid and share it with everyone that attended the wedding.
+        Sign up and start by creating a grid, and share the grid link with
+        whomever you want. Did you and your favourite person just get married?
+        Do you want to see images that where taken on that day? Then it's time
+        for you to make a wedding grid and share it with everyone that attended
+        the wedding.
       </Paragraph>
       <br />
       <Paragraph>
@@ -25,14 +26,13 @@ export const About = () => {
         Then there are those other moments in life that aren't as happy, when we
         loose someone we love. Maybe you want to keep your favourite pictures of
         that special person in one place. Then you should make a grid, and keep
-        that password for yourself.
+        that grid link for yourself.
       </Paragraph>
       <br />
       <Paragraph>
         And you know what, you don't need life changing events to create a grid,
         make one before you have some friends over for dinner and let them
-        upload the images while at your place! There is allways a reason to
-        grid!
+        upload the images while at your place! There is always a reason to grid!
       </Paragraph>
       <br />
       <Paragraph>Enjoy reading?</Paragraph>

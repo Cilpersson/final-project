@@ -64,7 +64,7 @@ export const ProjectReflections = () => {
         Further down on this page I have added my project brief that I handed in
         prior to starting with the project. Pages 2 - 4 of the brief contains a
         breakdown of the website. I tried to visualise the larger components and
-        pages, and wrote down most things I could think of that they would
+        pages, and wrote down most things I could think of that they should
         contain. I rated the different features from [1 - 3] where features
         rated [ 1 ] where the absolut minimum for the finished product and
         therefore the things I should start with. It has been incredibly helpful
@@ -79,20 +79,20 @@ export const ProjectReflections = () => {
         There where a few decisions I needed to make right away. The first one
         was one or two repositories? I choose one, I will explain the two main
         reasons for that. Neither the back- or frontend would be very
-        spectacular without the other, they would need each other to make this
-        project become as I visualised. Since everything is written in
-        Javascript, the entire backend with the help of node.js and the frontend
-        as well, where the styling is CSS-in-JS, going for one repo felt even
-        more right. Besides that reasoning this was one of those times where I
-        could decide to do everything exactly as I wanted since I have done this
-        project by myself, and I took that chance. I have loved having my front-
-        and backend in one big repo. It has been easy to go back and forth
-        between files and folders. It also pushed me to make sure that every
-        file and folder followed the same naming convention which has been a
-        nice bonus. When doing side projects in the future I think it's most
-        likely that I will make those with one repo as well. I should also
-        mention that I watched a talk about Googles mono repo, and that might
-        have affected my decision a bit.
+        spectacular without the other, they need each other to make this project
+        become as I visualised. Since everything is written in Javascript, the
+        entire backend with the help of node.js and the frontend as well, where
+        the styling is CSS-in-JS, going for one repo felt even more right.
+        Besides that reasoning this was one of those times where I could decide
+        to do everything exactly as I wanted since I have done this project by
+        myself, and I took that chance. I have loved having my front- and
+        backend in one big repo. It has been easy to go back and forth between
+        files and folders. It also pushed me to make sure that every file and
+        folder followed the same naming convention which has been a nice bonus.
+        When doing side projects in the future I think it's most likely that I
+        will make those with one repo as well. I should also mention that I
+        watched a talk about Googles mono repo, and that might have affected my
+        decision a bit.
       </Paragraph>
       <br />
       <StyledLinks
@@ -133,6 +133,12 @@ export const ProjectReflections = () => {
           Delete grid - This endpoint works, however it does not currently
           delete the images from cloudinary
         </ListItem>
+        <ListItem>
+          Paginated and populated endpoint for images using aggregate
+        </ListItem>
+        <ListItem>
+          Paginated and populated endpoint for comments using aggregate
+        </ListItem>
         <ListItem>User authentication for most endpoints</ListItem>
         <br />
         <h4>Models</h4>
@@ -152,7 +158,8 @@ export const ProjectReflections = () => {
         keypress between images. Another feature related to displaying the
         images is the slider that adjusts the image size in the grid. I had my
         sister in mind when adding that feature. She has really bad eyesight,
-        and I know it was a feature that would be useful for her.
+        and I knew from the start that it was a feature that would be useful for
+        her.
       </Paragraph>
       <br />
       <Paragraph>
@@ -178,19 +185,20 @@ export const ProjectReflections = () => {
       </Paragraph>
       <br />
       <Paragraph>
-        There are a few things in my brief I have not yet implemented. The
-        delete grid feature for example, at the time of writing this the images
-        does not get deleted from cloudinary. There is no pagination right now,
-        and I would like to have that for both comments and images. I would also
-        like to have some sort of user moderating. If two or three users have
-        reported an image it should not be displayed. I will not have time to
+        There are however a few things in my brief I have not yet implemented.
+        The delete grid feature for example, at the time of writing this the
+        images does not get deleted from cloudinary. I would like to have some
+        sort of user moderating. If two or three users have reported an image it
+        should not be displayed. Another thing I would like would be to see who
+        has uploaded an images when hovering the image. I will not have time to
         finish those things before the final presentation. But I will continue
         to work on this project in the future. I have accomplished almost
         everything in my brief over twenty-one days. That's something I should
         be proud of. When I applied to the Technigo course I spent four days
         making a one page website with HTML and CSS, after four days during this
-        project I had created an endpoint that could post images to cloudinary.
-        I have worked hard, and I'm very proud of what I have done.
+        project I had, among other things, created an endpoint that could post
+        images to cloudinary. I have worked hard, and I'm very proud of what I
+        have done.
       </Paragraph>
       <br />
       <PDFDisplay />

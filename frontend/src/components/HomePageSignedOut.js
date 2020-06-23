@@ -13,8 +13,8 @@ export const HomePageSignedOut = () => {
           PHOTO GRID changes the way we view social media. This is a platform
           where you decide who can see your images. You create grids and you
           decide who can access them. Start by signing up, then you can make
-          your first grid. You can either keep it for yourself or share the
-          password with others.
+          your first grid. You can either keep it for yourself or share the grid
+          link with others.
         </Paragraph>
       </SectionWrapper>
       <WelcomeGridAlternative />

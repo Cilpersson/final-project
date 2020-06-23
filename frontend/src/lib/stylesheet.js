@@ -471,8 +471,7 @@ export const ListItem = styled.li`
   transition: 0.2s;
 
   &:hover {
-    /* font-weight: bold; */
-    transform: scale(1.1);
+    font-weight: bold;
   }
 `;
 
