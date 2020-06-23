@@ -76,7 +76,7 @@ export const GridNotNull = () => {
 
   const [width, setWidth] = useState(window.innerWidth);
   const [didMount, setDidMount] = useState(false);
-  const [sliderValue, setSliderValue] = useState(25);
+  const [sliderValue, setSliderValue] = useState(30);
   const [currentPage, setCurrentPage] = useState(1);
 
   //Gets width of screen on rezise

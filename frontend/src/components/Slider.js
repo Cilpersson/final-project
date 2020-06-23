@@ -31,8 +31,8 @@ export const Slider = ({ sliderValue, setSliderValue }) => {
           {/* <Opacity> */}
           <StyledSlider
             type="range"
-            min={10}
-            max={40}
+            min={15}
+            max={45}
             value={sliderValue}
             className="slider"
             onChange={(event) => setSliderValue(event.target.value)}

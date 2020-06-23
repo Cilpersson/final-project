@@ -155,6 +155,7 @@ export const StyledButton = styled.button`
   background-color: #84eccf;
   background-size: 200%;
   background-image: linear-gradient(to left, #ffffff, #84eccf);
+  color: black;
 
   &:hover {
     background-position: right;
