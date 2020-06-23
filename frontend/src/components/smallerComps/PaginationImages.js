@@ -28,7 +28,7 @@ export const PaginationImages = ({ currentPage, setCurrentPage }) => {
         {"<"}
       </PaginationButton>
       <PaginationText>
-        {currentPage} / {totalPages}{" "}
+        {currentPage} / {totalPages}
       </PaginationText>
       <PaginationButton
         disabled={currentPage === totalPages}
@@ -39,13 +39,14 @@ export const PaginationImages = ({ currentPage, setCurrentPage }) => {
   );
 };
 const PaginationText = styled(PasswordInfo)`
-  font-size: 1.2rem;
+  font-size: 1rem;
+  margin: 0 0.4rem;
   color: black;
 `;
 const PaginationButton = styled.button`
   background: none;
   border: none;
-  font-size: 1.6rem;
+  font-size: 1rem;
   margin: 0 0.4rem;
   cursor: pointer;
   transition: 0.2s;

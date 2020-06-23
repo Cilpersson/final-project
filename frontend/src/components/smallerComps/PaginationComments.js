@@ -31,7 +31,9 @@ export const PaginationComments = ({ currentPage, setCurrentPage }) => {
           {"<"}
         </PaginationButton>
         <PaginationText>
-          {currentPage} / {totalPages}{" "}
+          <PaginationText>
+            {currentPage} / {totalPages}
+          </PaginationText>
         </PaginationText>
         <PaginationButton
           disabled={currentPage === totalPages}
@@ -45,13 +47,14 @@ export const PaginationComments = ({ currentPage, setCurrentPage }) => {
   }
 };
 const PaginationText = styled(PasswordInfo)`
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: black;
+  margin: 0 0.4rem;
 `;
 const PaginationButton = styled.button`
   background: none;
   border: none;
-  font-size: 1.6rem;
+  font-size: 1rem;
   margin: 0 0.4rem;
   cursor: pointer;
   transition: 0.2s;
