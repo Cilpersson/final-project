@@ -26,6 +26,9 @@ export const Greeting = styled.h3`
 
 export const ItalicGreeting = styled(Greeting)`
   font-style: italic;
+  opacity: 0.6;
+  padding: 0 0.1rem;
+  font-size: 1.1rem;
 `;
 
 export const StyledGreeting = styled(Greeting)`
