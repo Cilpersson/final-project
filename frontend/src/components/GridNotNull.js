@@ -104,7 +104,7 @@ export const GridNotNull = () => {
     setFiles(null);
     setCurrentPage(1);
   };
-  console.log(currentPage);
+
   const fileCount = (data) => {
     if (data.length === 1) {
       return data[0].name;

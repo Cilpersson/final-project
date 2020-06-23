@@ -442,7 +442,6 @@ export const deleteGrid = (accessTokenGrid) => {
       body: JSON.stringify({ id: userId }),
     })
       .then((res) => {
-        console.log(res);
         if (res.ok) {
           return res.json();
         }
@@ -480,7 +479,6 @@ export const leaveGrid = (accessTokenGrid) => {
       body: JSON.stringify({ id: userId }),
     })
       .then((res) => {
-        console.log(res);
         if (res.ok) {
           return res.json();
         }
@@ -563,7 +561,6 @@ export const accessGridComments = (accessTokenGrid, page, sort) => {
         throw new Error("Could not access images");
       })
       .then((json) => {
-        console.log("this is json for comments: ", json.grid);
         if (json.grid.length > 0) {
           dispatch(
             user.actions.setCurrentGridComments({
