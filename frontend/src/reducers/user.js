@@ -229,7 +229,9 @@ export const createGrid = (gridName) => {
         if (res.ok) {
           return res.json();
         }
-        throw new Error("Could not create grid.");
+        throw new Error(
+          "Could not create grid, make sure you added correct information."
+        );
       })
       .then((json) => {
         dispatch(
@@ -300,7 +302,7 @@ export const connectToGrid = (gridAccessToken) => {
           return res.json();
         }
         throw new Error(
-          "Could not create grid, make sure you added all information"
+          "Could not connect to grid, make sure you added correct information"
         );
       })
       .then(() => {
