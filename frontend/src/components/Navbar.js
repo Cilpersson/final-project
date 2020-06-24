@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 import { user } from "reducers/user";
 import { authorization } from "reducers/user";
 import { logout } from "reducers/user";
@@ -36,7 +35,7 @@ export const Navbar = () => {
     history.push(path);
   };
 
-  if (isSignedIn) {
+  if (accessToken) {
     return (
       <>
         <Nav>
