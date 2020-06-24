@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   PasswordInfo,
   CommentLabel,
+  Greeting,
   Textarea,
   GuestBook,
   WrittenBy,
@@ -40,8 +41,7 @@ export const GridComments = () => {
     <>
       <GuestBook>
         <CommentForm onSubmit={(event) => handleOnSubmit(event, comment)}>
-          GUEST BOOK
-          <br />
+          <Greeting>GUEST BOOK</Greeting>
           <WrapperCol>
             <CommentLabel>
               <Textarea

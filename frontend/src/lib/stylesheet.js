@@ -575,7 +575,7 @@ export const CommentForm = styled.form`
 
 export const CommentText = styled.p`
   text-align: left;
-  word-break: break-all;
+  word-break: break-word;
 `;
 
 export const WrittenBy = styled.p`
