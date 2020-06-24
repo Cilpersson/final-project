@@ -69,7 +69,7 @@ export const Navbar = () => {
           <Link to="/About">
             <ListItem>About</ListItem>
           </Link>
-          <Link to="/SignUp">
+          <Link to="/SignUp" onClick={() => localStorage.clear()}>
             <ListItem>Log in</ListItem>
           </Link>
         </List>
