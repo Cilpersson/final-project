@@ -17,12 +17,10 @@ For further reading head over to the [Project reflections](https://www.photogrid
 
 ### TECH
 
-| Backend    | Frontend             | Bothend        |
-| ---------- | -------------------- | -------------- |
-| Node.js    | React                | VSC            |
-| Postman    | Redux                | Git            |
-| Mongoose   | Styled components    | Stack Overflow |
-| MongoDB    | JSX                  |                |
-| Heroku     | NPM - moment.js      |                |
-| Cloudinary | NPM - Sweet Alert    |                |
-|            | NPM - React dropzone |                |
+| Backend    | Frontend             | Bothend        | Smaller packages      |
+| ---------- | -------------------- | -------------- | --------------------- |
+| Node.js    | React                | VSC            | FE - Moment.js        |
+| Heroku     | Redux                | Git            | FE - Sweet Alert      |
+| MongoDB    | Styled components 💅 | Stack Overflow | FE - React dropzone   |
+| Mongoose   | JSX                  | Postman        | BE - Probe image size |
+| Cloudinary | Netlify              |                |                       |
