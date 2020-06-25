@@ -8,6 +8,7 @@ For further reading head over to the [Project reflections](https://www.photogrid
 
 **Clone it and:**
 `cd frontend` => `npm install` => `npm start`
+
 `cd backend` => `npm install` => `npm run dev`
 
 **or view it live:**
