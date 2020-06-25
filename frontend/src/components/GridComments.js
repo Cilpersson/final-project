@@ -18,7 +18,8 @@ import { WrapperCol } from "lib/stylesheet";
 import { PixelHeart } from "components/PixelHeart";
 import { postCommentToGrid } from "reducers/user";
 import { CommentCount } from "components/smallerComps/CommentCount";
-import { PaginationComments } from "./smallerComps/PaginationComments";
+import { accessGridComments } from "reducers/user";
+import { Pagination } from "./smallerComps/Pagination";
 
 export const GridComments = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,10 @@ export const GridComments = () => {
   const currentComments = useSelector(
     (store) => store.user.grid.currentGridComments
   );
+  const totalPagesComments = useSelector(
+    (store) => store.user.grid.currentCommentPages
+  );
+  const currentGrid = useSelector((store) => store.user.grid.currentGrid);
 
   const handleOnSubmit = (event, message) => {
     event.preventDefault();
@@ -65,9 +70,21 @@ export const GridComments = () => {
             </Button>
           </WrapperCol>
         </CommentForm>
-        <PaginationComments
+        <Pagination
+          totalPages={totalPagesComments}
           currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
+          onClickBack={() => {
+            dispatch(
+              accessGridComments(currentGrid.accessToken, currentPage - 1)
+            );
+            setCurrentPage(currentPage - 1);
+          }}
+          onClickForward={() => {
+            dispatch(
+              accessGridComments(currentGrid.accessToken, currentPage + 1)
+            );
+            setCurrentPage(currentPage + 1);
+          }}
         />
         {currentComments.map((comment) => {
           return (

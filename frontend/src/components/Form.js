@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signup, login, user } from "reducers/user";
+import { ui } from "reducers/ui";
 import { HomePage } from "pages/HomePage";
 import { Button } from "components/smallerComps/Button";
 import {
@@ -14,11 +15,13 @@ import {
 import { Grid } from "../components/logo/Grid";
 import { PasswordStrength } from "./smallerComps/PasswordStrength";
 import { PasswordMatch } from "./smallerComps/PasswordMatch";
+import { Loader } from "./smallerComps/Loader";
 
 export const Form = () => {
   const dispatch = useDispatch();
   const error = useSelector((store) => store.user.login.errorMessage);
   const accessToken = useSelector((store) => store.user.login.accessToken);
+  const isLoading = useSelector((store) => store.ui.isLoading);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -101,8 +104,23 @@ export const Form = () => {
               </Label>
             )}
             {<ErrorInfo> {error && error.message}</ErrorInfo>}
-            {signUp && <Button type="submit" disabled={false} text="Sign up" />}
-            {!signUp && <Button type="submit" disabled={false} text="Log in" />}
+            {isLoading && <Loader />}
+            {signUp && (
+              <Button
+                type="submit"
+                disabled={false}
+                text="Sign up"
+                onClick={() => dispatch(ui.actions.setLoading(true))}
+              />
+            )}
+            {!signUp && (
+              <Button
+                type="submit"
+                disabled={false}
+                text="Log in"
+                onClick={() => dispatch(ui.actions.setLoading(true))}
+              />
+            )}
           </Signup>
           <Button
             onClick={() => {

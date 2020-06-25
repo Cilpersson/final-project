@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { uuid } from "uuidv4";
 import { accessGrid } from "reducers/user";
 import { Form } from "components/Form";
-
 import { Grid } from "../components/logo/Grid";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
 import {
@@ -44,7 +43,7 @@ export const ConnectedGrids = () => {
       });
     }
     return setDidMount(false);
-  }, []);
+  }, [didMount]);
 
   useEffect(() => {
     if (currentGrid === "DELETED") {

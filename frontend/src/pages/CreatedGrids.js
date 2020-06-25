@@ -43,7 +43,7 @@ export const CreatedGrids = () => {
       });
     }
     return setDidMount(false);
-  }, []);
+  }, [didMount]);
 
   useEffect(() => {
     if (currentGrid === "DELETED") {

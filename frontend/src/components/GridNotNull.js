@@ -21,7 +21,6 @@ import {
   PasswordInfo,
   WrapperRow,
   ErrorInfo,
-  Greeting,
   StyledSubmit,
   ItalicGreeting,
 } from "lib/stylesheet";

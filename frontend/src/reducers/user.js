@@ -133,6 +133,7 @@ export const login = (email, password) => {
       })
       .catch((err) => {
         dispatch(logout());
+        dispatch(ui.actions.setLoading(false));
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };
@@ -170,10 +171,12 @@ export const signup = (name, email, password) => {
           })
         );
         dispatch(authorization());
+        dispatch(ui.actions.setLoading(false));
         dispatch(user.actions.setErrorMessage({ errorMessage: "" }));
       })
       .catch((err) => {
         dispatch(logout());
+        dispatch(ui.actions.setLoading(false));
         dispatch(user.actions.setErrorMessage({ errorMessage: err }));
       });
   };

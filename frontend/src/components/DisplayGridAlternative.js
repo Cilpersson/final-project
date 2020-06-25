@@ -7,11 +7,13 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { LightboxButton } from "components/smallerComps/LightboxButton";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components/macro";
 import { uuid } from "uuidv4";
 import { WrapperCol } from "lib/stylesheet";
-import { PaginationImages } from "./smallerComps/PaginationImages";
+import { Pagination } from "./smallerComps/Pagination";
+
+import { accessGridImages } from "reducers/user";
 
 const WrapperGrid = styled(WrapperCol)`
   display: flex;
@@ -142,6 +144,13 @@ export const DisplayGridAlternative = ({
   const currentGridImages = useSelector(
     (store) => store.user.grid.currentGridImages
   );
+  const dispatch = useDispatch();
+  const currentGrid = useSelector((store) => store.user.grid.currentGrid);
+
+  const totalPagesImages = useSelector(
+    (store) => store.user.grid.currentGridPages
+  );
+
   const [image, setImage] = useState(null);
   const [yOffset, setYOffset] = useState(0);
   const [imgIndex, setImgIndex] = useState(null);
@@ -210,9 +219,21 @@ export const DisplayGridAlternative = ({
             )}
             <>
               <>
-                <PaginationImages
+                <Pagination
+                  totalPages={totalPagesImages}
                   currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
+                  onClickBack={() => {
+                    dispatch(
+                      accessGridImages(currentGrid.accessToken, currentPage - 1)
+                    );
+                    setCurrentPage(currentPage - 1);
+                  }}
+                  onClickForward={() => {
+                    dispatch(
+                      accessGridImages(currentGrid.accessToken, currentPage + 1)
+                    );
+                    setCurrentPage(currentPage + 1);
+                  }}
                 />
               </>
               <Ul>
