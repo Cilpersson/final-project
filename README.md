@@ -7,6 +7,7 @@ This is the final project I created during the Technigo boot camp. It is a platf
 For further reading head over to the [Project reflections](https://www.photogrid.community/ProjectReflections) on the site, where I have written both technical and personal reflections regarding this project.
 
 **Clone it and:**
+
 `cd frontend` => `npm install` => `npm start`
 
 `cd backend` => `npm install` => `npm run dev`
