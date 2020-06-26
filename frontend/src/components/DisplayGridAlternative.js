@@ -220,6 +220,10 @@ export const DisplayGridAlternative = ({
             <>
               <>
                 <Pagination
+                  onClickFirst={() => {
+                    dispatch(accessGridImages(currentGrid.accessToken, 1));
+                    setCurrentPage(1);
+                  }}
                   totalPages={totalPagesImages}
                   currentPage={currentPage}
                   onClickBack={() => {
@@ -233,6 +237,15 @@ export const DisplayGridAlternative = ({
                       accessGridImages(currentGrid.accessToken, currentPage + 1)
                     );
                     setCurrentPage(currentPage + 1);
+                  }}
+                  onClickLast={() => {
+                    dispatch(
+                      accessGridImages(
+                        currentGrid.accessToken,
+                        totalPagesImages
+                      )
+                    );
+                    setCurrentPage(totalPagesImages);
                   }}
                 />
               </>

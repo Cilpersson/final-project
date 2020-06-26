@@ -1,6 +1,6 @@
 import React from "react";
 import { PasswordInfo, WrapperRow } from "lib/stylesheet";
-
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
 const PaginationText = styled(PasswordInfo)`
@@ -26,10 +26,15 @@ export const Pagination = ({
   onClickBack,
   onClickForward,
   totalPages,
+  onClickFirst,
+  onClickLast,
 }) => {
   if (totalPages > 0) {
     return (
       <WrapperRow>
+        <PaginationButton disabled={currentPage === 1} onClick={onClickFirst}>
+          {"<<"}
+        </PaginationButton>
         <PaginationButton disabled={currentPage === 1} onClick={onClickBack}>
           {"<"}
         </PaginationButton>
@@ -40,6 +45,11 @@ export const Pagination = ({
           disabled={currentPage === totalPages}
           onClick={onClickForward}>
           {">"}
+        </PaginationButton>
+        <PaginationButton
+          disabled={currentPage === totalPages}
+          onClick={onClickLast}>
+          {">>"}
         </PaginationButton>
       </WrapperRow>
     );

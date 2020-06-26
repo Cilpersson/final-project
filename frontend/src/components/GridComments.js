@@ -71,6 +71,10 @@ export const GridComments = () => {
           </WrapperCol>
         </CommentForm>
         <Pagination
+          onClickFirst={() => {
+            dispatch(accessGridComments(currentGrid.accessToken, 1));
+            setCurrentPage(1);
+          }}
           totalPages={totalPagesComments}
           currentPage={currentPage}
           onClickBack={() => {
@@ -84,6 +88,12 @@ export const GridComments = () => {
               accessGridComments(currentGrid.accessToken, currentPage + 1)
             );
             setCurrentPage(currentPage + 1);
+          }}
+          onClickLast={() => {
+            dispatch(
+              accessGridComments(currentGrid.accessToken, totalPagesComments)
+            );
+            setCurrentPage(totalPagesComments);
           }}
         />
         {currentComments.map((comment) => {
