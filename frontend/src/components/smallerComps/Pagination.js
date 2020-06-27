@@ -1,7 +1,6 @@
 import React from "react";
 import { PasswordInfo, WrapperRow } from "lib/stylesheet";
-import { useSelector, useDispatch } from "react-redux";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const PaginationText = styled(PasswordInfo)`
   font-size: 1rem;
