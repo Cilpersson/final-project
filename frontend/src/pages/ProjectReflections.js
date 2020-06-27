@@ -8,7 +8,7 @@ import {
 import { Grid } from "../components/logo/Grid";
 import { PDFDisplay } from "../components/PDFDisplay";
 import styled from "styled-components/macro";
-import { faGithubAlt, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
+import { faGithubAlt } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const List = styled.ul``;

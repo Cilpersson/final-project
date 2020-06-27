@@ -1,27 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { uuid } from "uuidv4";
-import { accessGrid } from "reducers/user";
+import { useSelector } from "react-redux";
 import { Form } from "components/Form";
 import { Grid } from "../components/logo/Grid";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
-import {
-  Greeting,
-  StyledButton,
-  Wrapper,
-  Ul,
-  Li,
-  SectionWrapper,
-  ButtonText,
-  StyledGreeting,
-} from "lib/stylesheet";
+import { Greeting, Wrapper, SectionWrapper } from "lib/stylesheet";
 import { useHistory } from "react-router";
 import { LottiePlayer } from "components/LottiePlayer";
 import animationCamera from "../images_animations/animations/camera.json";
+import { GridInfo } from "components/smallerComps/GridInfo";
+import { AllGridsForUser } from "components/smallerComps/AllGridsForUser";
+import { NoGridsMade } from "components/smallerComps/NoGridsMade";
 
 export const ConnectedGrids = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
   const accessToken = useSelector((store) => store.user.login.accessToken);
 
   const connectedGrids = useSelector((store) => store.user.grid.connectedGrids);
@@ -29,10 +20,6 @@ export const ConnectedGrids = () => {
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
   const [width, setWidth] = useState(window.innerWidth);
   const [didMount, setDidMount] = useState(false);
-
-  const handleOnClick = (gridAccessToken) => {
-    dispatch(accessGrid(gridAccessToken));
-  };
 
   //Gets width of screen on rezise
   useEffect(() => {
@@ -63,23 +50,8 @@ export const ConnectedGrids = () => {
           buttonText="Connect"
           labelText="Accesstoken"
         />
-        <StyledGreeting>
-          {connectedGrids.length === 1 ? "This is" : "These are"} your connected
-          {connectedGrids.length === 1 ? " grid" : " grids"}:
-        </StyledGreeting>
-        <Ul>
-          {connectedGrids.map((grid) => {
-            return (
-              <StyledButton
-                key={uuid()}
-                onClick={() => handleOnClick(grid.accessToken)}>
-                <Li key={uuid()}>
-                  <ButtonText>{grid.name}</ButtonText>
-                </Li>
-              </StyledButton>
-            );
-          })}
-        </Ul>
+        <GridInfo gridArr={connectedGrids} gridType="connected" />
+        <AllGridsForUser gridArr={connectedGrids} />
       </SectionWrapper>
     );
   } else if (accessToken && connectedGrids.length === 0) {
@@ -87,10 +59,7 @@ export const ConnectedGrids = () => {
       <SectionWrapper>
         <Grid />
         <Wrapper>
-          <Greeting>
-            Hey {name} looks like you haven't connected to any grids yet. Let's
-            get started!
-          </Greeting>
+          <NoGridsMade gridType="connected" />
           <CreateConnectGrid
             legend="Connect to a new grid!"
             createG={false}
