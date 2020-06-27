@@ -25,7 +25,7 @@ export const GridComments = () => {
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const error = useSelector((store) => store.user.login.errorMessage);
+
   const name = useSelector((store) => store.user.login.name);
   const currentComments = useSelector(
     (store) => store.user.grid.currentGridComments

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Form } from "components/Form";
 import { Grid } from "../components/logo/Grid";
 import { CreateConnectGrid } from "components/CreateConnectGrid";
-import { Greeting, Wrapper, SectionWrapper } from "lib/stylesheet";
+import { Wrapper, SectionWrapper } from "lib/stylesheet";
 import { useHistory } from "react-router";
 import { LottiePlayer } from "components/LottiePlayer";
 import animationCamera from "../images_animations/animations/camera.json";
@@ -16,7 +16,6 @@ export const ConnectedGrids = () => {
   const accessToken = useSelector((store) => store.user.login.accessToken);
 
   const connectedGrids = useSelector((store) => store.user.grid.connectedGrids);
-  const name = useSelector((store) => store.user.login.name);
   const currentGrid = useSelector((store) => store.user.grid.currentGrid);
   const [width, setWidth] = useState(window.innerWidth);
   const [didMount, setDidMount] = useState(false);

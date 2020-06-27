@@ -360,7 +360,6 @@ export const postToGrid = (formData) => {
   const USERS_URL = `${API_URL}/users`;
   return (dispatch, getState) => {
     dispatch(ui.actions.setLoading(true));
-    const accessToken = getState().user.login.accessToken;
     const gridAccessToken = getState().user.grid.currentGrid.accessToken;
 
     fetch(`${USERS_URL}/grid/post/${gridAccessToken}`, {

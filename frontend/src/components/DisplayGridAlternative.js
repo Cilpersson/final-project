@@ -165,7 +165,7 @@ export const DisplayGridAlternative = ({
       document.body.style.overflow = "unset";
     }
   }, [image]);
-  console.log(currentGridImages);
+
   return (
     <>
       {currentGridImages.length !== 0 && (
