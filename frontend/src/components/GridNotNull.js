@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { accessGrid } from "reducers/user";
+import { Slider } from "components/Slider";
 import { Grid } from "components/logo/Grid";
 import { DisplayGridAlternative } from "components/DisplayGridAlternative";
 import { GridComments } from "components/GridComments";
-import { Slider } from "components/Slider";
+import { GridGreeting } from "components/smallerComps/GridGreeting";
 import { Button } from "components/smallerComps/Button";
 import { Loader } from "components/smallerComps/Loader";
+import { PostImages } from "./PostImages";
+import { CheckUsers } from "./CheckUsers";
+import { StyledDropzone } from "./StyledDropzone";
 import {
   GridPageTitle,
   SectionWrapper,
@@ -15,10 +19,6 @@ import {
   WrapperRow,
   ErrorInfo,
 } from "lib/stylesheet";
-import { CheckUsers } from "./CheckUsers";
-import { StyledDropzone } from "./StyledDropzone";
-import { GridGreeting } from "components/smallerComps/GridGreeting";
-import { PostImages } from "./PostImages";
 
 export const GridNotNull = () => {
   const dispatch = useDispatch();
@@ -47,13 +47,11 @@ export const GridNotNull = () => {
           {!isLoading && (
             <>
               <StyledDropzone setFiles={setFiles} />
-              {files !== null && (
-                <PostImages
-                  files={files}
-                  setFiles={setFiles}
-                  setCurrentPage={setCurrentPage}
-                />
-              )}
+              <PostImages
+                files={files}
+                setFiles={setFiles}
+                setCurrentPage={setCurrentPage}
+              />
             </>
           )}
           {!isLoading && <ErrorInfo> {error && error.message}</ErrorInfo>}

@@ -26,12 +26,16 @@ export const PostImages = ({ files, setFiles, setCurrentPage }) => {
     setFiles(null);
     setCurrentPage(1);
   };
-  return (
-    <>
-      <PasswordInfo>{fileCount(files)}</PasswordInfo>
-      <StyledSubmit type="button" onClick={() => handleFormSubmit(files)}>
-        {files.length > 1 ? "Post images to grid" : "Post image to grid"}
-      </StyledSubmit>
-    </>
-  );
+  if (files !== null) {
+    return (
+      <>
+        <PasswordInfo>{fileCount(files)}</PasswordInfo>
+        <StyledSubmit type="button" onClick={() => handleFormSubmit(files)}>
+          {files.length > 1 ? "Post images to grid" : "Post image to grid"}
+        </StyledSubmit>
+      </>
+    );
+  } else {
+    return <></>;
+  }
 };
