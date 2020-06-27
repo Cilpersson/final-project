@@ -16,9 +16,11 @@ import { Grid } from "../components/logo/Grid";
 import { PasswordStrength } from "./smallerComps/PasswordStrength";
 import { PasswordMatch } from "./smallerComps/PasswordMatch";
 import { Loader } from "./smallerComps/Loader";
+import { useHistory } from "react-router";
 
 export const Form = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const error = useSelector((store) => store.user.login.errorMessage);
   const accessToken = useSelector((store) => store.user.login.accessToken);
   const isLoading = useSelector((store) => store.ui.isLoading);
@@ -48,9 +50,7 @@ export const Form = () => {
     }
   };
 
-  if (accessToken) {
-    return <HomePage />;
-  } else {
+  if (!accessToken) {
     return (
       <>
         <Fieldset>
@@ -132,6 +132,13 @@ export const Form = () => {
             text={signUp ? "Already have an account" : "Click to sign up!"}
           />
         </Fieldset>
+      </>
+    );
+  } else {
+    return (
+      <>
+        {history.push("/")}
+        <HomePage />
       </>
     );
   }
