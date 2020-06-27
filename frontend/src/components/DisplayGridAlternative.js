@@ -12,7 +12,6 @@ import styled from "styled-components/macro";
 import { uuid } from "uuidv4";
 import { WrapperCol } from "lib/stylesheet";
 import { Pagination } from "./smallerComps/Pagination";
-
 import { accessGridImages } from "reducers/user";
 
 const WrapperGrid = styled(WrapperCol)`
@@ -166,7 +165,7 @@ export const DisplayGridAlternative = ({
       document.body.style.overflow = "unset";
     }
   }, [image]);
-
+  console.log(currentGridImages);
   return (
     <>
       {currentGridImages.length !== 0 && (

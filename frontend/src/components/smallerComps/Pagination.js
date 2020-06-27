@@ -13,11 +13,11 @@ const PaginationButton = styled.button`
   border: none;
   font-size: 1rem;
   margin: 0 0.4rem;
-  cursor: pointer;
   transition: 0.2s;
 
-  &:hover {
+  &:hover:enabled {
     transform: scale(1.4);
+    cursor: pointer;
   }
 `;
 
@@ -32,9 +32,11 @@ export const Pagination = ({
   if (totalPages > 0) {
     return (
       <WrapperRow>
-        <PaginationButton disabled={currentPage === 1} onClick={onClickFirst}>
-          {"<<"}
-        </PaginationButton>
+        {totalPages >= 3 && (
+          <PaginationButton disabled={currentPage === 1} onClick={onClickFirst}>
+            {"<<"}
+          </PaginationButton>
+        )}
         <PaginationButton disabled={currentPage === 1} onClick={onClickBack}>
           {"<"}
         </PaginationButton>
@@ -46,11 +48,13 @@ export const Pagination = ({
           onClick={onClickForward}>
           {">"}
         </PaginationButton>
-        <PaginationButton
-          disabled={currentPage === totalPages}
-          onClick={onClickLast}>
-          {">>"}
-        </PaginationButton>
+        {totalPages >= 3 && (
+          <PaginationButton
+            disabled={currentPage === totalPages}
+            onClick={onClickLast}>
+            {">>"}
+          </PaginationButton>
+        )}
       </WrapperRow>
     );
   } else {

@@ -42,6 +42,10 @@ const Img = styled.img`
   justify-content: center;
 `;
 
+const FinalLI = styled.li`
+  flex-grow: 10;
+`;
+
 export const WelcomeGridAlternative = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const happyArr = [
@@ -75,6 +79,7 @@ export const WelcomeGridAlternative = () => {
               </Li>
             );
           })}
+          <FinalLI></FinalLI>
         </Ul>
       </StyledGridWrapper>
     );
@@ -89,6 +94,7 @@ export const WelcomeGridAlternative = () => {
               </Li>
             );
           })}
+          <FinalLI></FinalLI>
         </Ul>
       </SectionWrapper>
     );
