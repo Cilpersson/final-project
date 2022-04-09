@@ -18,7 +18,7 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^2.5.1",
     "lottie-react-web": "^2.1.4",
-    "moment": "^2.26.0",
+    "moment": "^2.29.2",
     "react": "^16.13.1",
     "react-close-on-escape": "^3.0.0",
     "react-dom": "^16.13.1",
